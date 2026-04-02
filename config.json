@@ -1,0 +1,17 @@
+{
+  "defaultHomeserver": 0,
+  "homeserverList": ["tokenchat.dev", "matrix.org"],
+  "allowCustomHomeservers": true,
+
+  "featuredCommunities": {
+    "openAsDefault": false,
+    "spaces": [],
+    "rooms": [],
+    "servers": ["tokenchat.dev", "matrix.org"]
+  },
+
+  "hashRouter": {
+    "enabled": false,
+    "basename": "/"
+  }
+}
