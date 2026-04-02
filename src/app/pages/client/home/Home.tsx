@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ScreenSize, useScreenSizeContext } from '../../../hooks/useScreenSize';
 import { Box, Button, Icon, IconButton, Icons, Text } from 'folds';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useAtomValue } from 'jotai';
@@ -34,18 +35,22 @@ const FILTER_LABELS: Record<ChatFilter, string> = {
 function HomeHeader() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const navigate = useNavigate();
+  const screenSize = useScreenSizeContext();
+  const isMobile = screenSize === ScreenSize.Mobile;
 
   return (
     <>
       <PageNavHeader>
         <Box alignItems="Center" grow="Yes" gap="200">
-          <IconButton
-            variant="Background"
-            onClick={() => setSettingsOpen(true)}
-            aria-label="Settings"
-          >
-            <Icon src={Icons.Setting} size="200" />
-          </IconButton>
+          {!isMobile && (
+            <IconButton
+              variant="Background"
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Settings"
+            >
+              <Icon src={Icons.Setting} size="200" />
+            </IconButton>
+          )}
           <Box grow="Yes">
             <Text size="H4" truncate>
               Token
@@ -68,9 +73,24 @@ function HomeHeader() {
         </Box>
       </PageNavHeader>
       {settingsOpen && (
-        <Modal500 requestClose={() => setSettingsOpen(false)}>
-          <Settings requestClose={() => setSettingsOpen(false)} />
-        </Modal500>
+        isMobile ? (
+          <div
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 300,
+              background: '#17212b',
+              overflowY: 'auto',
+              animation: 'slideInFromRight 220ms cubic-bezier(0.25,0.46,0.45,0.94) both',
+            }}
+          >
+            <Settings requestClose={() => setSettingsOpen(false)} />
+          </div>
+        ) : (
+          <Modal500 requestClose={() => setSettingsOpen(false)}>
+            <Settings requestClose={() => setSettingsOpen(false)} />
+          </Modal500>
+        )
       )}
     </>
   );
