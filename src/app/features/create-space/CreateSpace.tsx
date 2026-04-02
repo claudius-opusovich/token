@@ -148,7 +148,7 @@ export function CreateSpaceForm({ defaultAccess, space, onCreate }: CreateSpaceF
         />
       </Box>
       <Box shrink="No" direction="Column" gap="100">
-        <Text size="L400">Name</Text>
+        <Text size="L400">Название</Text>
         <Input
           required
           before={<Icon size="100" src={getCreateSpaceAccessToIcon(access)} />}
@@ -162,7 +162,7 @@ export function CreateSpaceForm({ defaultAccess, space, onCreate }: CreateSpaceF
         />
       </Box>
       <Box shrink="No" direction="Column" gap="100">
-        <Text size="L400">Topic (Optional)</Text>
+        <Text size="L400">Тема (необязательно)</Text>
         <TextArea
           name="topicTextAria"
           size="500"
@@ -271,7 +271,7 @@ export function CreateSpaceForm({ defaultAccess, space, onCreate }: CreateSpaceF
           disabled={disabled}
           before={loading && <Spinner variant="Primary" fill="Solid" size="200" />}
         >
-          <Text size="B500">Create</Text>
+          <Text size="B500">Создать</Text>
         </Button>
       </Box>
     </Box>
