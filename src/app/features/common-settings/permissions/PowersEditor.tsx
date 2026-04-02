@@ -144,11 +144,11 @@ function EditPower({ maxPower, power, tag, onSave, onClose }: EditPowerProps) {
             </Box>
           </Box>
           <Box grow="Yes" direction="Column" gap="100">
-            <Text size="L400">Name</Text>
+            <Text size="L400">Название</Text>
             <Input
               name="nameInput"
               defaultValue={tag?.name}
-              placeholder="Bot"
+              placeholder="Бот"
               size="300"
               variant="Secondary"
               radii="300"

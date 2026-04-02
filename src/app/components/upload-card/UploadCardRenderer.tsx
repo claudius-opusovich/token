@@ -151,7 +151,7 @@ export function UploadCardRenderer({
             <Chip
               as="button"
               onClick={startUpload}
-              aria-label="Retry Upload"
+              aria-label="Повторить загрузку"
               variant="Critical"
               radii="Pill"
               outlined
@@ -161,7 +161,7 @@ export function UploadCardRenderer({
           )}
           <IconButton
             onClick={removeUpload}
-            aria-label="Cancel Upload"
+            aria-label="Отменить загрузку"
             variant="SurfaceVariant"
             radii="Pill"
             size="300"

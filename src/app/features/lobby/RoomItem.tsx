@@ -359,7 +359,7 @@ export const RoomItemCard = as<'div', RoomItemCardProps>(
                           fill="None"
                           size="400"
                           radii="Pill"
-                          aria-label="Open Room"
+                          aria-label="Открыть комнату"
                         >
                           <Icon size="50" src={Icons.ArrowRight} />
                         </Chip>

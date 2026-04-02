@@ -122,7 +122,7 @@ export const PdfViewer = as<'div', PdfViewerProps>(
               size="300"
               radii="Pill"
               onClick={zoomOut}
-              aria-label="Zoom Out"
+              aria-label="Уменьшить"
             >
               <Icon size="50" src={Icons.Minus} />
             </IconButton>
@@ -135,7 +135,7 @@ export const PdfViewer = as<'div', PdfViewerProps>(
               size="300"
               radii="Pill"
               onClick={zoomIn}
-              aria-label="Zoom In"
+              aria-label="Увеличить"
             >
               <Icon size="50" src={Icons.Plus} />
             </IconButton>
@@ -224,7 +224,7 @@ export const PdfViewer = as<'div', PdfViewerProps>(
                           outlined
                           type="number"
                           radii="300"
-                          aria-label="Page Number"
+                          aria-label="Номер страницы"
                         />
                         <Button type="submit" size="300" variant="Primary" radii="300">
                           <Text size="B300">Jump To Page</Text>

@@ -282,7 +282,7 @@ export function Members({ requestClose }: MembersProps) {
                   radii="Pill"
                   outlined
                   size="300"
-                  aria-label="Scroll to Top"
+                  aria-label="Наверх"
                 >
                   <Icon src={Icons.ChevronTop} size="300" />
                 </IconButton>

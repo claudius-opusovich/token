@@ -314,7 +314,7 @@ function LimitButton({ limit, onLimitChange }: LimitButtonProps) {
                     outlined
                     type="number"
                     radii="400"
-                    aria-label="Per Page Item Limit"
+                    aria-label="Элементов на странице"
                   />
                 </Box>
                 <Button type="submit" size="300" variant="Primary" radii="400">
