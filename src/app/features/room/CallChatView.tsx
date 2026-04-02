@@ -36,7 +36,7 @@ export function CallChatView() {
               offset={4}
               tooltip={
                 <Tooltip>
-                  <Text>Close</Text>
+                  <Text>Закрыть</Text>
                 </Tooltip>
               }
             >

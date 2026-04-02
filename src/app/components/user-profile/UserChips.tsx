@@ -87,7 +87,7 @@ export function ServerChip({ server }: { server: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Copy Server</Text>
+                <Text size="B300">Копировать сервер</Text>
               </MenuItem>
               <MenuItem
                 variant="Surface"
@@ -183,7 +183,7 @@ export function ShareChip({ userId }: { userId: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Copy User ID</Text>
+                <Text size="B300">Копировать ID</Text>
               </MenuItem>
               <MenuItem
                 variant="Surface"
@@ -196,7 +196,7 @@ export function ShareChip({ userId }: { userId: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Copy User Link</Text>
+                <Text size="B300">Копировать ссылку</Text>
               </MenuItem>
             </div>
           </Menu>

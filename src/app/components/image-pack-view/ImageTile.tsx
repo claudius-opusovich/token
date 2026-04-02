@@ -79,7 +79,7 @@ export function ImageTile({
                 radii="Pill"
                 onClick={() => onEdit?.(defaultShortcode, image)}
               >
-                <Text size="B300">Edit</Text>
+                <Text size="B300">Редактировать</Text>
               </Chip>
             )}
           </Box>
@@ -195,7 +195,7 @@ export function ImageTileEdit({
           </Box>
           <Box grow="Yes" />
           <Button type="submit" variant="Success" size="300" radii="300">
-            <Text size="B300">Save</Text>
+            <Text size="B300">Сохранить</Text>
           </Button>
           <Button
             type="reset"
@@ -205,7 +205,7 @@ export function ImageTileEdit({
             radii="300"
             onClick={() => onCancel(defaultShortcode)}
           >
-            <Text size="B300">Cancel</Text>
+            <Text size="B300">Отмена</Text>
           </Button>
         </Box>
       </Box>

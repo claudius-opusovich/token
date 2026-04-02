@@ -79,7 +79,7 @@ export function ImagePackProfile({ meta, canEdit, onEdit }: ImagePackProfileProp
               onClick={onEdit}
               outlined
             >
-              <Text size="B300">Edit</Text>
+              <Text size="B300">Редактировать</Text>
             </Chip>
           </Box>
         )}
@@ -214,7 +214,7 @@ export function ImagePackProfileEdit({ meta, onCancel, onSave }: ImagePackProfil
       </Box>
       <Box gap="300">
         <Button type="submit" variant="Success" size="300" radii="300" disabled={uploadingAvatar}>
-          <Text size="B300">Save</Text>
+          <Text size="B300">Сохранить</Text>
         </Button>
         <Button
           type="reset"
@@ -224,7 +224,7 @@ export function ImagePackProfileEdit({ meta, onCancel, onSave }: ImagePackProfil
           size="300"
           radii="300"
         >
-          <Text size="B300">Cancel</Text>
+          <Text size="B300">Отмена</Text>
         </Button>
       </Box>
     </Box>

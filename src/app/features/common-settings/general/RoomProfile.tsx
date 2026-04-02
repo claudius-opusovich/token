@@ -243,7 +243,7 @@ export function RoomProfileEdit({
           disabled={uploadingAvatar || submitting}
           before={submitting && <Spinner size="100" variant="Success" fill="Solid" />}
         >
-          <Text size="B300">Save</Text>
+          <Text size="B300">Сохранить</Text>
         </Button>
         <Button
           type="reset"
@@ -253,7 +253,7 @@ export function RoomProfileEdit({
           size="300"
           radii="300"
         >
-          <Text size="B300">Cancel</Text>
+          <Text size="B300">Отмена</Text>
         </Button>
       </Box>
     </Box>
@@ -329,7 +329,7 @@ export function RoomProfile({ permissions }: RoomProfileProps) {
                     onClick={() => setEdit(true)}
                     outlined
                   >
-                    <Text size="B300">Edit</Text>
+                    <Text size="B300">Редактировать</Text>
                   </Chip>
                 </Box>
               )}

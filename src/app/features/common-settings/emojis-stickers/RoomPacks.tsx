@@ -319,7 +319,7 @@ export function RoomPacks({ onViewPack }: RoomPacksProps) {
                 </Text>
               ) : (
                 <Text size="T200">
-                  <b>Delete selected packs. ({removedPacks.length} selected)</b>
+                  <b>Удалить выбранные паки. ({removedPacks.length} selected)</b>
                 </Text>
               )}
             </Box>
@@ -332,7 +332,7 @@ export function RoomPacks({ onViewPack }: RoomPacksProps) {
                 disabled={applyingChanges}
                 onClick={handleCancelChanges}
               >
-                <Text size="B300">Cancel</Text>
+                <Text size="B300">Отмена</Text>
               </Button>
               <Button
                 size="300"
@@ -342,7 +342,7 @@ export function RoomPacks({ onViewPack }: RoomPacksProps) {
                 before={applyingChanges && <Spinner variant="Critical" fill="Solid" size="100" />}
                 onClick={handleApplyChanges}
               >
-                <Text size="B300">Delete</Text>
+                <Text size="B300">Удалить</Text>
               </Button>
             </Box>
           </Box>

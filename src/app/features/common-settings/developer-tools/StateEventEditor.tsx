@@ -138,7 +138,7 @@ function StateEventEdit({ type, stateKey, content, requestClose }: StateEventEdi
                   disabled={submitting}
                   before={submitting && <Spinner variant="Primary" fill="Solid" size="300" />}
                 >
-                  <Text size="B300">Save</Text>
+                  <Text size="B300">Сохранить</Text>
                 </Button>
                 <Button
                   variant="Secondary"
@@ -148,7 +148,7 @@ function StateEventEdit({ type, stateKey, content, requestClose }: StateEventEdi
                   onClick={requestClose}
                   disabled={submitting}
                 >
-                  <Text size="B300">Cancel</Text>
+                  <Text size="B300">Отмена</Text>
                 </Button>
               </Box>
             }
@@ -210,7 +210,7 @@ function StateEventView({ content, eventJSONStr, onEditContent }: StateEventView
                 outlined
                 onClick={() => onEditContent(content)}
               >
-                <Text size="B300">Edit</Text>
+                <Text size="B300">Редактировать</Text>
               </Chip>
             </Box>
           )}

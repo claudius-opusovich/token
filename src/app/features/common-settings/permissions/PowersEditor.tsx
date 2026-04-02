@@ -267,7 +267,7 @@ function EditPower({ maxPower, power, tag, onSave, onClose }: EditPowerProps) {
           radii="300"
           disabled={uploadingIcon}
         >
-          <Text size="B300">Save</Text>
+          <Text size="B300">Сохранить</Text>
         </Button>
         <Button
           type="button"
@@ -277,7 +277,7 @@ function EditPower({ maxPower, power, tag, onSave, onClose }: EditPowerProps) {
           radii="300"
           onClick={onClose}
         >
-          <Text size="B300">Cancel</Text>
+          <Text size="B300">Отмена</Text>
         </Button>
       </Box>
     </Box>
@@ -477,7 +477,7 @@ export function PowersEditor({ powerLevels, requestClose }: PowersEditorProps) {
                                               </Text>
                                             </Box>
                                           ) : (
-                                            <Text>Delete</Text>
+                                            <Text>Удалить</Text>
                                           )}
                                         </Tooltip>
                                       }
@@ -506,7 +506,7 @@ export function PowersEditor({ powerLevels, requestClose }: PowersEditorProps) {
                                       disabled={applyingChanges}
                                       onClick={() => setEdit(true)}
                                     >
-                                      <Text size="B300">Edit</Text>
+                                      <Text size="B300">Редактировать</Text>
                                     </Chip>
                                   </Box>
                                 )

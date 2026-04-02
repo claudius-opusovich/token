@@ -168,7 +168,7 @@ export function Powers({ powerLevels, permissionGroups, onEdit }: PowersProps) {
                   outlined
                   onClick={onEdit}
                 >
-                  <Text size="B300">Edit</Text>
+                  <Text size="B300">Редактировать</Text>
                 </Button>
               </Box>
             )

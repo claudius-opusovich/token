@@ -579,7 +579,7 @@ function CustomDateFormat({ value, onChange }: CustomDateFormatProps) {
           disabled={!hasChanges}
           type="submit"
         >
-          <Text size="B400">Save</Text>
+          <Text size="B400">Сохранить</Text>
         </Button>
       </Box>
     </SettingTile>
@@ -714,7 +714,7 @@ function Editor() {
 
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">Editor</Text>
+      <Text size="L400">Редактор</Text>
       <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
         <SettingTile
           title="ENTER for Newline"

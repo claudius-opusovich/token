@@ -33,7 +33,7 @@ export const ImageEditor = as<'div', ImageEditorProps>(
           </Box>
           <Box shrink="No" alignItems="Center" gap="200">
             <Chip variant="Primary" radii="300" onClick={handleApply}>
-              <Text size="B300">Save</Text>
+              <Text size="B300">Сохранить</Text>
             </Chip>
           </Box>
         </Header>

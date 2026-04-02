@@ -97,7 +97,7 @@ function KeywordInput() {
         disabled={addingKeyword}
       >
         {addingKeyword && <Spinner variant="Secondary" size="300" />}
-        <Text size="B400">Save</Text>
+        <Text size="B400">Сохранить</Text>
       </Button>
     </Box>
   );

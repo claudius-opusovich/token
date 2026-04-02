@@ -120,7 +120,7 @@ function ErrorDialog({
                   </Text>
                 </Box>
                 <Button size="400" variant="Secondary" fill="Soft" onClick={closeError}>
-                  <Text size="B400">Cancel</Text>
+                  <Text size="B400">Отмена</Text>
                 </Button>
               </Box>
             </Dialog>

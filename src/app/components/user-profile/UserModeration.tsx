@@ -199,7 +199,7 @@ export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: User
               before={kicking && <Spinner size="100" variant="Success" fill="Soft" />}
               disabled={kicking}
             >
-              <Text size="B300">Cancel Invite</Text>
+              <Text size="B300">Отменить приглашение</Text>
             </Button>
           )}
         </Box>

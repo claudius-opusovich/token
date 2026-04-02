@@ -43,7 +43,7 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
           size="500"
         >
           <Box grow="Yes">
-            <Text size="H4">Logout</Text>
+            <Text size="H4">Выйти</Text>
           </Box>
         </Header>
         <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
@@ -76,10 +76,10 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
               disabled={ongoingLogout}
               before={ongoingLogout && <Spinner variant="Critical" fill="Solid" size="200" />}
             >
-              <Text size="B400">Logout</Text>
+              <Text size="B400">Выйти</Text>
             </Button>
             <Button variant="Secondary" fill="Soft" onClick={handleClose} disabled={ongoingLogout}>
-              <Text size="B400">Cancel</Text>
+              <Text size="B400">Отмена</Text>
             </Button>
           </Box>
         </Box>

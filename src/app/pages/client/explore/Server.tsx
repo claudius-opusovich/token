@@ -66,15 +66,15 @@ const useRoomTypeFilters = (): RoomTypeFilter[] =>
   useMemo(
     () => [
       {
-        title: 'All',
+        title: 'Все',
         value: undefined,
       },
       {
-        title: 'Spaces',
+        title: 'Пространства',
         value: RoomType.Space,
       },
       {
-        title: 'Rooms',
+        title: 'Комнаты',
         value: 'null',
       },
     ],

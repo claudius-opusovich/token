@@ -82,7 +82,7 @@ const useGroups = (
 
     g.push({
       id: RECENT_GROUP_ID,
-      name: 'Recent',
+      name: 'Недавние',
       items: recentEmojis,
     });
 

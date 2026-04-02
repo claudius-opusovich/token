@@ -295,7 +295,7 @@ function ProfileDisplayName({ profile, userId }: ProfileProps) {
             type="submit"
           >
             {changingDisplayName && <Spinner variant="Success" fill="Solid" size="300" />}
-            <Text size="B400">Save</Text>
+            <Text size="B400">Сохранить</Text>
           </Button>
         </Box>
       </Box>

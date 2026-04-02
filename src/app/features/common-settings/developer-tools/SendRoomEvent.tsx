@@ -156,7 +156,7 @@ export function SendRoomEvent({ type, stateKey, requestClose }: SendRoomEventPro
                 disabled={submitting}
                 before={submitting && <Spinner variant="Primary" fill="Solid" size="300" />}
               >
-                <Text size="B400">Send</Text>
+                <Text size="B400">Отправить</Text>
               </Button>
             </Box>
 

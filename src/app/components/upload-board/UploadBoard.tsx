@@ -100,7 +100,7 @@ export function UploadBoardHeader({
             outlined
             after={<Icon src={Icons.Send} size="50" filled />}
           >
-            <Text size="B300">Send</Text>
+            <Text size="B300">Отправить</Text>
           </Chip>
         )}
         {isError && !open && (

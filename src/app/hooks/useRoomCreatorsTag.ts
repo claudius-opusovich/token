@@ -1,7 +1,7 @@
 import { MemberPowerTag } from '../../types/matrix/room';
 
 const DEFAULT_TAG: MemberPowerTag = {
-  name: 'Founder',
+  name: 'Основатель',
   color: '#0000ff',
 };
 

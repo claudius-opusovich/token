@@ -5,211 +5,211 @@ import { PermissionGroup } from '../../common-settings/permissions';
 export const usePermissionGroups = (isCallRoom: boolean): PermissionGroup[] => {
   const groups: PermissionGroup[] = useMemo(() => {
     const messagesGroup: PermissionGroup = {
-      name: 'Messages',
+      name: 'Сообщения',
       items: [
         {
           location: {
             key: MessageEvent.RoomMessage,
           },
-          name: 'Send Messages',
+          name: 'Отправлять сообщения',
         },
         {
           location: {
             key: MessageEvent.Sticker,
           },
-          name: 'Send Stickers',
+          name: 'Отправлять стикеры',
         },
         {
           location: {
             key: MessageEvent.Reaction,
           },
-          name: 'Send Reactions',
+          name: 'Ставить реакции',
         },
         {
           location: {
             notification: true,
             key: 'room',
           },
-          name: 'Ping @room',
+          name: 'Упоминать @room',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomPinnedEvents,
           },
-          name: 'Pin Messages',
+          name: 'Закреплять сообщения',
         },
         {
           location: {},
-          name: 'Other Message Events',
+          name: 'Прочие события',
         },
       ],
     };
 
     const callSettingsGroup: PermissionGroup = {
-      name: 'Calls',
+      name: 'Звонки',
       items: [
         {
           location: {
             state: true,
             key: StateEvent.GroupCallMemberPrefix,
           },
-          name: 'Join Call',
+          name: 'Присоединяться к звонку',
         },
       ],
     };
 
     const moderationGroup: PermissionGroup = {
-      name: 'Moderation',
+      name: 'Модерация',
       items: [
         {
           location: {
             action: true,
             key: 'invite',
           },
-          name: 'Invite',
+          name: 'Приглашать',
         },
         {
           location: {
             action: true,
             key: 'kick',
           },
-          name: 'Kick',
+          name: 'Кикать',
         },
         {
           location: {
             action: true,
             key: 'ban',
           },
-          name: 'Ban',
+          name: 'Банить',
         },
         {
           location: {
             action: true,
             key: 'redact',
           },
-          name: 'Delete Others Messages',
+          name: 'Удалять сообщения других',
         },
         {
           location: {
             key: MessageEvent.RoomRedaction,
           },
-          name: 'Delete Self Messages',
+          name: 'Удалять свои сообщения',
         },
       ],
     };
 
     const roomOverviewGroup: PermissionGroup = {
-      name: 'Room Overview',
+      name: 'Описание комнаты',
       items: [
         {
           location: {
             state: true,
             key: StateEvent.RoomAvatar,
           },
-          name: 'Room Avatar',
+          name: 'Аватар комнаты',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomName,
           },
-          name: 'Room Name',
+          name: 'Название комнаты',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomTopic,
           },
-          name: 'Room Topic',
+          name: 'Тема комнаты',
         },
       ],
     };
 
     const roomSettingsGroup: PermissionGroup = {
-      name: 'Settings',
+      name: 'Настройки',
       items: [
         {
           location: {
             state: true,
             key: StateEvent.RoomJoinRules,
           },
-          name: 'Change Room Access',
+          name: 'Изменять доступ',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomCanonicalAlias,
           },
-          name: 'Publish Address',
+          name: 'Публиковать адрес',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomPowerLevels,
           },
-          name: 'Change All Permission',
+          name: 'Изменять все права',
         },
         {
           location: {
             state: true,
             key: StateEvent.PowerLevelTags,
           },
-          name: 'Edit Power Levels',
+          name: 'Редактировать уровни',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomEncryption,
           },
-          name: 'Enable Encryption',
+          name: 'Включить шифрование',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomHistoryVisibility,
           },
-          name: 'History Visibility',
+          name: 'Видимость истории',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomTombstone,
           },
-          name: 'Upgrade Room',
+          name: 'Обновить комнату',
         },
         {
           location: {
             state: true,
           },
-          name: 'Other Settings',
+          name: 'Прочие настройки',
         },
       ],
     };
 
     const otherSettingsGroup: PermissionGroup = {
-      name: 'Other',
+      name: 'Прочее',
       items: [
         {
           location: {
             state: true,
             key: StateEvent.PoniesRoomEmotes,
           },
-          name: 'Manage Emojis & Stickers',
+          name: 'Управлять эмодзи',
         },
         {
           location: {
             state: true,
             key: StateEvent.RoomServerAcl,
           },
-          name: 'Change Server ACLs',
+          name: 'Изменять ACL сервера',
         },
         {
           location: {
             state: true,
             key: 'im.vector.modular.widgets',
           },
-          name: 'Modify Widgets',
+          name: 'Виджеты',
         },
       ],
     };

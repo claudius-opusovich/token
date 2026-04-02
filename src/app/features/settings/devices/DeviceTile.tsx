@@ -169,7 +169,7 @@ function DeviceRename({ device, onCancel, onRename, refreshDeviceList }: DeviceR
             disabled={renaming}
             before={renaming && <Spinner size="100" variant="Success" fill="Solid" />}
           >
-            <Text size="B300">Save</Text>
+            <Text size="B300">Сохранить</Text>
           </Button>
           <Button
             type="button"
@@ -180,7 +180,7 @@ function DeviceRename({ device, onCancel, onRename, refreshDeviceList }: DeviceR
             onClick={onCancel}
             disabled={renaming}
           >
-            <Text size="B300">Cancel</Text>
+            <Text size="B300">Отмена</Text>
           </Button>
         </Box>
       </Box>
@@ -203,7 +203,7 @@ export function DeviceLogoutBtn() {
   return (
     <>
       <Chip variant="Secondary" fill="Soft" radii="Pill" onClick={() => setPrompt(true)}>
-        <Text size="B300">Logout</Text>
+        <Text size="B300">Выйти</Text>
       </Chip>
       {prompt && (
         <Overlay open backdrop={<OverlayBackdrop />}>
@@ -307,7 +307,7 @@ export function DeviceTile({
                   onClick={() => setEdit(true)}
                   disabled={disabled}
                 >
-                  <Text size="B300">Edit</Text>
+                  <Text size="B300">Редактировать</Text>
                 </Chip>
               )}
             </Box>

@@ -101,7 +101,7 @@ export function DeveloperTools({ requestClose }: DeveloperToolsProps) {
                           radii="300"
                           outlined
                         >
-                          <Text size="B300">Copy</Text>
+                          <Text size="B300">Копировать</Text>
                         </Button>
                       }
                     />

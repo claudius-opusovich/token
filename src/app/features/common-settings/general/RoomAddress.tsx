@@ -183,7 +183,7 @@ function LocalAddressInput({ addLocalAlias }: { addLocalAlias: (alias: string) =
             disabled={adding}
             before={adding && <Spinner size="100" variant="Success" fill="Solid" />}
           >
-            <Text size="B400">Save</Text>
+            <Text size="B400">Сохранить</Text>
           </Button>
         </Box>
       </Box>
@@ -315,7 +315,7 @@ function LocalAddressesList({
                 )
               }
             >
-              <Text size="B300">Delete</Text>
+              <Text size="B300">Удалить</Text>
             </Chip>
           </Box>
         </Box>

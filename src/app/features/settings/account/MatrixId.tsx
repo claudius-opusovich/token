@@ -23,7 +23,7 @@ export function MatrixId() {
           title={userId}
           after={
             <Chip variant="Secondary" radii="Pill" onClick={() => copyToClipboard(userId)}>
-              <Text size="T200">Copy</Text>
+              <Text size="T200">Копировать</Text>
             </Chip>
           }
         />

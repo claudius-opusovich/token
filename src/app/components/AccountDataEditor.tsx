@@ -142,7 +142,7 @@ function AccountDataEdit({
             disabled={submitting}
             before={submitting && <Spinner variant="Primary" fill="Solid" size="300" />}
           >
-            <Text size="B400">Save</Text>
+            <Text size="B400">Сохранить</Text>
           </Button>
           <Button
             variant="Secondary"
@@ -153,7 +153,7 @@ function AccountDataEdit({
             onClick={onCancel}
             disabled={submitting}
           >
-            <Text size="B400">Cancel</Text>
+            <Text size="B400">Отмена</Text>
           </Button>
         </Box>
 
@@ -219,7 +219,7 @@ function AccountDataView({ type, defaultContent, onEdit }: AccountDataViewProps)
           />
         </Box>
         <Button variant="Secondary" size="400" radii="300" onClick={onEdit}>
-          <Text size="B400">Edit</Text>
+          <Text size="B400">Редактировать</Text>
         </Button>
       </Box>
       <Box grow="Yes" direction="Column" gap="100">

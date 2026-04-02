@@ -185,7 +185,7 @@ const SpaceMenu = forwardRef<HTMLDivElement, SpaceMenuProps>(({ room, requestClo
           radii="300"
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Copy Link
+            Копировать ссылку
           </Text>
         </MenuItem>
         <MenuItem

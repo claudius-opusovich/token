@@ -55,37 +55,37 @@ const useSettingsMenuItems = (): SettingsMenuItem[] =>
     () => [
       {
         page: SettingsPages.GeneralPage,
-        name: 'General',
+        name: 'Основные',
         icon: Icons.Setting,
       },
       {
         page: SettingsPages.AccountPage,
-        name: 'Account',
+        name: 'Аккаунт',
         icon: Icons.User,
       },
       {
         page: SettingsPages.NotificationPage,
-        name: 'Notifications',
+        name: 'Уведомления',
         icon: Icons.Bell,
       },
       {
         page: SettingsPages.DevicesPage,
-        name: 'Devices',
+        name: 'Устройства',
         icon: Icons.Monitor,
       },
       {
         page: SettingsPages.EmojisStickersPage,
-        name: 'Emojis & Stickers',
+        name: 'Эмодзи и стикеры',
         icon: Icons.Smile,
       },
       {
         page: SettingsPages.DeveloperToolsPage,
-        name: 'Developer Tools',
+        name: 'Разработчик',
         icon: Icons.Terminal,
       },
       {
         page: SettingsPages.AboutPage,
-        name: 'About',
+        name: 'О приложении',
         icon: Icons.Info,
       },
     ],
@@ -136,7 +136,7 @@ export function Settings({ initialPage, requestClose }: SettingsProps) {
                   />
                 </Avatar>
                 <Text size="H4" truncate>
-                  Settings
+                  Настройки
                 </Text>
               </Box>
               <Box shrink="No">
@@ -184,7 +184,7 @@ export function Settings({ initialPage, requestClose }: SettingsProps) {
                         before={<Icon src={Icons.Power} size="100" />}
                         onClick={() => setLogout(true)}
                       >
-                        <Text size="B400">Logout</Text>
+                        <Text size="B400">Выйти</Text>
                       </Button>
                       {logout && (
                         <Overlay open backdrop={<OverlayBackdrop />}>

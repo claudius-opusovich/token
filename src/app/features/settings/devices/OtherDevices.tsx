@@ -202,7 +202,7 @@ export function OtherDevices({ devices, refreshDeviceList, showVerification }: O
                 </Text>
               ) : (
                 <Text size="T200">
-                  <b>Logout from selected devices. ({deleted.size} selected)</b>
+                  <b>Выйти с выбранных устройств. ({deleted.size} selected)</b>
                 </Text>
               )}
               {authData && (
@@ -234,7 +234,7 @@ export function OtherDevices({ devices, refreshDeviceList, showVerification }: O
                 disabled={deleting}
                 onClick={handleCancelDelete}
               >
-                <Text size="B300">Cancel</Text>
+                <Text size="B300">Отмена</Text>
               </Button>
               <Button
                 size="300"
@@ -244,7 +244,7 @@ export function OtherDevices({ devices, refreshDeviceList, showVerification }: O
                 before={deleting && <Spinner variant="Critical" fill="Solid" size="100" />}
                 onClick={() => deleteDevices()}
               >
-                <Text size="B300">Logout</Text>
+                <Text size="B300">Выйти</Text>
               </Button>
             </Box>
           </Box>
