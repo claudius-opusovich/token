@@ -31,7 +31,7 @@ export function General({ requestClose }: GeneralProps) {
         <Box grow="Yes" gap="200">
           <Box grow="Yes" alignItems="Center" gap="200">
             <Text size="H3" truncate>
-              General
+              Основные
             </Text>
           </Box>
           <Box shrink="No">
@@ -47,7 +47,7 @@ export function General({ requestClose }: GeneralProps) {
             <Box direction="Column" gap="700">
               <RoomProfile permissions={permissions} />
               <Box direction="Column" gap="100">
-                <Text size="L400">Options</Text>
+                <Text size="L400">Параметры</Text>
                 <RoomJoinRules permissions={permissions} />
                 <RoomHistoryVisibility permissions={permissions} />
                 <RoomEncryption permissions={permissions} />
@@ -59,7 +59,7 @@ export function General({ requestClose }: GeneralProps) {
                 <RoomLocalAddresses permissions={permissions} />
               </Box>
               <Box direction="Column" gap="100">
-                <Text size="L400">Advanced Options</Text>
+                <Text size="L400">Расширенные параметры</Text>
                 <RoomUpgrade permissions={permissions} requestClose={requestClose} />
               </Box>
             </Box>

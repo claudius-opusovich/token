@@ -61,7 +61,7 @@ export function RoomPublishedAddresses({ permissions }: RoomPublishedAddressesPr
       gap="400"
     >
       <SettingTile
-        title="Published Addresses"
+        title="Опубликованные адреса"
         description={
           <span>
             If access is <b>Public</b>, Published addresses will be used to join by anyone.
@@ -71,7 +71,7 @@ export function RoomPublishedAddresses({ permissions }: RoomPublishedAddressesPr
       <CutoutCard variant="Surface" style={{ padding: config.space.S300 }}>
         {publishedAliases.length === 0 ? (
           <Box direction="Column" gap="100">
-            <Text size="L400">No Addresses</Text>
+            <Text size="L400">Нет адресов</Text>
             <Text size="T200">
               To publish an address, it needs to be set as a local address first
             </Text>
@@ -86,7 +86,7 @@ export function RoomPublishedAddresses({ permissions }: RoomPublishedAddressesPr
                   </Text>
                   {alias === canonicalAlias && (
                     <Badge variant="Success" fill="Solid" size="500">
-                      <Text size="L400">Main</Text>
+                      <Text size="L400">Основной</Text>
                     </Badge>
                   )}
                 </Box>
@@ -100,7 +100,7 @@ export function RoomPublishedAddresses({ permissions }: RoomPublishedAddressesPr
                         disabled={loading}
                         onClick={() => setMain(undefined)}
                       >
-                        <Text size="B300">Unset Main</Text>
+                        <Text size="B300">Снять основной</Text>
                       </Chip>
                     ) : (
                       <Chip
@@ -380,7 +380,7 @@ export function RoomLocalAddresses({ permissions }: { permissions: RoomPermissio
       gap="400"
     >
       <SettingTile
-        title="Local Addresses"
+        title="Локальные адреса"
         description="Set local address so users can join through your homeserver."
         after={
           <Button
@@ -412,7 +412,7 @@ export function RoomLocalAddresses({ permissions }: { permissions: RoomPermissio
           {localAliasesState.status === AsyncStatus.Success &&
             (localAliasesState.data.length === 0 ? (
               <Box direction="Column" gap="100">
-                <Text size="L400">No Addresses</Text>
+                <Text size="L400">Нет адресов</Text>
               </Box>
             ) : (
               <LocalAddressesList

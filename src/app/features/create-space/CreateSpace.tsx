@@ -176,7 +176,7 @@ export function CreateSpaceForm({ defaultAccess, space, onCreate }: CreateSpaceF
 
       <Box shrink="No" direction="Column" gap="100">
         <Box gap="200" alignItems="End">
-          <Text size="L400">Options</Text>
+          <Text size="L400">Параметры</Text>
           <Box grow="Yes" justifyContent="End">
             <Chip
               radii="Pill"
@@ -184,7 +184,7 @@ export function CreateSpaceForm({ defaultAccess, space, onCreate }: CreateSpaceF
               onClick={() => setAdvance(!advance)}
               type="button"
             >
-              <Text size="T200">Advanced Options</Text>
+              <Text size="T200">Расширенные параметры</Text>
             </Chip>
           </Box>
         </Box>

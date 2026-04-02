@@ -36,9 +36,9 @@ export function CreateRoomAccessSelector({
             before={<Icon size="400" src={getIcon(CreateRoomAccess.Restricted)} />}
             after={value === CreateRoomAccess.Restricted && <Icon src={Icons.Check} />}
           >
-            <Text size="H6">Restricted</Text>
+            <Text size="H6">Ограниченный</Text>
             <Text size="T300" priority="300">
-              Only member of parent space can join.
+              Только участники родительского пространства могут войти.
             </Text>
           </SettingTile>
         </SequenceCard>
@@ -58,9 +58,9 @@ export function CreateRoomAccessSelector({
           before={<Icon size="400" src={getIcon(CreateRoomAccess.Private)} />}
           after={value === CreateRoomAccess.Private && <Icon src={Icons.Check} />}
         >
-          <Text size="H6">Private</Text>
+          <Text size="H6">Приватный</Text>
           <Text size="T300" priority="300">
-            Only people with invite can join.
+            Только по приглашению.
           </Text>
         </SettingTile>
       </SequenceCard>
@@ -79,9 +79,9 @@ export function CreateRoomAccessSelector({
           before={<Icon size="400" src={getIcon(CreateRoomAccess.Public)} />}
           after={value === CreateRoomAccess.Public && <Icon src={Icons.Check} />}
         >
-          <Text size="H6">Public</Text>
+          <Text size="H6">Публичный</Text>
           <Text size="T300" priority="300">
-            Anyone with the address can join.
+            Любой с адресом может войти.
           </Text>
         </SettingTile>
       </SequenceCard>

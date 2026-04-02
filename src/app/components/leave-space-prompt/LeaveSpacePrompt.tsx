@@ -66,7 +66,7 @@ export function LeaveSpacePrompt({ roomId, onDone, onCancel }: LeaveSpacePromptP
               size="500"
             >
               <Box grow="Yes">
-                <Text size="H4">Leave Space</Text>
+                <Text size="H4">Покинуть пространство</Text>
               </Box>
               <IconButton size="300" onClick={onCancel} radii="300">
                 <Icon src={Icons.Cross} />

@@ -169,7 +169,7 @@ export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
               >
                 <Box grow="Yes">
                   <Text size="H4" truncate>
-                    Invite
+                    Пригласить
                   </Text>
                 </Box>
                 <Box shrink="No">
@@ -279,7 +279,7 @@ export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
                   disabled={!validUserId || inviting}
                   before={inviting && <Spinner size="200" variant="Primary" fill="Solid" />}
                 >
-                  <Text size="B400">Invite</Text>
+                  <Text size="B400">Пригласить</Text>
                 </Button>
               </Box>
             </Box>

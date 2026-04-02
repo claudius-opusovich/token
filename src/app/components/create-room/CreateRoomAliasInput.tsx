@@ -78,9 +78,9 @@ export function CreateRoomAliasInput({ disabled }: { disabled?: boolean }) {
 
   return (
     <Box shrink="No" direction="Column" gap="100">
-      <Text size="L400">Address (Optional)</Text>
+      <Text size="L400">Адрес (необязательно)</Text>
       <Text size="T200" priority="300">
-        Pick an unique address to make it discoverable.
+        Уникальный адрес для публичного поиска.
       </Text>
       <Input
         ref={aliasInputRef}
@@ -109,7 +109,7 @@ export function CreateRoomAliasInput({ disabled }: { disabled?: boolean }) {
         <Box style={{ color: color.Critical.Main }} alignItems="Center" gap="100">
           <Icon src={Icons.Warning} filled size="50" />
           <Text size="T200">
-            <b>This address is already taken. Please select a different one.</b>
+            <b>Этот адрес уже занят. Выберите другой.</b>
           </Text>
         </Box>
       )}

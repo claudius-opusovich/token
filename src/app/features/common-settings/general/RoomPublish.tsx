@@ -46,7 +46,7 @@ export function RoomPublish({ permissions }: RoomPublishProps) {
       gap="400"
     >
       <SettingTile
-        title="Publish to Directory"
+        title="Опубликовать в каталоге"
         description={
           room.isSpaceRoom()
             ? 'List the space in the public directory to make it discoverable by others.'

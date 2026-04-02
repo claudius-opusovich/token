@@ -158,7 +158,7 @@ const SpaceMenu = forwardRef<HTMLDivElement, SpaceMenuProps>(({ room, requestClo
           disabled={!unread}
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Mark as Read
+            Отметить как прочитанное
           </Text>
         </MenuItem>
       </Box>
@@ -175,7 +175,7 @@ const SpaceMenu = forwardRef<HTMLDivElement, SpaceMenuProps>(({ room, requestClo
           disabled={!canInvite}
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Invite
+            Пригласить
           </Text>
         </MenuItem>
         <MenuItem
@@ -195,7 +195,7 @@ const SpaceMenu = forwardRef<HTMLDivElement, SpaceMenuProps>(({ room, requestClo
           radii="300"
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Space Settings
+            Настройки пространства
           </Text>
         </MenuItem>
         {developerTools && (
@@ -206,7 +206,7 @@ const SpaceMenu = forwardRef<HTMLDivElement, SpaceMenuProps>(({ room, requestClo
             radii="300"
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Event Timeline
+              Лента событий
             </Text>
           </MenuItem>
         )}
@@ -226,7 +226,7 @@ const SpaceMenu = forwardRef<HTMLDivElement, SpaceMenuProps>(({ room, requestClo
                 aria-pressed={promptLeave}
               >
                 <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                  Leave Space
+                  Покинуть пространство
                 </Text>
               </MenuItem>
               {promptLeave && (
@@ -339,7 +339,7 @@ export function SpaceTombstone({ roomId, replacementRoomId }: SpaceTombstoneProp
       gap="300"
     >
       <Box direction="Column" grow="Yes" gap="100">
-        <Text size="L400">Space Upgraded</Text>
+        <Text size="L400">Пространство обновлено</Text>
         <Text size="T200">This space has been replaced and is no longer active.</Text>
         {joinState.status === AsyncStatus.Error && (
           <Text className={BreakWord} style={{ color: color.Critical.Main }} size="T200">
@@ -351,7 +351,7 @@ export function SpaceTombstone({ roomId, replacementRoomId }: SpaceTombstoneProp
         {replacementRoom?.getMyMembership() === Membership.Join ||
         joinState.status === AsyncStatus.Success ? (
           <Button onClick={handleOpen} size="300" variant="Success" fill="Solid" radii="300">
-            <Text size="B300">Open New Space</Text>
+            <Text size="B300">Открыть новое пространство</Text>
           </Button>
         ) : (
           <Button
@@ -367,7 +367,7 @@ export function SpaceTombstone({ roomId, replacementRoomId }: SpaceTombstoneProp
             }
             disabled={joinState.status === AsyncStatus.Loading}
           >
-            <Text size="B300">Join New Space</Text>
+            <Text size="B300">Войти в новое пространство</Text>
           </Button>
         )}
       </Box>

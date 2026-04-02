@@ -96,7 +96,7 @@ export function RoomHistoryVisibility({ permissions }: RoomHistoryVisibilityProp
       gap="400"
     >
       <SettingTile
-        title="Message History Visibility"
+        title="Видимость истории сообщений"
         description="Changes to history visibility will only apply to future messages. The visibility of existing history will have no effect."
         after={
           <PopOut

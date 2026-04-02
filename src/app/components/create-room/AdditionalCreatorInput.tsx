@@ -150,8 +150,8 @@ export function AdditionalCreatorInput({
 
   return (
     <SettingTile
-      title="Founders"
-      description="Special privileged users can be assigned during creation. These users have elevated control and can only be modified during a upgrade."
+      title="Основатели"
+      description="Привилегированные пользователи с расширенными правами, назначаемые при создании."
     >
       <Box shrink="No" direction="Column" gap="100">
         <Box gap="200" wrap="Wrap">
@@ -213,7 +213,7 @@ export function AdditionalCreatorInput({
                         onClick={handleEnterClick}
                         disabled={!validUserId}
                       >
-                        <Text size="B400">Enter</Text>
+                        <Text size="B400">Добавить</Text>
                       </Button>
                     </Box>
                     <Line size="300" />
@@ -263,10 +263,10 @@ export function AdditionalCreatorInput({
                           gap="100"
                         >
                           <Text size="H6" align="Center">
-                            No Suggestions
+                            Нет совпадений
                           </Text>
                           <Text size="T200" align="Center">
-                            Please provide the user ID and hit Enter.
+                            Введите ID пользователя и нажмите Добавить.
                           </Text>
                         </Box>
                       )}

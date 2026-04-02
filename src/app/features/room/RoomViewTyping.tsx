@@ -58,7 +58,7 @@ export const RoomViewTyping = as<'div', RoomViewTypingProps>(
               <>
                 <b>{typingNames[0]}</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' is typing...'}
+                  {' печатает...'}
                 </Text>
               </>
             )}
@@ -66,11 +66,11 @@ export const RoomViewTyping = as<'div', RoomViewTypingProps>(
               <>
                 <b>{typingNames[0]}</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' and '}
+                  {' и '}
                 </Text>
                 <b>{typingNames[1]}</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' are typing...'}
+                  {' печатают...'}
                 </Text>
               </>
             )}
@@ -82,11 +82,11 @@ export const RoomViewTyping = as<'div', RoomViewTypingProps>(
                 </Text>
                 <b>{typingNames[1]}</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' and '}
+                  {' и '}
                 </Text>
                 <b>{typingNames[2]}</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' are typing...'}
+                  {' печатают...'}
                 </Text>
               </>
             )}
@@ -102,16 +102,16 @@ export const RoomViewTyping = as<'div', RoomViewTypingProps>(
                 </Text>
                 <b>{typingNames[2]}</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' and '}
+                  {' и '}
                 </Text>
-                <b>{typingNames.length - 3} others</b>
+                <b>{typingNames.length - 3} других</b>
                 <Text as="span" size="Inherit" priority="300">
-                  {' are typing...'}
+                  {' печатают...'}
                 </Text>
               </>
             )}
           </Text>
-          <IconButton title="Drop Typing Status" size="300" radii="Pill" onClick={handleDropAll}>
+          <IconButton title="Сбросить статус набора" size="300" radii="Pill" onClick={handleDropAll}>
             <Icon size="50" src={Icons.Cross} />
           </IconButton>
         </Box>

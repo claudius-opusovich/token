@@ -1854,7 +1854,7 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             before={<Icon size="50" src={Icons.CheckTwice} />}
             onClick={handleMarkAsRead}
           >
-            <Text size="L400">Mark as Read</Text>
+            <Text size="L400">Отметить как прочитанное</Text>
           </Chip>
         </TimelineFloat>
       )}

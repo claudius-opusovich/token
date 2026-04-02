@@ -250,7 +250,7 @@ function CallChatToggle() {
     <IconButton
       onClick={() => setChat(!chat)}
       aria-pressed={chat}
-      aria-label="Toggle Chat"
+      aria-label="Открыть чат"
       variant="Background"
       fill="None"
       size="300"
@@ -467,7 +467,7 @@ export function RoomNavItem({
             {room.isCallRoom() && callMembers.length > 0 && (
               <Badge variant="Critical" fill="Solid" size="400">
                 <Text as="span" size="L400" truncate>
-                  {callMembers.length} Live
+                  {callMembers.length} Прямой эфир
                 </Text>
               </Badge>
             )}
@@ -513,7 +513,7 @@ export function RoomNavItem({
               onClick={handleOpenMenu}
               aria-pressed={!!menuAnchor}
               aria-controls={`menu-${room.roomId}`}
-              aria-label="More Options"
+              aria-label="Ещё"
               variant="Background"
               fill="None"
               size="300"

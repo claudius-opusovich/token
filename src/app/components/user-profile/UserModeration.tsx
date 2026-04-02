@@ -27,7 +27,7 @@ export function UserKickAlert({ reason, kickedBy, ts }: UserKickAlertProps) {
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Kicked User</Text>
+            <Text size="L400">Кикнут</Text>
             {time && date && (
               <Text size="T200">
                 {date} {time}
@@ -37,16 +37,16 @@ export function UserKickAlert({ reason, kickedBy, ts }: UserKickAlertProps) {
           <Box direction="Column">
             {kickedBy && (
               <Text size="T200">
-                Kicked by: <b>{kickedBy}</b>
+                Кикнул: <b>{kickedBy}</b>
               </Text>
             )}
             <Text size="T200">
               {reason ? (
                 <>
-                  Reason: <b>{reason}</b>
+                  Причина: <b>{reason}</b>
                 </>
               ) : (
-                <i>No Reason Provided.</i>
+                <i>Причина не указана.</i>
               )}
             </Text>
           </Box>
@@ -85,7 +85,7 @@ export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBan
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Banned User</Text>
+            <Text size="L400">Забанен</Text>
             {time && date && (
               <Text size="T200">
                 {date} {time}
@@ -95,16 +95,16 @@ export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBan
           <Box direction="Column">
             {bannedBy && (
               <Text size="T200">
-                Banned by: <b>{bannedBy}</b>
+                Забанил: <b>{bannedBy}</b>
               </Text>
             )}
             <Text size="T200">
               {reason ? (
                 <>
-                  Reason: <b>{reason}</b>
+                  Причина: <b>{reason}</b>
                 </>
               ) : (
-                <i>No Reason Provided.</i>
+                <i>Причина не указана.</i>
               )}
             </Text>
           </Box>
@@ -122,7 +122,7 @@ export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBan
               before={banning && <Spinner size="100" variant="Critical" fill="Solid" />}
               disabled={banning}
             >
-              <Text size="B300">Unban</Text>
+              <Text size="B300">Разбанить</Text>
             </Button>
           )}
         </Box>
@@ -160,7 +160,7 @@ export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: User
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Invited User</Text>
+            <Text size="L400">Приглашён</Text>
             {time && date && (
               <Text size="T200">
                 {date} {time}
@@ -170,16 +170,16 @@ export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: User
           <Box direction="Column">
             {invitedBy && (
               <Text size="T200">
-                Invited by: <b>{invitedBy}</b>
+                Пригласил: <b>{invitedBy}</b>
               </Text>
             )}
             <Text size="T200">
               {reason ? (
                 <>
-                  Reason: <b>{reason}</b>
+                  Причина: <b>{reason}</b>
                 </>
               ) : (
-                <i>No Reason Provided.</i>
+                <i>Причина не указана.</i>
               )}
             </Text>
           </Box>
@@ -256,10 +256,10 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
     <Box direction="Column" gap="400">
       <Box direction="Column" gap="200">
         <Box grow="Yes" direction="Column" gap="100">
-          <Text size="L400">Moderation</Text>
+          <Text size="L400">Модерация</Text>
           <Input
             ref={reasonInputRef}
-            placeholder="Reason"
+            placeholder="Причина"
             size="300"
             variant="Background"
             radii="300"
@@ -299,7 +299,7 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
               onClick={invite}
               disabled={disabled}
             >
-              <Text size="B300">Invite</Text>
+              <Text size="B300">Пригласить</Text>
             </Button>
           )}
           {canKick && (
@@ -319,7 +319,7 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
               onClick={kick}
               disabled={disabled}
             >
-              <Text size="B300">Kick</Text>
+              <Text size="B300">Кикнуть</Text>
             </Button>
           )}
           {canBan && (
@@ -339,7 +339,7 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
               onClick={ban}
               disabled={disabled}
             >
-              <Text size="B300">Ban</Text>
+              <Text size="B300">Забанить</Text>
             </Button>
           )}
         </Box>

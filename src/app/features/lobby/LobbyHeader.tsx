@@ -87,7 +87,7 @@ const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
             disabled={!canInvite}
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Invite
+              Пригласить
             </Text>
           </MenuItem>
           <MenuItem
@@ -97,7 +97,7 @@ const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
             radii="300"
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Space Settings
+              Настройки пространства
             </Text>
           </MenuItem>
         </Box>
@@ -116,7 +116,7 @@ const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
                   aria-pressed={promptLeave}
                 >
                   <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                    Leave Space
+                    Покинуть пространство
                   </Text>
                 </MenuItem>
                 {promptLeave && (

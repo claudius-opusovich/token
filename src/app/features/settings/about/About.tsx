@@ -20,7 +20,7 @@ export function About({ requestClose }: AboutProps) {
         <Box grow="Yes" gap="200">
           <Box grow="Yes" alignItems="Center" gap="200">
             <Text size="H3" truncate>
-              About
+              О приложении
             </Text>
           </Box>
           <Box shrink="No">
@@ -48,12 +48,12 @@ export function About({ requestClose }: AboutProps) {
                       <Text size="H3">Token</Text>
                       <Text size="T200">v1.0.0</Text>
                     </Box>
-                    <Text>Matrix messenger.</Text>
+                    <Text>Мессенджер на базе Matrix.</Text>
                   </Box>
                 </Box>
               </Box>
               <Box direction="Column" gap="100">
-                <Text size="L400">Options</Text>
+                <Text size="L400">Действия</Text>
                 <SequenceCard
                   className={SequenceCardStyle}
                   variant="SurfaceVariant"
@@ -61,8 +61,8 @@ export function About({ requestClose }: AboutProps) {
                   gap="400"
                 >
                   <SettingTile
-                    title="Clear Cache & Reload"
-                    description="Clear all your locally stored data and reload from server."
+                    title="Очистить кэш и перезагрузить"
+                    description="Удалить все локальные данные и загрузить заново с сервера."
                     after={
                       <Button
                         onClick={() => clearCacheAndReload(mx)}
@@ -72,14 +72,14 @@ export function About({ requestClose }: AboutProps) {
                         radii="300"
                         outlined
                       >
-                        <Text size="B300">Clear Cache</Text>
+                        <Text size="B300">Очистить кэш</Text>
                       </Button>
                     }
                   />
                 </SequenceCard>
               </Box>
               <Box direction="Column" gap="100">
-                <Text size="L400">Credits</Text>
+                <Text size="L400">Авторы</Text>
                 <SequenceCard
                   className={SequenceCardStyle}
                   variant="SurfaceVariant"

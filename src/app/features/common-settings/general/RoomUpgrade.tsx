@@ -114,7 +114,7 @@ function RoomUpgradeDialog({ requestClose }: { requestClose: () => void }) {
                 <b>This action is irreversible!</b>
               </Text>
               <Box direction="Column" gap="100">
-                <Text size="L400">Options</Text>
+                <Text size="L400">Параметры</Text>
                 <RoomVersionSelector
                   versions={roomVersions?.available ? Object.keys(roomVersions.available) : ['1']}
                   value={selectedRoomVersion}
@@ -213,7 +213,7 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
       gap="400"
     >
       <SettingTile
-        title={room.isSpaceRoom() ? 'Upgrade Space' : 'Upgrade Room'}
+        title={room.isSpaceRoom() ? 'Обновить пространство' : 'Обновить комнату'}
         description={
           replacementRoom
             ? tombstoneContent.body ||
@@ -242,7 +242,7 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
                 radii="300"
                 onClick={handleOpenRoom}
               >
-                <Text size="B300">{room.isSpaceRoom() ? 'Open New Space' : 'Open New Room'}</Text>
+                <Text size="B300">{room.isSpaceRoom() ? 'Открыть новое пространство' : 'Открыть новую комнату'}</Text>
               </Button>
             ) : (
               <Button

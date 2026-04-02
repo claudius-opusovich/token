@@ -78,7 +78,7 @@ const DirectMenu = forwardRef<HTMLDivElement, DirectMenuProps>(({ requestClose }
           aria-disabled={!unread}
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Mark as Read
+            Отметить как прочитанное
           </Text>
         </MenuItem>
       </Box>
@@ -103,7 +103,7 @@ function DirectHeader() {
         <Box alignItems="Center" grow="Yes" gap="300">
           <Box grow="Yes">
             <Text size="H4" truncate>
-              Direct Messages
+              Личные сообщения
             </Text>
           </Box>
           <Box>
@@ -147,18 +147,18 @@ function DirectEmpty() {
         icon={<Icon size="600" src={Icons.Mention} />}
         title={
           <Text size="H5" align="Center">
-            No Direct Messages
+            Нет личных сообщений
           </Text>
         }
         content={
           <Text size="T300" align="Center">
-            You do not have any direct messages yet.
+            У вас пока нет личных сообщений.
           </Text>
         }
         options={
           <Button variant="Secondary" size="300" onClick={() => navigate(getDirectCreatePath())}>
             <Text size="B300" truncate>
-              Direct Message
+              Новый диалог
             </Text>
           </Button>
         }
@@ -220,7 +220,7 @@ export function Direct() {
                       </Avatar>
                       <Box as="span" grow="Yes">
                         <Text as="span" size="Inherit" truncate>
-                          Create Chat
+                          Создать чат
                         </Text>
                       </Box>
                     </Box>
@@ -235,7 +235,7 @@ export function Direct() {
                   data-category-id={DEFAULT_CATEGORY_ID}
                   onClick={handleCategoryClick}
                 >
-                  Chats
+                  Чаты
                 </RoomNavCategoryButton>
               </NavCategoryHeader>
               <div

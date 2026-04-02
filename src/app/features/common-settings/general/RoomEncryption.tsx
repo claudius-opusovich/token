@@ -69,16 +69,16 @@ export function RoomEncryption({ permissions }: RoomEncryptionProps) {
       gap="400"
     >
       <SettingTile
-        title="Room Encryption"
+        title="Шифрование комнаты"
         description={
           enabled
-            ? 'Messages in this room are protected by end-to-end encryption.'
-            : 'Once enabled, encryption cannot be disabled!'
+            ? 'Сообщения защищены сквозным шифрованием.'
+            : 'После включения шифрование нельзя отключить!'
         }
         after={
           enabled ? (
             <Badge size="500" variant="Success" fill="Solid" radii="300">
-              <Text size="L400">Enabled</Text>
+              <Text size="L400">Включено</Text>
             </Badge>
           ) : (
             <Button
@@ -90,7 +90,7 @@ export function RoomEncryption({ permissions }: RoomEncryptionProps) {
               onClick={() => setPrompt(true)}
               before={enabling && <Spinner size="100" variant="Primary" fill="Solid" />}
             >
-              <Text size="B300">Enable</Text>
+              <Text size="B300">Включить</Text>
             </Button>
           )
         }

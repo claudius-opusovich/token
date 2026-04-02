@@ -103,7 +103,7 @@ export function DeveloperTools({ requestClose }: DeveloperToolsProps) {
           <PageContent>
             <Box direction="Column" gap="700">
               <Box direction="Column" gap="100">
-                <Text size="L400">Options</Text>
+                <Text size="L400">Параметры</Text>
                 <SequenceCard
                   className={SequenceCardStyle}
                   variant="SurfaceVariant"

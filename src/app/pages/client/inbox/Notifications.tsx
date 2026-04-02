@@ -438,7 +438,7 @@ function RoomNotificationsGroupComp({
               onClick={handleMarkAsRead}
               before={<Icon size="100" src={Icons.CheckTwice} />}
             >
-              <Text size="T200">Mark as Read</Text>
+              <Text size="T200">Отметить как прочитанное</Text>
             </Chip>
           )}
         </Box>
