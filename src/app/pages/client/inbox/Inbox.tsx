@@ -32,7 +32,7 @@ function InvitesNavItem() {
             </Avatar>
             <Box as="span" grow="Yes">
               <Text as="span" size="Inherit" truncate>
-                Invites
+                Приглашения
               </Text>
             </Box>
             {inviteCount > 0 && <UnreadBadge highlight count={inviteCount} />}
@@ -53,7 +53,7 @@ export function Inbox() {
         <Box grow="Yes" gap="300">
           <Box grow="Yes">
             <Text size="H4" truncate>
-              Inbox
+              Входящие
             </Text>
           </Box>
         </Box>
@@ -71,7 +71,7 @@ export function Inbox() {
                     </Avatar>
                     <Box as="span" grow="Yes">
                       <Text as="span" size="Inherit" truncate>
-                        Notifications
+                        Уведомления
                       </Text>
                     </Box>
                   </Box>

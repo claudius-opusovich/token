@@ -94,7 +94,7 @@ export function AddServer() {
                 size="500"
               >
                 <Box grow="Yes">
-                  <Text size="H4">Add Server</Text>
+                  <Text size="H4">Добавить сервер</Text>
                 </Box>
                 <IconButton size="300" onClick={() => setDialog(false)} radii="300">
                   <Icon src={Icons.Cross} />
@@ -107,13 +107,13 @@ export function AddServer() {
                 direction="Column"
                 gap="400"
               >
-                <Text priority="400">Add server name to explore public communities.</Text>
+                <Text priority="400">Введите адрес сервера для поиска публичных сообществ.</Text>
                 <Box direction="Column" gap="100">
-                  <Text size="L400">Server Name</Text>
+                  <Text size="L400">Адрес сервера</Text>
                   <Input ref={serverInputRef} name="serverInput" variant="Background" required />
                   {exploreState.status === AsyncStatus.Error && (
                     <Text style={{ color: color.Critical.Main }} size="T300">
-                      Failed to load public rooms. Please try again.
+                      Не удалось загрузить публичные комнаты. Попробуйте снова.
                     </Text>
                   )}
                 </Box>
@@ -132,7 +132,7 @@ export function AddServer() {
                   </Button> */}
 
                   <Button type="submit" onClick={handleView} variant="Secondary" fill="Soft">
-                    <Text size="B400">View</Text>
+                    <Text size="B400">Открыть</Text>
                   </Button>
                 </Box>
               </Box>
@@ -148,7 +148,7 @@ export function AddServer() {
         onClick={() => setDialog(true)}
       >
         <Text size="B300" truncate>
-          Add Server
+          Добавить сервер
         </Text>
       </Button>
     </>
@@ -173,7 +173,7 @@ export function Explore() {
         <Box grow="Yes" gap="300">
           <Box grow="Yes">
             <Text size="H4" truncate>
-              Explore Community
+              Поиск сообществ
             </Text>
           </Box>
         </Box>
@@ -191,7 +191,7 @@ export function Explore() {
                     </Avatar>
                     <Box as="span" grow="Yes">
                       <Text as="span" size="Inherit" truncate>
-                        Featured
+                        Рекомендуемые
                       </Text>
                     </Box>
                   </Box>
@@ -229,7 +229,7 @@ export function Explore() {
             <NavCategory>
               <NavCategoryHeader>
                 <Text size="O400" style={{ paddingLeft: config.space.S200 }}>
-                  Servers
+                  Серверы
                 </Text>
               </NavCategoryHeader>
               {servers.map((server) => (

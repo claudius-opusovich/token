@@ -53,21 +53,21 @@ function EmailNotification() {
 
   return (
     <SettingTile
-      title="Email Notification"
+      title="Email-уведомления"
       description={
         <>
           {result && !result.email && (
             <Text as="span" style={{ color: color.Critical.Main }} size="T200">
-              Your account does not have any email attached.
+              К аккаунту не привязан email.
             </Text>
           )}
-          {result && result.email && <>Send notification to your email. {`("${result.email}")`}</>}
+          {result && result.email && <>Отправлять уведомления на email. {`("${result.email}")`}</>}
           {result === null && (
             <Text as="span" style={{ color: color.Critical.Main }} size="T200">
-              Unexpected Error!
+              Неожиданная ошибка!
             </Text>
           )}
-          {result === undefined && 'Send notification to your email.'}
+          {result === undefined && 'Отправлять уведомления на email.'}
         </>
       }
       after={
@@ -98,7 +98,7 @@ export function SystemNotification() {
 
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">System</Text>
+      <Text size="L400">Система</Text>
       <SequenceCard
         className={SequenceCardStyle}
         variant="SurfaceVariant"
@@ -106,22 +106,22 @@ export function SystemNotification() {
         gap="400"
       >
         <SettingTile
-          title="Desktop Notifications"
+          title="Уведомления на рабочем столе"
           description={
             notifPermission === 'denied' ? (
               <Text as="span" style={{ color: color.Critical.Main }} size="T200">
                 {'Notification' in window
-                  ? 'Notification permission is blocked. Please allow notification permission from browser address bar.'
-                  : 'Notifications are not supported by the system.'}
+                  ? 'Разрешение на уведомления заблокировано. Разрешите их в адресной строке браузера.'
+                  : 'Уведомления не поддерживаются системой.'}
               </Text>
             ) : (
-              <span>Show desktop notifications when message arrive.</span>
+              <span>Показывать уведомления при получении сообщений.</span>
             )
           }
           after={
             notifPermission === 'prompt' ? (
               <Button size="300" radii="300" onClick={requestNotificationPermission}>
-                <Text size="B300">Enable</Text>
+                <Text size="B300">Включить</Text>
               </Button>
             ) : (
               <Switch
@@ -140,8 +140,8 @@ export function SystemNotification() {
         gap="400"
       >
         <SettingTile
-          title="Notification Sound"
-          description="Play sound when new message arrive."
+          title="Звук уведомлений"
+          description="Воспроизводить звук при получении сообщения."
           after={<Switch value={isNotificationSounds} onChange={setIsNotificationSounds} />}
         />
       </SequenceCard>

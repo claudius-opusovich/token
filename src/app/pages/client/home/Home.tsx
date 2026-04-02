@@ -46,7 +46,7 @@ function HomeHeader() {
             <IconButton
               variant="Background"
               onClick={() => setSettingsOpen(true)}
-              aria-label="Settings"
+              aria-label="Настройки"
             >
               <Icon src={Icons.Setting} size="200" />
             </IconButton>
@@ -59,14 +59,14 @@ function HomeHeader() {
           <IconButton
             variant="Background"
             onClick={() => navigate(getHomeSearchPath())}
-            aria-label="Search"
+            aria-label="Поиск"
           >
             <Icon src={Icons.Search} size="200" />
           </IconButton>
           <IconButton
             variant="Background"
             onClick={() => navigate(getHomeCreatePath())}
-            aria-label="New Chat"
+            aria-label="Новый чат"
           >
             <Icon src={Icons.Plus} size="200" />
           </IconButton>

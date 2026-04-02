@@ -22,14 +22,14 @@ export function ContactInformation() {
 
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">Contact Information</Text>
+      <Text size="L400">Контактная информация</Text>
       <SequenceCard
         className={SequenceCardStyle}
         variant="SurfaceVariant"
         direction="Column"
         gap="400"
       >
-        <SettingTile title="Email Address" description="Email address attached to your account.">
+        <SettingTile title="Email" description="Email привязанный к аккаунту.">
           <Box>
             {emailIds?.map((email) => (
               <Chip key={email.address} as="span" variant="Secondary" radii="Pill">

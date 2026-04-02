@@ -52,21 +52,21 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
               verificationStatus === VerificationStatus.Unverified && (
                 <InfoCard
                   variant="Critical"
-                  title="Unverified Device"
-                  description="Verify your device before logging out to save your encrypted messages."
+                  title="Непроверенное устройство"
+                  description="Проверьте устройство перед выходом, чтобы сохранить зашифрованные сообщения."
                 />
               )
             ) : (
               <InfoCard
                 variant="Critical"
-                title="Alert"
-                description="Enable device verification or export your encrypted data from settings to avoid losing access to your messages."
+                title="Внимание"
+                description="Включите верификацию устройства или экспортируйте данные в настройках."
               />
             ))}
-          <Text priority="400">You’re about to log out. Are you sure?</Text>
+          <Text priority="400">Вы собираетесь выйти из аккаунта. Уверены?</Text>
           {logoutState.status === AsyncStatus.Error && (
             <Text style={{ color: color.Critical.Main }} size="T300">
-              Failed to logout! {logoutState.error.message}
+              Не удалось выйти! {logoutState.error.message}
             </Text>
           )}
           <Box direction="Column" gap="200">

@@ -19,7 +19,7 @@ export function Notifications({ requestClose }: NotificationsProps) {
         <Box grow="Yes" gap="200">
           <Box grow="Yes" alignItems="Center" gap="200">
             <Text size="H3" truncate>
-              Notifications
+              Уведомления
             </Text>
           </Box>
           <Box shrink="No">
@@ -38,7 +38,7 @@ export function Notifications({ requestClose }: NotificationsProps) {
               <SpecialMessagesNotifications />
               <KeywordMessagesNotifications />
               <Box direction="Column" gap="100">
-                <Text size="L400">Block Messages</Text>
+                <Text size="L400">Заблокированные сообщения</Text>
                 <SequenceCard
                   className={SequenceCardStyle}
                   variant="SurfaceVariant"
@@ -46,7 +46,7 @@ export function Notifications({ requestClose }: NotificationsProps) {
                   gap="400"
                 >
                   <SettingTile
-                    description={'This option has been moved to "Account > Block Users" section.'}
+                    description={'Этот параметр перемещён в раздел «Аккаунт → Заблокированные».'}
                   />
                 </SequenceCard>
               </Box>

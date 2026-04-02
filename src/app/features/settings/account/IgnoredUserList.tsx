@@ -89,7 +89,7 @@ function IgnoreUserInput({ userList }: { userList: string[] }) {
         disabled={ignoring}
       >
         {ignoring && <Spinner variant="Secondary" size="300" />}
-        <Text size="B400">Block</Text>
+        <Text size="B400">Заблокировать</Text>
       </Button>
     </Box>
   );
@@ -134,7 +134,7 @@ export function IgnoredUserList() {
   return (
     <Box direction="Column" gap="100">
       <Box alignItems="Center" justifyContent="SpaceBetween" gap="200">
-        <Text size="L400">Blocked Users</Text>
+        <Text size="L400">Заблокированные</Text>
       </Box>
       <SequenceCard
         className={SequenceCardStyle}
@@ -143,14 +143,14 @@ export function IgnoredUserList() {
         gap="400"
       >
         <SettingTile
-          title="Select User"
-          description="Prevent receiving messages or invites from user by adding their userId."
+          title="Выберите пользователя"
+          description="Заблокировать сообщения и приглашения от пользователя."
         >
           <Box direction="Column" gap="300">
             <IgnoreUserInput userList={ignoredUsers} />
             {ignoredUsers.length > 0 && (
               <Box direction="Inherit" gap="100">
-                <Text size="L400">Users</Text>
+                <Text size="L400">Пользователи</Text>
                 <Box wrap="Wrap" gap="200">
                   {ignoredUsers.map((userId) => (
                     <IgnoredUserChip key={userId} userId={userId} userList={ignoredUsers} />

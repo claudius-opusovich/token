@@ -181,7 +181,7 @@ export const MessageAllReactionItem = as<
         aria-pressed={open}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          View Reactions
+          Реакции
         </Text>
       </MenuItem>
     </>
@@ -314,7 +314,7 @@ export const MessageSourceCodeItem = as<
         aria-pressed={open}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          View Source
+          Исходный код
         </Text>
       </MenuItem>
     </>
