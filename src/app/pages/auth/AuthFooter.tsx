@@ -6,7 +6,7 @@ export function AuthFooter() {
   return (
     <Box className={css.AuthFooter} justifyContent="Center" gap="400" wrap="Wrap">
       <Text as="a" size="T300" href="https://matrix.org" target="_blank" rel="noreferrer">
-        Powered by Matrix
+        На базе Matrix
       </Text>
     </Box>
   );

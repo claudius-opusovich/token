@@ -207,7 +207,7 @@ export function JumpToTime({ onCancel, onSubmit }: JumpToTimeProps) {
                       aria-pressed={ts === todayTs}
                       onClick={handleToday}
                     >
-                      <Text size="B300">Today</Text>
+                      <Text size="B300">Сегодня</Text>
                     </Chip>
                   )}
                   {createTs < yesterdayTs && (
@@ -217,7 +217,7 @@ export function JumpToTime({ onCancel, onSubmit }: JumpToTimeProps) {
                       aria-pressed={ts === yesterdayTs}
                       onClick={handleYesterday}
                     >
-                      <Text size="B300">Yesterday</Text>
+                      <Text size="B300">Вчера</Text>
                     </Chip>
                   )}
                   <Chip

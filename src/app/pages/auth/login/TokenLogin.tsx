@@ -31,7 +31,7 @@ function LoginTokenError({ message }: { message: string }) {
     >
       <Icon size="300" filled src={Icons.Warning} />
       <Box direction="Column" gap="100">
-        <Text size="L400">Token Login</Text>
+        <Text size="L400">Вход по токену</Text>
         <Text size="T300">
           <b>{message}</b>
         </Text>

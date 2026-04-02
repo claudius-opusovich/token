@@ -60,7 +60,7 @@ function UsernameHint({ server }: { server: string }) {
         >
           <Menu>
             <Header size="300" style={{ padding: `0 ${config.space.S200}` }}>
-              <Text size="L400">Hint</Text>
+              <Text size="L400">Подсказка</Text>
             </Header>
             <Box
               style={{ padding: config.space.S200, paddingTop: 0 }}

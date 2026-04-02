@@ -30,7 +30,7 @@ export function ResetPassword() {
       <span data-spacing-node />
 
       <Text align="Center">
-        Remember your password? <Link to={getLoginPath(server)}>Login</Link>
+        Вспомнили пароль? <Link to={getLoginPath(server)}>Войти</Link>
       </Text>
     </Box>
   );

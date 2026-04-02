@@ -1806,8 +1806,8 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
               <Badge as="span" size="500" variant="Secondary" fill="None" radii="300">
                 <Text size="L400">
                   {(() => {
-                    if (today(mEvent.getTs())) return 'Today';
-                    if (yesterday(mEvent.getTs())) return 'Yesterday';
+                    if (today(mEvent.getTs())) return 'Сегодня';
+                    if (yesterday(mEvent.getTs())) return 'Вчера';
                     return timeDayMonthYear(mEvent.getTs());
                   })()}
                 </Text>

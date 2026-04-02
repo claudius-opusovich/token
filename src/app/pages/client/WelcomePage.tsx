@@ -15,9 +15,9 @@ export function WelcomePage() {
         <PageHeroSection>
           <PageHero
             icon={<img width="70" height="70" src={TokenSVG} alt="Token Logo" />}
-            title="Welcome to Token"
+            title="Добро пожаловать в Token"
             subTitle={
-              <span>Matrix messenger</span>
+              <span>Мессенджер на базе Matrix</span>
             }
           />
         </PageHeroSection>

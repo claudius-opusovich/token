@@ -49,11 +49,11 @@ function DeviceActiveTime({ ts }: { ts: number }) {
   return (
     <Text className={BreakWord} size="T200">
       <Text size="Inherit" as="span" priority="300">
-        {'Last activity: '}
+        {'Последняя активность: '}
       </Text>
       <>
-        {today(ts) && 'Today'}
-        {yesterday(ts) && 'Yesterday'}
+        {today(ts) && 'Сегодня'}
+        {yesterday(ts) && 'Вчера'}
         {!today(ts) && !yesterday(ts) && timeDayMonYear(ts, dateFormatString)}{' '}
         {timeHourMinute(ts, hour24Clock)}
       </>
