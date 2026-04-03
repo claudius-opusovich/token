@@ -32,7 +32,7 @@ log_config: "/data/tokenchat.dev.log.config"
 
 # Media storage
 media_store_path: /data/media_store
-max_upload_size: 50M
+max_upload_size: 5M
 max_image_pixels: 32M
 
 # Registration
