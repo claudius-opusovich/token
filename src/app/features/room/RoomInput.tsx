@@ -452,7 +452,8 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
     };
 
     return (
-      <div ref={ref}>
+      <div ref={ref} style={{ display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
         {selectedFiles.length > 0 && (
           <UploadBoard
             header={
@@ -593,104 +594,63 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
               onClick={() => pickFile('*')}
               variant="SurfaceVariant"
               size="300"
-              radii="300"
+              radii="Pill"
+              aria-label="Прикрепить"
             >
-              <Icon src={Icons.PlusCircle} />
+              <Icon src={Icons.Link} />
             </IconButton>
           }
           after={
-            <>
-              <IconButton
-                variant="SurfaceVariant"
-                size="300"
-                radii="300"
-                onClick={() => setToolbar(!toolbar)}
-              >
-                <Icon src={toolbar ? Icons.AlphabetUnderline : Icons.Alphabet} />
-              </IconButton>
-              <UseStateProvider initial={undefined}>
-                {(emojiBoardTab: EmojiBoardTab | undefined, setEmojiBoardTab) => (
-                  <PopOut
-                    offset={16}
-                    alignOffset={-44}
-                    position="Top"
-                    align="End"
-                    anchor={
-                      emojiBoardTab === undefined
-                        ? undefined
-                        : emojiBtnRef.current?.getBoundingClientRect() ?? undefined
-                    }
-                    content={
-                      <EmojiBoard
-                        tab={emojiBoardTab}
-                        onTabChange={setEmojiBoardTab}
-                        imagePackRooms={imagePackRooms}
-                        returnFocusOnDeactivate={false}
-                        onEmojiSelect={handleEmoticonSelect}
-                        onCustomEmojiSelect={handleEmoticonSelect}
-                        onStickerSelect={handleStickerSelect}
-                        requestClose={() => {
-                          setEmojiBoardTab((t) => {
-                            if (t) {
-                              if (!mobileOrTablet()) ReactEditor.focus(editor);
-                              return undefined;
-                            }
-                            return t;
-                          });
-                        }}
-                      />
-                    }
+            <UseStateProvider initial={undefined}>
+              {(emojiBoardTab: EmojiBoardTab | undefined, setEmojiBoardTab) => (
+                <PopOut
+                  offset={16}
+                  alignOffset={-44}
+                  position="Top"
+                  align="End"
+                  anchor={
+                    emojiBoardTab === undefined
+                      ? undefined
+                      : emojiBtnRef.current?.getBoundingClientRect() ?? undefined
+                  }
+                  content={
+                    <EmojiBoard
+                      tab={emojiBoardTab}
+                      onTabChange={setEmojiBoardTab}
+                      imagePackRooms={imagePackRooms}
+                      returnFocusOnDeactivate={false}
+                      onEmojiSelect={handleEmoticonSelect}
+                      onCustomEmojiSelect={handleEmoticonSelect}
+                      onStickerSelect={handleStickerSelect}
+                      requestClose={() => {
+                        setEmojiBoardTab((t) => {
+                          if (t) {
+                            if (!mobileOrTablet()) ReactEditor.focus(editor);
+                            return undefined;
+                          }
+                          return t;
+                        });
+                      }}
+                    />
+                  }
+                >
+                  <IconButton
+                    ref={emojiBtnRef}
+                    aria-pressed={!!emojiBoardTab}
+                    onClick={() => setEmojiBoardTab(emojiBoardTab ? undefined : EmojiBoardTab.Emoji)}
+                    variant="SurfaceVariant"
+                    size="300"
+                    radii="Pill"
+                    aria-label="Эмодзи"
                   >
-                    {!hideStickerBtn && (
-                      <IconButton
-                        aria-pressed={emojiBoardTab === EmojiBoardTab.Sticker}
-                        onClick={() => setEmojiBoardTab(EmojiBoardTab.Sticker)}
-                        variant="SurfaceVariant"
-                        size="300"
-                        radii="300"
-                      >
-                        <Icon
-                          src={Icons.Sticker}
-                          filled={emojiBoardTab === EmojiBoardTab.Sticker}
-                        />
-                      </IconButton>
-                    )}
-                    <IconButton
-                      ref={emojiBtnRef}
-                      aria-pressed={
-                        hideStickerBtn ? !!emojiBoardTab : emojiBoardTab === EmojiBoardTab.Emoji
-                      }
-                      onClick={() => setEmojiBoardTab(EmojiBoardTab.Emoji)}
-                      variant="SurfaceVariant"
-                      size="300"
-                      radii="300"
-                    >
-                      <Icon
-                        src={Icons.Smile}
-                        filled={
-                          hideStickerBtn ? !!emojiBoardTab : emojiBoardTab === EmojiBoardTab.Emoji
-                        }
-                      />
-                    </IconButton>
-                  </PopOut>
-                )}
-              </UseStateProvider>
-              <IconButton
-                onClick={inputEmpty ? undefined : submit}
-                variant="Primary"
-                fill="None"
-                size="400"
-                radii="Pill"
-                style={{
-                  flexShrink: 0,
-                  backgroundColor: inputEmpty ? 'transparent' : 'var(--tg-accent, #2AABEE)',
-                  color: inputEmpty ? undefined : '#fff',
-                }}
-                aria-label={inputEmpty ? 'Голосовое сообщение' : 'Отправить'}
-              >
-                <Icon src={inputEmpty ? Icons.Mic : Icons.Send} />
-              </IconButton>
-            </>
+                    <Icon
+                      src={Icons.Smile}
+                      filled={!!emojiBoardTab}
+                    />
+                  </IconButton>
+                </PopOut>
+              )}
+            </UseStateProvider>
           }
           bottom={
             toolbar && (
@@ -701,6 +661,24 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
             )
           }
         />
+        </div>
+        <IconButton
+          onClick={inputEmpty ? undefined : submit}
+          variant={inputEmpty ? 'SurfaceVariant' : 'Primary'}
+          fill={inputEmpty ? 'None' : 'Solid'}
+          size="400"
+          radii="Pill"
+          style={{
+            flexShrink: 0,
+            marginBottom: '4px',
+            backgroundColor: inputEmpty ? 'transparent' : 'var(--tg-accent, #2AABEE)',
+            color: inputEmpty ? undefined : '#fff',
+            transition: 'background-color 150ms ease',
+          }}
+          aria-label={inputEmpty ? 'Голосовое сообщение' : 'Отправить'}
+        >
+          <Icon src={inputEmpty ? Icons.Mic : Icons.Send} />
+        </IconButton>
       </div>
     );
   }
