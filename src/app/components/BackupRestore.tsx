@@ -160,6 +160,12 @@ export function BackupRestoreTile({ crypto }: BackupRestoreTileProps) {
     }, [crypto, setRestoreProgress])
   );
 
+  const [createState, createBackup] = useAsyncCallback<void, Error, []>(
+    useCallback(async () => {
+      await crypto.resetKeyBackup();
+    }, [crypto])
+  );
+
   const handleRestore = () => {
     setMenuCords(undefined);
     restoreBackup();
@@ -250,9 +256,34 @@ export function BackupRestoreTile({ crypto }: BackupRestoreTileProps) {
         </Text>
       )}
       {!backupEnabled && backupInfo === null && (
-        <Text size="T200" style={{ color: color.Critical.Main }}>
-          <b>No backup present on server!</b>
-        </Text>
+        <Box direction="Column" gap="200">
+          <Text size="T200" style={{ color: color.Critical.Main }}>
+            <b>No backup present on server!</b>
+          </Text>
+          <Box>
+            <Button
+              size="300"
+              variant="Primary"
+              radii="300"
+              disabled={createState.status === AsyncStatus.Loading}
+              onClick={() => createBackup()}
+              before={
+                createState.status === AsyncStatus.Loading ? (
+                  <Spinner size="100" variant="Primary" fill="Solid" />
+                ) : (
+                  <Icon size="100" src={Icons.Upload} />
+                )
+              }
+            >
+              <Text size="B300">Create Backup</Text>
+            </Button>
+          </Box>
+          {createState.status === AsyncStatus.Error && (
+            <Text size="T200" style={{ color: color.Critical.Main }}>
+              <b>{createState.error.message}</b>
+            </Text>
+          )}
+        </Box>
       )}
       {!syncFailure && !backupEnabled && backupInfo && (
         <BackupTrustInfo crypto={crypto} backupInfo={backupInfo} />
