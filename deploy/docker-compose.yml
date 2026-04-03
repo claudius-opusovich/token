@@ -54,13 +54,14 @@ services:
       - "7882:7882/udp"             # RTC UDP media
 
   livekit-jwt:
-    image: ghcr.io/element-hq/livekit-jwt-service:latest
+    build:
+      context: ./livekit-jwt
+      dockerfile: Dockerfile
     restart: unless-stopped
     environment:
       - LIVEKIT_URL=wss://livekit.tokenchat.dev
       - LIVEKIT_API_KEY=${LIVEKIT_API_KEY}
       - LIVEKIT_API_SECRET=${LIVEKIT_API_SECRET}
-      - MATRIX_SERVER_NAME=tokenchat.dev
       - MATRIX_HOMESERVER_URL=https://matrix.tokenchat.dev
     ports:
       - "127.0.0.1:8090:8080"
