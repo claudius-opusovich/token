@@ -6,7 +6,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useAtomValue } from 'jotai';
 import { factoryRoomIdByActivity } from '../../../utils/sort';
 import { NavEmptyCenter, NavEmptyLayout } from '../../../components/nav';
-import { getHomeRoomPath, getHomeSearchPath, getHomeCreatePath } from '../../pathUtils';
+import { getHomeRoomPath, getHomeSearchPath, getHomeCreatePath, getInboxPath } from '../../pathUtils';
 import { getCanonicalAliasOrRoomId } from '../../../utils/matrix';
 import { useSelectedRoom } from '../../../hooks/router/useSelectedRoom';
 import { useHomeRooms } from './useHomeRooms';
@@ -37,6 +37,7 @@ function HomeHeader() {
   const navigate = useNavigate();
   const screenSize = useScreenSizeContext();
   const isMobile = screenSize === ScreenSize.Mobile;
+  const isDesktop = screenSize === ScreenSize.Desktop;
 
   return (
     <>
@@ -56,6 +57,15 @@ function HomeHeader() {
               Token
             </Text>
           </Box>
+          {isDesktop && (
+            <IconButton
+              variant="Background"
+              onClick={() => navigate(getInboxPath())}
+              aria-label="Входящие"
+            >
+              <Icon src={Icons.Inbox} size="200" />
+            </IconButton>
+          )}
           <IconButton
             variant="Background"
             onClick={() => navigate(getHomeSearchPath())}
@@ -106,12 +116,11 @@ function FilterTabs({
   return (
     <Box
       style={{
-        padding: '6px 12px 4px',
-        gap: '6px',
         display: 'flex',
         overflowX: 'auto',
         flexShrink: 0,
         scrollbarWidth: 'none',
+        borderBottom: '1px solid rgba(255,255,255,0.07)',
       }}
     >
       {(Object.keys(FILTER_LABELS) as ChatFilter[]).map((f) => (
@@ -119,16 +128,18 @@ function FilterTabs({
           key={f}
           onClick={() => onChange(f)}
           style={{
-            borderRadius: '16px',
-            padding: '4px 14px',
-            background: active === f ? '#5288c1' : 'rgba(255,255,255,0.06)',
-            color: active === f ? '#fff' : 'rgba(255,255,255,0.55)',
+            flex: 1,
+            padding: '10px 0 9px',
+            background: 'none',
+            color: active === f ? '#2AABEE' : 'rgba(255,255,255,0.45)',
             border: 'none',
+            borderBottom: active === f ? '2px solid #2AABEE' : '2px solid transparent',
+            marginBottom: '-1px',
             cursor: 'pointer',
             fontSize: '13px',
             fontWeight: active === f ? 600 : 400,
             whiteSpace: 'nowrap',
-            transition: 'background 150ms ease, color 150ms ease',
+            transition: 'color 150ms ease, border-color 150ms ease',
           }}
         >
           {FILTER_LABELS[f]}

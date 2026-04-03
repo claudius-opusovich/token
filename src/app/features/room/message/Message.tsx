@@ -1224,7 +1224,7 @@ export const Message = as<'div', MessageProps>(
               height: 20,
               borderRadius: '50%',
               border: isSelected ? 'none' : '2px solid rgba(255,255,255,0.35)',
-              background: isSelected ? '#5288c1' : 'rgba(0,0,0,0.25)',
+              background: isSelected ? '#2AABEE' : 'rgba(0,0,0,0.25)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

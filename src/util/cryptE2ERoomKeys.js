@@ -28,8 +28,6 @@ function cryptoFailMsg() {
  * @return {Promise<[CryptoKey, CryptoKey]>} promise for [aes key, hmac key]
  */
 async function deriveKeys(salt, iterations, password) {
-  const start = new Date();
-
   let key;
   try {
     key = await subtleCrypto.importKey(
@@ -58,9 +56,6 @@ async function deriveKeys(salt, iterations, password) {
   } catch (e) {
     throw friendlyError(`subtleCrypto.deriveBits failed: ${e}`, cryptoFailMsg());
   }
-
-  const now = new Date();
-  console.log(`E2e import/export: deriveKeys took ${(now - start)}ms`);
 
   const aesKey = keybits.slice(0, 32);
   const hmacKey = keybits.slice(32);

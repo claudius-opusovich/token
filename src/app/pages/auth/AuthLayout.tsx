@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Box, Header, Scroll, Spinner, Text, color } from 'folds';
+import { Box, Scroll, Spinner, Text, color } from 'folds';
 import {
   Outlet,
   generatePath,
@@ -132,12 +132,10 @@ export function AuthLayout() {
         gap="400"
       >
         <Box direction="Column" className={css.AuthCard}>
-          <Header className={css.AuthHeader} size="600" variant="Surface">
-            <Box grow="Yes" direction="Row" gap="300" alignItems="Center">
-              <img className={css.AuthLogo} src={TokenSVG} alt="Token Logo" />
-              <Text size="H3">Token</Text>
-            </Box>
-          </Header>
+          <Box className={css.AuthLogoSection} direction="Column" alignItems="Center">
+            <img className={css.AuthLogo} src={TokenSVG} alt="Token Logo" />
+            <Text size="H3" align="Center">Token</Text>
+          </Box>
           <Box className={css.AuthCardContent} direction="Column">
             <Box direction="Column" gap="100">
               <Text as="label" size="L400" priority="300">

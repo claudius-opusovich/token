@@ -10,11 +10,12 @@ type ClientLayoutProps = {
 export function ClientLayout({ nav, children }: ClientLayoutProps) {
   const screenSize = useScreenSizeContext();
   const isMobile = screenSize === ScreenSize.Mobile;
+  const isDesktop = screenSize === ScreenSize.Desktop;
 
   return (
     <Box grow="Yes" direction="Row">
-      {/* Sidebar icon nav — only on desktop/tablet */}
-      {!isMobile && nav}
+      {/* Sidebar icon nav — only on tablet (not mobile, not desktop) */}
+      {!isMobile && !isDesktop && nav}
 
       {/* Main content — with bottom padding on mobile to clear the nav bar */}
       <Box

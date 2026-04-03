@@ -32,7 +32,8 @@ if ('serviceWorker' in navigator) {
     pushSessionToSW(session?.baseUrl, session?.accessToken);
   };
 
-  navigator.serviceWorker.register(swUrl).then(sendSessionToSW);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  navigator.serviceWorker.register(swUrl).then(sendSessionToSW).catch(() => {});
   navigator.serviceWorker.ready.then(sendSessionToSW);
 
   navigator.serviceWorker.addEventListener('message', (ev) => {

@@ -36,7 +36,7 @@ export const Reaction = style([
           [ContainerHover]: 'rgba(82,136,193,0.32)',
           [ContainerActive]: 'rgba(82,136,193,0.40)',
           [ContainerLine]: 'rgba(82,136,193,0.65)',
-          [OnContainer]: '#5288c1',
+          [OnContainer]: '#2AABEE',
         },
         backgroundColor: Container,
         borderColor: ContainerLine,

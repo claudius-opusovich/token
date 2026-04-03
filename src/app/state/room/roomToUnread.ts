@@ -79,7 +79,7 @@ const deleteUnreadInfo = (roomToUnread: RoomToUnread, allParents: Set<string>, r
   allParents.forEach((parentId) => {
     const oldParentUnread = roomToUnread.get(parentId);
     if (!oldParentUnread) return;
-    const newFrom = new Set([...(oldParentUnread.from ?? roomId)]);
+    const newFrom = new Set(oldParentUnread.from ?? [roomId]);
     newFrom.delete(roomId);
     if (newFrom.size === 0) {
       roomToUnread.delete(parentId);

@@ -108,7 +108,7 @@ export function BottomNav() {
                 cursor: 'pointer',
                 padding: '6px 0',
                 position: 'relative',
-                color: isActive ? '#5288c1' : 'rgba(255,255,255,0.45)',
+                color: isActive ? '#2AABEE' : 'rgba(255,255,255,0.45)',
                 transition: 'color 150ms ease',
                 WebkitTapHighlightColor: 'transparent',
               }}
@@ -164,7 +164,7 @@ export function BottomNav() {
                   width: 4,
                   height: 4,
                   borderRadius: '50%',
-                  background: '#5288c1',
+                  background: '#2AABEE',
                 }} />
               )}
             </button>

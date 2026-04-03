@@ -683,7 +683,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
                 radii="Pill"
                 style={{
                   flexShrink: 0,
-                  backgroundColor: inputEmpty ? 'transparent' : 'var(--tg-accent, #5288c1)',
+                  backgroundColor: inputEmpty ? 'transparent' : 'var(--tg-accent, #2AABEE)',
                   color: inputEmpty ? undefined : '#fff',
                 }}
                 aria-label={inputEmpty ? 'Голосовое сообщение' : 'Отправить'}

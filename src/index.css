@@ -28,7 +28,7 @@
   --mx-uc-8: hsl(94, 100%, 35%);
 
   --font-emoji: 'Twemoji_DISABLED';
-  --font-secondary: 'InterVariable', var(--font-emoji), sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, var(--font-emoji), sans-serif;
 }
 
 .dark-theme,
@@ -44,7 +44,7 @@
   --mx-uc-7: hsl(243, 100%, 80%);
   --mx-uc-8: hsl(94, 100%, 80%);
 
-  --font-secondary: 'InterVariable', var(--font-emoji), sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, var(--font-emoji), sans-serif;
 }
 
 .telegram-dark-theme {
@@ -64,7 +64,7 @@
   --tg-bubble-in: #182533;
   --tg-bubble-out-text: #ffffff;
   --tg-bubble-in-text: #e4ecf2;
-  --tg-accent: #5288c1;
+  --tg-accent: #2AABEE;
   --bg-surface: #17212b;
 
   /* Chat area background — TG-style dark navy with subtle dot pattern */
@@ -73,7 +73,7 @@
     0 0 / 22px 22px,
     #0e1621;
 
-  --font-secondary: 'InterVariable', var(--font-emoji), sans-serif;
+  --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, var(--font-emoji), sans-serif;
 }
 
 html {

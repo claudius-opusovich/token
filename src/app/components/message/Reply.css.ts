@@ -1,10 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { config, toRem } from 'folds';
 
-export const ReplyBend = style({
-  flexShrink: 0,
-});
-
 export const ThreadIndicator = style({
   opacity: config.opacity.P300,
 
@@ -43,7 +39,7 @@ export const Reply = style({
       bottom: 0,
       width: toRem(3),
       borderRadius: `${toRem(3)} 0 0 ${toRem(3)}`,
-      background: 'var(--reply-color, var(--tg-accent, #5288c1))',
+      background: 'var(--reply-color, var(--tg-accent, #2AABEE))',
     },
   },
 });

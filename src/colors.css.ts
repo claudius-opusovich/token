@@ -223,16 +223,16 @@ export const telegramDarkTheme = createTheme(color, {
   },
 
   Primary: {
-    Main: '#5288c1',
-    MainHover: '#6196cb',
-    MainActive: '#70a4d5',
-    MainLine: '#4a7ab0',
+    Main: '#2AABEE',
+    MainHover: '#45B8F0',
+    MainActive: '#60C5F2',
+    MainLine: '#1E9FE0',
     OnMain: '#ffffff',
     Container: '#2b5278',
     ContainerHover: '#325d87',
     ContainerActive: '#396896',
     ContainerLine: '#4073a5',
-    OnContainer: '#c4dcf0',
+    OnContainer: '#b3e5fc',
   },
 
   Secondary: {
@@ -288,7 +288,7 @@ export const telegramDarkTheme = createTheme(color, {
   },
 
   Other: {
-    FocusRing: 'rgba(82, 136, 193, 0.5)',
+    FocusRing: 'rgba(42, 171, 238, 0.5)',
     Shadow: 'rgba(0, 0, 0, 1)',
     Overlay: 'rgba(0, 0, 0, 0.8)',
   },

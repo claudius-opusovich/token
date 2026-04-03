@@ -57,7 +57,7 @@ export const RoomIntro = as<'div', RoomIntroProps>(({ room, ...props }, ref) => 
           style={{
             background: 'none',
             border: 'none',
-            color: '#5288c1',
+            color: '#2AABEE',
             cursor: 'pointer',
             fontSize: '13px',
             padding: '2px 8px',

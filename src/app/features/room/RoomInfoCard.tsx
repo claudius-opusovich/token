@@ -238,7 +238,7 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
             <>
               <div style={{ padding: '10px 20px 4px' }}>
                 <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.85)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>{topic}</div>
-                <div style={{ fontSize: 13, color: '#5288c1', marginTop: 4 }}>Описание</div>
+                <div style={{ fontSize: 13, color: '#2AABEE', marginTop: 4 }}>Описание</div>
               </div>
               <Divider />
             </>
@@ -246,7 +246,7 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
 
           {/* Link */}
           <div style={{ padding: '10px 20px 4px' }}>
-            <div style={{ fontSize: 15, color: '#5288c1', wordBreak: 'break-all' }}>{roomAlias}</div>
+            <div style={{ fontSize: 15, color: '#2AABEE', wordBreak: 'break-all' }}>{roomAlias}</div>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 4 }}>Ссылка на чат</div>
           </div>
 

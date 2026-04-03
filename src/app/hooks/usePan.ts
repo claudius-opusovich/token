@@ -54,6 +54,13 @@ export const usePan = (active: boolean) => {
     if (!active) setPan(INITIAL_PAN);
   }, [active]);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => () => {
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
   return {
     pan,
     cursor,

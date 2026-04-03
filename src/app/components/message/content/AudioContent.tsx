@@ -142,7 +142,7 @@ export function AudioContent({
           width: '36px',
           height: '36px',
           borderRadius: '50%',
-          background: 'var(--tg-accent, #5288c1)',
+          background: 'var(--tg-accent, #2AABEE)',
           border: 'none',
           cursor: isLoading ? 'default' : 'pointer',
           display: 'flex',
@@ -189,7 +189,7 @@ export function AudioContent({
                   height: `${Math.max(3, h * 28)}px`,
                   borderRadius: '1.5px',
                   backgroundColor: played
-                    ? 'var(--tg-accent, #5288c1)'
+                    ? 'var(--tg-accent, #2AABEE)'
                     : 'rgba(255,255,255,0.30)',
                   transition: 'background-color 50ms',
                 }}
