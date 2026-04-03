@@ -57,6 +57,7 @@ import { RoomPinMenu } from './room-pin-menu';
 import { useOpenRoomSettings } from '../../state/hooks/roomSettings';
 import { useSetAtom } from 'jotai';
 import { setRoomWallpaperAtom } from '../../state/roomWallpapers';
+import { isSavedMessagesRoom } from '../../utils/savedMessages';
 import { RoomNotificationModeSwitcher } from '../../components/RoomNotificationSwitcher';
 import {
   getRoomNotificationMode,
@@ -337,7 +338,9 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
   const memberCount = room.getJoinedMemberCount();
 
   const dmUserId = direct ? guessDmRoomUserId(room, mx.getSafeUserId()) : undefined;
-  const dmPresence = useUserPresence(dmUserId ?? '');
+  const isSelfChat = isSavedMessagesRoom(room.roomId) || (direct && dmUserId === mx.getSafeUserId());
+  const displayName = isSelfChat ? 'Избранное' : name;
+  const dmPresence = useUserPresence(isSelfChat ? '' : (dmUserId ?? ''));
 
   // Count online members for group chats (skip large rooms for perf)
   const onlineCount = !direct && memberCount <= 300
@@ -429,7 +432,7 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
               <RoomAvatar
                 roomId={room.roomId}
                 src={avatarUrl}
-                alt={name}
+                alt={displayName}
                 renderFallback={() => (
                   <RoomIcon size="200" joinRule={room.getJoinRule()} roomType={room.getType()} />
                 )}
@@ -453,7 +456,7 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
           </div>
           <Box direction="Column" style={{ minWidth: 0 }}>
             <Text size="H5" truncate>
-              {name}
+              {displayName}
             </Text>
             <Text size="T200" priority="300" truncate>
               {typingMembers.length > 0 ? (

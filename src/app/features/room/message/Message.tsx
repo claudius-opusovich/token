@@ -958,13 +958,12 @@ export const Message = as<'div', MessageProps>(
               dateFormatString={dateFormatString}
             />
             {isOutgoing && readByOther !== undefined && (
-              <Text
-                as="span"
-                size="T200"
-                style={{ color: readByOther ? '#4fc3f7' : 'currentColor', opacity: readByOther ? 1 : 0.5 }}
-              >
-                {readByOther ? '✓✓' : '✓'}
-              </Text>
+              <span style={{ display: 'inline-flex', alignItems: 'center', marginLeft: '3px' }}>
+                <svg width="16" height="11" viewBox="0 0 16 11" style={{ opacity: readByOther ? 1 : 0.5 }}>
+                  <path d="M1 5.5L4.5 9L11 1" fill="none" stroke={readByOther ? '#4fc3f7' : 'currentColor'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  {readByOther && <path d="M5 5.5L8.5 9L15 1" fill="none" stroke="#4fc3f7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>}
+                </svg>
+              </span>
             )}
           </Box>
         )}
@@ -979,17 +978,18 @@ export const Message = as<'div', MessageProps>(
           dateFormatString={dateFormatString}
         />
         {isOutgoing && (
-          <Text
-            as="span"
-            size="T200"
-            style={{
-              marginLeft: '3px',
-              opacity: isPending ? 0.5 : (readByOther ? 1 : 0.6),
-              color: !isPending && readByOther ? '#4fc3f7' : 'currentColor',
-            }}
-          >
-            {isPending ? '⏳' : (readByOther !== undefined ? (readByOther ? '✓✓' : '✓') : '✓')}
-          </Text>
+          <span style={{ marginLeft: '4px', display: 'inline-flex', alignItems: 'center' }}>
+            {isPending ? (
+              <svg width="12" height="12" viewBox="0 0 16 16" style={{ opacity: 0.5 }}>
+                <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="14 30" />
+              </svg>
+            ) : (
+              <svg width="16" height="11" viewBox="0 0 16 11" style={{ opacity: readByOther ? 1 : 0.6 }}>
+                <path d="M1 5.5L4.5 9L11 1" fill="none" stroke={readByOther ? '#4fc3f7' : 'currentColor'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                {readByOther && <path d="M5 5.5L8.5 9L15 1" fill="none" stroke="#4fc3f7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>}
+              </svg>
+            )}
+          </span>
         )}
       </span>
     ) : null;
