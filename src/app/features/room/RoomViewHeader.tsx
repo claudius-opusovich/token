@@ -490,13 +490,42 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
         </Box>
 
         <Box shrink="No">
-          {!isSelfChat && direct && dmUserId && (
+          {/* Search */}
+          <TooltipProvider
+            position="Bottom"
+            offset={4}
+            tooltip={<Tooltip><Text>Поиск</Text></Tooltip>}
+          >
+            {(triggerRef) => (
+              <IconButton fill="None" ref={triggerRef} onClick={handleSearchClick}>
+                <Icon size="400" src={Icons.Search} />
+              </IconButton>
+            )}
+          </TooltipProvider>
+
+          {/* Phone call — shown for DMs */}
+          {!isSelfChat && direct && (
+            <TooltipProvider
+              position="Bottom"
+              offset={4}
+              tooltip={<Tooltip><Text>Позвонить</Text></Tooltip>}
+            >
+              {(triggerRef) => (
+                <IconButton fill="None" ref={triggerRef} disabled>
+                  <Icon size="400" src={Icons.Phone} />
+                </IconButton>
+              )}
+            </TooltipProvider>
+          )}
+
+          {/* Members / panel toggle */}
+          {screenSize === ScreenSize.Desktop && (
             <TooltipProvider
               position="Bottom"
               offset={4}
               tooltip={
                 <Tooltip>
-                  <Text>Поделиться профилем</Text>
+                  <Text>{peopleDrawer ? 'Скрыть участников' : 'Показать участников'}</Text>
                 </Tooltip>
               }
             >
@@ -504,119 +533,25 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
                 <IconButton
                   fill="None"
                   ref={triggerRef}
-                  onClick={() => copyToClipboard(getMatrixToUser(dmUserId))}
+                  onClick={handleMemberToggle}
+                  aria-pressed={peopleDrawer}
                 >
-                  <Icon size="400" src={Icons.User} />
-                </IconButton>
-              )}
-            </TooltipProvider>
-          )}
-          {!encryptedRoom && (
-            <TooltipProvider
-              position="Bottom"
-              offset={4}
-              tooltip={
-                <Tooltip>
-                  <Text>Поиск</Text>
-                </Tooltip>
-              }
-            >
-              {(triggerRef) => (
-                <IconButton fill="None" ref={triggerRef} onClick={handleSearchClick}>
-                  <Icon size="400" src={Icons.Search} />
-                </IconButton>
-              )}
-            </TooltipProvider>
-          )}
-          <TooltipProvider
-            position="Bottom"
-            offset={4}
-            tooltip={
-              <Tooltip>
-                <Text>Закреплённые</Text>
-              </Tooltip>
-            }
-          >
-            {(triggerRef) => (
-              <IconButton
-                fill="None"
-                style={{ position: 'relative' }}
-                onClick={handleOpenPinMenu}
-                ref={triggerRef}
-                aria-pressed={!!pinMenuAnchor}
-              >
-                {pinnedEvents.length > 0 && (
-                  <Badge
-                    style={{
-                      position: 'absolute',
-                      left: toRem(3),
-                      top: toRem(3),
-                    }}
-                    variant="Secondary"
-                    size="400"
-                    fill="Solid"
-                    radii="Pill"
-                  >
-                    <Text as="span" size="L400">
-                      {pinnedEvents.length}
-                    </Text>
-                  </Badge>
-                )}
-                <Icon size="400" src={Icons.Pin} filled={!!pinMenuAnchor} />
-              </IconButton>
-            )}
-          </TooltipProvider>
-          <PopOut
-            anchor={pinMenuAnchor}
-            position="Bottom"
-            content={
-              <FocusTrap
-                focusTrapOptions={{
-                  initialFocus: false,
-                  returnFocusOnDeactivate: false,
-                  onDeactivate: () => setPinMenuAnchor(undefined),
-                  clickOutsideDeactivates: true,
-                  isKeyForward: (evt: KeyboardEvent) => evt.key === 'ArrowDown',
-                  isKeyBackward: (evt: KeyboardEvent) => evt.key === 'ArrowUp',
-                  escapeDeactivates: stopPropagation,
-                }}
-              >
-                <RoomPinMenu room={room} requestClose={() => setPinMenuAnchor(undefined)} />
-              </FocusTrap>
-            }
-          />
-
-          {screenSize === ScreenSize.Desktop && (
-            <TooltipProvider
-              position="Bottom"
-              offset={4}
-              tooltip={
-                <Tooltip>
-                  {callView ? (
-                    <Text>Участники</Text>
-                  ) : (
-                    <Text>{peopleDrawer ? 'Скрыть участников' : 'Показать участников'}</Text>
-                  )}
-                </Tooltip>
-              }
-            >
-              {(triggerRef) => (
-                <IconButton fill="None" ref={triggerRef} onClick={handleMemberToggle}>
-                  <Icon size="400" src={Icons.User} />
+                  {/* Panel/sidebar icon matching Telegram */}
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ opacity: peopleDrawer ? 1 : 0.7 }}>
+                    <rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                    <line x1="13" y1="3.5" x2="13" y2="16.5" stroke="currentColor" strokeWidth="1.5"/>
+                  </svg>
                 </IconButton>
               )}
             </TooltipProvider>
           )}
 
+          {/* Three dots menu */}
           <TooltipProvider
             position="Bottom"
             align="End"
             offset={4}
-            tooltip={
-              <Tooltip>
-                <Text>Ещё</Text>
-              </Tooltip>
-            }
+            tooltip={<Tooltip><Text>Ещё</Text></Tooltip>}
           >
             {(triggerRef) => (
               <IconButton
@@ -646,6 +581,26 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
                 }}
               >
                 <RoomMenu room={room} requestClose={() => setMenuAnchor(undefined)} />
+              </FocusTrap>
+            }
+          />
+          {/* Pin menu popup — triggered by the pinned banner below the header */}
+          <PopOut
+            anchor={pinMenuAnchor}
+            position="Bottom"
+            content={
+              <FocusTrap
+                focusTrapOptions={{
+                  initialFocus: false,
+                  returnFocusOnDeactivate: false,
+                  onDeactivate: () => setPinMenuAnchor(undefined),
+                  clickOutsideDeactivates: true,
+                  isKeyForward: (evt: KeyboardEvent) => evt.key === 'ArrowDown',
+                  isKeyBackward: (evt: KeyboardEvent) => evt.key === 'ArrowUp',
+                  escapeDeactivates: stopPropagation,
+                }}
+              >
+                <RoomPinMenu room={room} requestClose={() => setPinMenuAnchor(undefined)} />
               </FocusTrap>
             }
           />
