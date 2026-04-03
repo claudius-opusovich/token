@@ -2,7 +2,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { enableMapSet } from 'immer';
-import '@fontsource/inter/variable.css';
+// Inter font removed — using system font stack for Telegram-like feel
+// import '@fontsource/inter/variable.css';
 import 'folds/dist/style.css';
 import { configClass, varsClass } from 'folds';
 

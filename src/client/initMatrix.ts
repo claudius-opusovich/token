@@ -34,8 +34,11 @@ export const initClient = async (session: Session): Promise<MatrixClient> => {
     verificationMethods: ['m.sas.v1'],
   });
 
-  await indexedDBStore.startup();
-  await mx.initRustCrypto();
+  // Start IndexedDB and crypto init in parallel
+  await Promise.all([
+    indexedDBStore.startup(),
+    mx.initRustCrypto(),
+  ]);
 
   mx.setMaxListeners(50);
 
