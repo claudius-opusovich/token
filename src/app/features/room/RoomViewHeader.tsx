@@ -429,16 +429,32 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
         >
           <div style={{ position: 'relative', flexShrink: 0 }}>
             <Avatar size="400" radii="Pill">
-              <RoomAvatar
-                roomId={room.roomId}
-                src={avatarUrl}
-                alt={displayName}
-                renderFallback={() => (
-                  <RoomIcon size="200" joinRule={room.getJoinRule()} roomType={room.getType()} />
-                )}
-              />
+              {isSelfChat ? (
+                <span style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  background: '#2AABEE',
+                  borderRadius: '50%',
+                }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 21V5C5 3.9 5.9 3 7 3H17C18.1 3 19 3.9 19 5V21L12 18L5 21Z" fill="#fff"/>
+                  </svg>
+                </span>
+              ) : (
+                <RoomAvatar
+                  roomId={room.roomId}
+                  src={avatarUrl}
+                  alt={displayName}
+                  renderFallback={() => (
+                    <RoomIcon size="200" joinRule={room.getJoinRule()} roomType={room.getType()} />
+                  )}
+                />
+              )}
             </Avatar>
-            {direct && dmPresence && (dmPresence.presence === Presence.Online || dmPresence.active) && (
+            {!isSelfChat && direct && dmPresence && (dmPresence.presence === Presence.Online || dmPresence.active) && (
               <span
                 style={{
                   position: 'absolute',
@@ -459,7 +475,9 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
               {displayName}
             </Text>
             <Text size="T200" priority="300" truncate>
-              {typingMembers.length > 0 ? (
+              {isSelfChat ? (
+                <span>сохраняйте сообщения и медиа</span>
+              ) : typingMembers.length > 0 ? (
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                   <TypingIndicator size="300" disableAnimation />
                   <span>печатает...</span>
@@ -472,7 +490,7 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
         </Box>
 
         <Box shrink="No">
-          {direct && dmUserId && (
+          {!isSelfChat && direct && dmUserId && (
             <TooltipProvider
               position="Bottom"
               offset={4}

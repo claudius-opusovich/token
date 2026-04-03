@@ -132,7 +132,7 @@ export const CustomEditor = forwardRef<HTMLDivElement, CustomEditorProps>(
               className={css.EditorTextareaScroll}
               variant="SurfaceVariant"
               style={{ maxHeight }}
-              size="300"
+              size="0"
               visibility="Hover"
               hideTrack
             >
