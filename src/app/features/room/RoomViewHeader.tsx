@@ -76,6 +76,12 @@ import { TypingIndicator } from '../../components/typing-indicator';
 import { Presence, useUserPresence } from '../../hooks/useUserPresence';
 import { guessDmRoomUserId } from '../../utils/matrix';
 import { RoomInfoCard } from './RoomInfoCard';
+import { useCallStart, useCallEmbed } from '../../hooks/useCallEmbed';
+import { useCallPreferencesAtom } from '../../state/hooks/callPreferences';
+import { useAutoDiscoveryInfo } from '../../hooks/useAutoDiscoveryInfo';
+import { livekitSupport } from '../../hooks/useLivekitSupport';
+import { useCallMembers, useCallSession } from '../../hooks/useCall';
+import { useAtomValue } from 'jotai';
 
 type RoomMenuProps = {
   room: Room;
@@ -342,6 +348,19 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
   const displayName = isSelfChat ? 'Избранное' : name;
   const dmPresence = useUserPresence(isSelfChat ? '' : (dmUserId ?? ''));
 
+  // Call support
+  const startCall = useCallStart(direct);
+  const callEmbed = useCallEmbed();
+  const callPref = useAtomValue(useCallPreferencesAtom());
+  const autoDiscoveryInfo = useAutoDiscoveryInfo();
+  const callSession = useCallSession(room);
+  const callMembers = useCallMembers(room, callSession);
+  const canCall = !isSelfChat && direct && (livekitSupport(autoDiscoveryInfo) || callMembers.length > 0);
+  const handleStartCall = () => {
+    if (!canCall || callEmbed) return;
+    startCall(room, callPref);
+  };
+
   // Count online members for group chats (skip large rooms for perf)
   const onlineCount = !direct && memberCount <= 300
     ? room.getJoinedMembers().filter((m) => {
@@ -508,10 +527,16 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
             <TooltipProvider
               position="Bottom"
               offset={4}
-              tooltip={<Tooltip><Text>Позвонить</Text></Tooltip>}
+              tooltip={<Tooltip><Text>{callEmbed ? 'Уже в звонке' : 'Позвонить'}</Text></Tooltip>}
             >
               {(triggerRef) => (
-                <IconButton fill="None" ref={triggerRef} disabled>
+                <IconButton
+                  fill="None"
+                  ref={triggerRef}
+                  onClick={handleStartCall}
+                  disabled={!canCall || !!callEmbed}
+                  aria-label="Позвонить"
+                >
                   <Icon size="400" src={Icons.Phone} />
                 </IconButton>
               )}
