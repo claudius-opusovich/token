@@ -39,7 +39,7 @@ function App() {
                       <JotaiProvider>
                         <RouterProvider router={createRouter(clientConfig, screenSize)} />
                       </JotaiProvider>
-                      <ReactQueryDevtools initialIsOpen={false} />
+                      {/* ReactQueryDevtools removed for production */}
                     </QueryClientProvider>
                   </ClientConfigProvider>
                 )}
