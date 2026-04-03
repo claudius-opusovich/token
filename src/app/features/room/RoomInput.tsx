@@ -597,7 +597,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
               radii="Pill"
               aria-label="Прикрепить"
             >
-              <Icon src={Icons.Link} />
+              <Icon src={Icons.PlusCircle} />
             </IconButton>
           }
           after={

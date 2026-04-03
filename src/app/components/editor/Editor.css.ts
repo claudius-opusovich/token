@@ -13,7 +13,7 @@ export const Editor = style([
 export const EditorOptions = style([
   DefaultReset,
   {
-    padding: config.space.S200,
+    padding: `${toRem(4)} ${toRem(6)}`,
   },
 ]);
 
@@ -24,7 +24,7 @@ export const EditorTextarea = style([
   {
     flexGrow: 1,
     height: '100%',
-    padding: `${toRem(13)} ${toRem(1)}`,
+    padding: `${toRem(8)} ${toRem(1)}`,
     selectors: {
       [`${EditorTextareaScroll}:first-child &`]: {
         paddingLeft: toRem(13),
@@ -52,7 +52,7 @@ export const EditorPlaceholderTextVisual = style([
   DefaultReset,
   {
     display: 'block',
-    paddingTop: toRem(13),
+    paddingTop: toRem(8),
     paddingLeft: toRem(1),
   },
 ]);
