@@ -403,7 +403,7 @@ export function RoomNavItem({
                     justifyContent: 'center',
                     width: '100%',
                     height: '100%',
-                    background: 'linear-gradient(135deg, #9B59B6 0%, #6C5CE7 100%)',
+                    background: '#2AABEE',
                     borderRadius: '50%',
                   }}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
