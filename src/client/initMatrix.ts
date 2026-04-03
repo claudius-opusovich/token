@@ -16,6 +16,8 @@ export const initClient = async (session: Session): Promise<MatrixClient> => {
     indexedDB: global.indexedDB,
     localStorage: global.localStorage,
     dbName: 'web-sync-store',
+    // Flush to IndexedDB more frequently to reduce data loss on crash
+    flushDelay: 30000,
   });
 
   const legacyCryptoStore = new IndexedDBCryptoStore(global.indexedDB, 'crypto-store');
@@ -43,6 +45,10 @@ export const initClient = async (session: Session): Promise<MatrixClient> => {
 export const startClient = async (mx: MatrixClient) => {
   await mx.startClient({
     lazyLoadMembers: true,
+    // Limit initial sync data to speed up first load
+    initialSyncLimit: 20,
+    // Disable presence events to reduce sync payload
+    disablePresence: true,
   });
 };
 

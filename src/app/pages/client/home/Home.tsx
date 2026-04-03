@@ -267,8 +267,8 @@ export function Home() {
   const virtualizer = useVirtualizer({
     count: filteredRooms.length,
     getScrollElement: () => scrollRef.current,
-    estimateSize: () => 62,
-    overscan: 10,
+    estimateSize: () => 72,
+    overscan: 8,
   });
 
   return (
