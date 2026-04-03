@@ -1109,6 +1109,25 @@ export const Message = as<'div', MessageProps>(
 
     const isThreadedMessage = mEvent.threadRootId !== undefined;
 
+    // Double-tap quick reaction (❤️)
+    const lastTapRef = useRef<number>(0);
+    const handleDoubleTap = useCallback(() => {
+      const now = Date.now();
+      if (now - lastTapRef.current < 300) {
+        const roomId = mEvent.getRoomId();
+        if (roomId && evtId) {
+          mx.sendEvent(roomId, 'm.reaction', {
+            'm.relates_to': {
+              rel_type: 'm.annotation',
+              event_id: evtId,
+              key: '❤️',
+            },
+          });
+        }
+      }
+      lastTapRef.current = now;
+    }, [mx, mEvent, evtId]);
+
     // Swipe-to-reply + Long-press context menu (mobile touch)
     const swipeStartX = useRef(0);
     const swipeStartY = useRef(0);
@@ -1161,7 +1180,12 @@ export const Message = as<'div', MessageProps>(
         clearTimeout(longPressTimer.current);
         longPressTimer.current = null;
       }
-      if (swipeLocked.current !== 'h') { setSwipeDx(0); return; }
+      // Double-tap detection: only when not in a swipe gesture
+      if (swipeLocked.current !== 'h') {
+        handleDoubleTap();
+        setSwipeDx(0);
+        return;
+      }
       const dx = e.changedTouches[0].clientX - swipeStartX.current;
       setSwipeReleasing(true);
       setSwipeDx(0);
@@ -1169,7 +1193,7 @@ export const Message = as<'div', MessageProps>(
         swipeReplyBtnRef.current?.click();
       }
       setTimeout(() => setSwipeReleasing(false), 200);
-    }, []);
+    }, [handleDoubleTap]);
 
     return (
       <MessageBase

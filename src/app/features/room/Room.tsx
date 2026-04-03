@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Box, Line } from 'folds';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { isKeyHotkey } from 'is-hotkey';
 import { useAtomValue } from 'jotai';
 import { RoomView } from './RoomView';
@@ -23,6 +23,7 @@ export function Room() {
   const { eventId } = useParams();
   const room = useRoom();
   const mx = useMatrixClient();
+  const navigate = useNavigate();
 
   const [isDrawer] = useSetting(settingsAtom, 'isPeopleDrawer');
   const [hideActivity] = useSetting(settingsAtom, 'hideActivity');
@@ -30,6 +31,29 @@ export function Room() {
   const powerLevels = usePowerLevels(room);
   const members = useRoomMembers(mx, room.roomId);
   const chat = useAtomValue(callChatAtom);
+
+  useEffect(() => {
+    if (screenSize !== ScreenSize.Mobile) return;
+    let startX = 0;
+    let startY = 0;
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = Math.abs(e.changedTouches[0].clientY - startY);
+      if (startX < 40 && dx > 60 && dy < 60) {
+        navigate(-1);
+      }
+    };
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [screenSize, navigate]);
 
   useKeyDown(
     window,
@@ -47,6 +71,14 @@ export function Room() {
 
   return (
     <PowerLevelsContextProvider value={powerLevels}>
+      <div
+        key={room.roomId}
+        style={
+          screenSize === ScreenSize.Mobile
+            ? { animation: 'slideInFromRight 200ms cubic-bezier(0.25,0.46,0.45,0.94) both', display: 'contents' }
+            : { display: 'contents' }
+        }
+      >
       <Box grow="Yes">
         {callView && (screenSize === ScreenSize.Desktop || !chat) && (
           <Box grow="Yes" direction="Column">
@@ -80,6 +112,7 @@ export function Room() {
           </>
         )}
       </Box>
+      </div>
     </PowerLevelsContextProvider>
   );
 }

@@ -148,7 +148,7 @@ export function RoomView({ eventId }: { eventId?: string }) {
     <MessageSelectionProvider>
       <SelectionBar roomId={roomId} />
       <Page ref={roomViewRef}>
-        <Box grow="Yes" direction="Column">
+        <Box grow="Yes" direction="Column" className="chat-bg">
           <RoomTimeline
             key={roomId}
             room={room}

@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, forwardRef, useState } from 'react';
+import React, { MouseEventHandler, TouchEventHandler, forwardRef, useRef, useState } from 'react';
 import { Room } from 'matrix-js-sdk';
 import {
   Avatar,
@@ -300,6 +300,9 @@ export function RoomNavItem({
   const msgDraft = useAtomValue(msgDraftAtom);
   const draftText = getDraftText(msgDraft).trim();
 
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartPos = useRef<{ x: number; y: number } | null>(null);
+
   const handleContextMenu: MouseEventHandler<HTMLElement> = (evt) => {
     evt.preventDefault();
     setMenuAnchor({
@@ -308,6 +311,39 @@ export function RoomNavItem({
       width: 0,
       height: 0,
     });
+  };
+
+  const handleTouchStart: TouchEventHandler<HTMLElement> = (evt) => {
+    const touch = evt.touches[0];
+    touchStartPos.current = { x: touch.clientX, y: touch.clientY };
+    longPressTimer.current = setTimeout(() => {
+      setMenuAnchor({
+        x: touch.clientX,
+        y: touch.clientY,
+        width: 0,
+        height: 0,
+      });
+    }, 500);
+  };
+
+  const handleTouchEnd: TouchEventHandler<HTMLElement> = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+    touchStartPos.current = null;
+  };
+
+  const handleTouchMove: TouchEventHandler<HTMLElement> = (evt) => {
+    if (!touchStartPos.current || !longPressTimer.current) return;
+    const touch = evt.touches[0];
+    const dx = Math.abs(touch.clientX - touchStartPos.current.x);
+    const dy = Math.abs(touch.clientY - touchStartPos.current.y);
+    // Cancel long press if user scrolls
+    if (dx > 8 || dy > 8) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
   };
 
   const handleOpenMenu: MouseEventHandler<HTMLButtonElement> = (evt) => {
@@ -347,6 +383,9 @@ export function RoomNavItem({
       aria-selected={selected}
       data-hover={!!menuAnchor}
       onContextMenu={handleContextMenu}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchMove={handleTouchMove}
       {...hoverProps}
       {...focusWithinProps}
     >
