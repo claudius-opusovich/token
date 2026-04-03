@@ -74,6 +74,7 @@ import { useRoomTypingMember } from '../../hooks/useRoomTypingMembers';
 import { TypingIndicator } from '../../components/typing-indicator';
 import { Presence, useUserPresence } from '../../hooks/useUserPresence';
 import { guessDmRoomUserId } from '../../utils/matrix';
+import { RoomInfoCard } from './RoomInfoCard';
 
 type RoomMenuProps = {
   room: Room;
@@ -316,6 +317,7 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
   const space = useSpaceOptionally();
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
   const [pinMenuAnchor, setPinMenuAnchor] = useState<RectCords>();
+  const [showInfoCard, setShowInfoCard] = useState(false);
   const direct = useIsDirectRoom();
 
   const pinnedEvents = useRoomPinnedEvents(room);
@@ -415,7 +417,13 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
             )}
           </BackRouteHandler>
         )}
-        <Box grow="Yes" alignItems="Center" gap="300">
+        <Box
+          grow="Yes"
+          alignItems="Center"
+          gap="300"
+          style={{ cursor: 'pointer', minWidth: 0 }}
+          onClick={() => setShowInfoCard(true)}
+        >
           <div style={{ position: 'relative', flexShrink: 0 }}>
             <Avatar size="400" radii="Pill">
               <RoomAvatar
@@ -443,7 +451,7 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
               />
             )}
           </div>
-          <Box direction="Column">
+          <Box direction="Column" style={{ minWidth: 0 }}>
             <Text size="H5" truncate>
               {name}
             </Text>
@@ -639,6 +647,9 @@ export function RoomViewHeader({ callView }: { callView?: boolean }) {
           </Text>
         )}
       </button>
+    )}
+    {showInfoCard && (
+      <RoomInfoCard room={room} onClose={() => setShowInfoCard(false)} />
     )}
     </>
   );
