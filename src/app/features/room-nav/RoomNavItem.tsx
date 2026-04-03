@@ -403,10 +403,12 @@ export function RoomNavItem({
                     justifyContent: 'center',
                     width: '100%',
                     height: '100%',
-                    background: '#2AABEE',
+                    background: 'linear-gradient(135deg, #9B59B6 0%, #6C5CE7 100%)',
                     borderRadius: '50%',
                   }}>
-                    <Icon src={Icons.Pin} size="200" style={{ color: '#fff' }} />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 21V5C5 3.9 5.9 3 7 3H17C18.1 3 19 3.9 19 5V21L12 18L5 21Z" fill="#fff"/>
+                    </svg>
                   </span>
                 ) : showAvatar ? (
                   <RoomAvatar
