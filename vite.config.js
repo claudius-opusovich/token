@@ -7,6 +7,7 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 import inject from '@rollup/plugin-inject';
 import topLevelAwait from 'vite-plugin-top-level-await';
 import { VitePWA } from 'vite-plugin-pwa';
+import viteCompression from 'vite-plugin-compression';
 import fs from 'fs';
 import path from 'path';
 import buildConfig from './build.config';
@@ -98,6 +99,14 @@ export default defineConfig({
     vanillaExtractPlugin(),
     wasm(),
     react(),
+    // Pre-compress assets at build time (gzip level 9) for nginx gzip_static
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      threshold: 1024,
+      deleteOriginFile: false,
+      filter: /\.(js|css|wasm|json|svg|html)$/,
+    }),
     VitePWA({
       srcDir: 'src',
       filename: 'sw.ts',
