@@ -52,7 +52,7 @@ const NavItemBase = style({
   backgroundColor: Container,
   color: OnContainer,
   outline: 'none',
-  minHeight: toRem(62),
+  minHeight: toRem(72),
   transition: 'background-color 150ms ease',
 
   selectors: {

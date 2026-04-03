@@ -1329,9 +1329,9 @@ export const Message = as<'div', MessageProps>(
                         backdropFilter: 'blur(20px)',
                         WebkitBackdropFilter: 'blur(20px)',
                         background: 'rgba(30,43,56,0.92)',
-                        borderRadius: '14px',
+                        borderRadius: '8px',
                         border: '1px solid rgba(255,255,255,0.06)',
-                        boxShadow: '0 8px 32px rgba(0,0,0,0.45)',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                         minWidth: '200px',
                       }}>
                         {canSendReaction && (

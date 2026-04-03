@@ -7,16 +7,14 @@ function BubbleLeftArrow() {
   return (
     <svg
       className={css.BubbleLeftArrow}
-      width="9"
-      height="8"
-      viewBox="0 0 9 8"
+      width="7"
+      height="17"
+      viewBox="0 0 7 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9.00004 8V0H4.82847C3.04666 0 2.15433 2.15428 3.41426 3.41421L8.00004 8H9.00004Z"
+        d="M6 0L0 0L0 17C0.193 14.161 0.876 11.233 2.05 8.218C2.954 5.893 4.496 3.733 6.675 1.738C7.083 1.365 7.11 0.732 6.737 0.325C6.548 0.118 6.28 0 6 0Z"
         fill="var(--tg-bubble-in, currentColor)"
       />
     </svg>
@@ -27,16 +25,14 @@ function BubbleRightArrow() {
   return (
     <svg
       className={css.BubbleRightArrow}
-      width="9"
-      height="8"
-      viewBox="0 0 9 8"
+      width="7"
+      height="17"
+      viewBox="0 0 7 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M0 8V0H4.17157C5.95338 0 6.84571 2.15428 5.58579 3.41421L1 8H0Z"
+        d="M1 0L7 0L7 17C6.807 14.161 6.124 11.233 4.95 8.218C4.046 5.893 2.504 3.733 0.325 1.738C-0.083 1.365 -0.11 0.732 0.263 0.325C0.452 0.118 0.72 0 1 0Z"
         fill="var(--tg-bubble-out, currentColor)"
       />
     </svg>

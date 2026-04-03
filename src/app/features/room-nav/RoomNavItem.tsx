@@ -393,7 +393,7 @@ export function RoomNavItem({
         <NavItemContent>
           <Box as="span" grow="Yes" alignItems="Center" gap="300">
             <div style={{ position: 'relative', flexShrink: 0 }}>
-              <Avatar size="400" radii="Pill">
+              <Avatar size="400" radii="Pill" style={{ width: 54, height: 54 }}>
                 {showAvatar ? (
                   <RoomAvatar
                     roomId={room.roomId}

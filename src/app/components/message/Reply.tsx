@@ -22,7 +22,10 @@ export const ReplyLayout = as<'div', ReplyLayoutProps>(
     <Box
       className={classNames(css.Reply, className)}
       direction="Column"
-      style={{ ['--reply-color' as string]: userColor }}
+      style={{
+        ['--reply-color' as string]: userColor,
+        background: userColor ? `${userColor}1A` : undefined,
+      }}
       {...props}
       ref={ref}
     >

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ScreenSize, useScreenSizeContext } from '../../../hooks/useScreenSize';
 import { Box, Button, Icon, IconButton, Icons, Text } from 'folds';
@@ -34,45 +34,73 @@ const FILTER_LABELS: Record<ChatFilter, string> = {
 
 function HomeHeader() {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
   const navigate = useNavigate();
   const screenSize = useScreenSizeContext();
   const isMobile = screenSize === ScreenSize.Mobile;
-  const isDesktop = screenSize === ScreenSize.Desktop;
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearchFocus = () => setSearchFocused(true);
+  const handleSearchBlur = () => {
+    if (searchInputRef.current && searchInputRef.current.value === '') {
+      setSearchFocused(false);
+    }
+  };
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && searchInputRef.current?.value) {
+      navigate(getHomeSearchPath());
+    }
+    if (e.key === 'Escape') {
+      searchInputRef.current?.blur();
+      setSearchFocused(false);
+    }
+  };
 
   return (
     <>
       <PageNavHeader>
-        <Box alignItems="Center" grow="Yes" gap="200">
+        <Box alignItems="Center" grow="Yes" gap="200" style={{ padding: '4px 0' }}>
           {!isMobile && (
             <IconButton
               variant="Background"
-              onClick={() => setSettingsOpen(true)}
-              aria-label="Настройки"
+              onClick={() => {
+                if (searchFocused) {
+                  setSearchFocused(false);
+                  if (searchInputRef.current) searchInputRef.current.value = '';
+                  searchInputRef.current?.blur();
+                } else {
+                  setSettingsOpen(true);
+                }
+              }}
+              aria-label={searchFocused ? 'Назад' : 'Меню'}
+              style={{ transition: 'transform 250ms cubic-bezier(0.25,0.1,0.25,1)' }}
             >
-              <Icon src={Icons.Setting} size="200" />
+              <Icon
+                src={searchFocused ? Icons.ArrowLeft : Icons.Setting}
+                size="200"
+              />
             </IconButton>
           )}
-          <Box grow="Yes">
-            <Text size="H4" truncate>
-              Token
-            </Text>
-          </Box>
-          {isDesktop && (
-            <IconButton
-              variant="Background"
-              onClick={() => navigate(getInboxPath())}
-              aria-label="Входящие"
-            >
-              <Icon src={Icons.Inbox} size="200" />
-            </IconButton>
-          )}
-          <IconButton
-            variant="Background"
-            onClick={() => navigate(getHomeSearchPath())}
-            aria-label="Поиск"
-          >
-            <Icon src={Icons.Search} size="200" />
-          </IconButton>
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Поиск"
+            onFocus={handleSearchFocus}
+            onBlur={handleSearchBlur}
+            onKeyDown={handleSearchKeyDown}
+            style={{
+              flex: 1,
+              height: 42,
+              borderRadius: 22,
+              background: 'var(--bg-surface, #17212b)',
+              border: 'none',
+              padding: '0 16px',
+              color: '#e4ecf2',
+              fontSize: 14,
+              outline: 'none',
+              minWidth: 0,
+            }}
+          />
           <IconButton
             variant="Background"
             onClick={() => navigate(getHomeCreatePath())}
@@ -113,39 +141,69 @@ function FilterTabs({
   active: ChatFilter;
   onChange: (f: ChatFilter) => void;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+
+  const updateIndicator = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const activeBtn = container.querySelector('[data-active="true"]') as HTMLElement | null;
+    if (activeBtn) {
+      setIndicator({ left: activeBtn.offsetLeft, width: activeBtn.offsetWidth });
+    }
+  }, []);
+
+  useEffect(() => {
+    updateIndicator();
+  }, [active, updateIndicator]);
+
   return (
-    <Box
+    <div
+      ref={containerRef}
       style={{
         display: 'flex',
         overflowX: 'auto',
         flexShrink: 0,
         scrollbarWidth: 'none',
         borderBottom: '1px solid rgba(255,255,255,0.07)',
+        position: 'relative',
       }}
     >
       {(Object.keys(FILTER_LABELS) as ChatFilter[]).map((f) => (
         <button
           key={f}
+          data-active={active === f}
           onClick={() => onChange(f)}
           style={{
             flex: 1,
-            padding: '10px 0 9px',
+            padding: '10px 0 11px',
             background: 'none',
             color: active === f ? '#2AABEE' : 'rgba(255,255,255,0.45)',
             border: 'none',
-            borderBottom: active === f ? '2px solid #2AABEE' : '2px solid transparent',
-            marginBottom: '-1px',
             cursor: 'pointer',
             fontSize: '13px',
-            fontWeight: active === f ? 600 : 400,
+            fontWeight: active === f ? 500 : 400,
             whiteSpace: 'nowrap',
-            transition: 'color 150ms ease, border-color 150ms ease',
+            transition: 'color 150ms ease',
           }}
         >
           {FILTER_LABELS[f]}
         </button>
       ))}
-    </Box>
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          height: 3,
+          borderRadius: '3px 3px 0 0',
+          background: '#2AABEE',
+          transform: `translateX(${indicator.left}px)`,
+          width: indicator.width,
+          transition: 'transform 250ms cubic-bezier(0.2,0,0,1), width 250ms cubic-bezier(0.2,0,0,1)',
+        }}
+      />
+    </div>
   );
 }
 

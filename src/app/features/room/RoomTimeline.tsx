@@ -1782,12 +1782,12 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
       dayDivider && enrichedEventJSX ? (
         <MessageBase space={messageSpacing}>
           {messageLayout === MessageLayout.Bubble ? (
-            <Box justifyContent="Center" style={{ padding: '4px 0' }}>
+            <Box justifyContent="Center" style={{ padding: '4px 0', position: 'sticky', top: 10, zIndex: 10 }}>
               <span style={{
                 display: 'inline-block',
-                background: 'rgba(0,0,0,0.35)',
+                background: 'rgba(23,33,43,0.5)',
                 color: 'rgba(255,255,255,0.85)',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 padding: '3px 14px',
                 fontSize: '12px',
                 fontWeight: 400,
@@ -1873,10 +1873,11 @@ export function RoomTimeline({ room, eventId, roomInputRef, editor }: RoomTimeli
             size="400"
             onClick={handleScrollToBottom}
             style={{
-              boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
+              boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
               backgroundColor: 'var(--tg-bubble-in, #17212b)',
-              border: '1px solid rgba(255,255,255,0.1)',
               position: 'relative',
+              width: 48,
+              height: 48,
             }}
           >
             {room.getUnreadNotificationCount() > 0 && (
