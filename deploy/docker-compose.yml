@@ -42,5 +42,28 @@ services:
     ports:
       - "127.0.0.1:8080:80"
 
+  livekit:
+    image: livekit/livekit-server:latest
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    volumes:
+      - ./livekit/livekit.yaml:/etc/livekit.yaml:ro
+    ports:
+      - "127.0.0.1:7880:7880"      # HTTP/WS API (nginx proxied)
+      - "7881:7881/tcp"             # RTC TCP media
+      - "7882:7882/udp"             # RTC UDP media
+
+  livekit-jwt:
+    image: ghcr.io/element-hq/livekit-jwt-service:latest
+    restart: unless-stopped
+    environment:
+      - LIVEKIT_URL=wss://livekit.tokenchat.dev
+      - LIVEKIT_API_KEY=${LIVEKIT_API_KEY}
+      - LIVEKIT_API_SECRET=${LIVEKIT_API_SECRET}
+      - MATRIX_SERVER_NAME=tokenchat.dev
+      - MATRIX_HOMESERVER_URL=https://matrix.tokenchat.dev
+    ports:
+      - "127.0.0.1:8090:8080"
+
 volumes:
   postgres-data:

@@ -1,0 +1,14 @@
+# LiveKit server config for tokenchat.dev
+# API keys are injected via LIVEKIT_KEYS env var (see docker-compose)
+# This file handles RTC/network settings only
+
+port: 7880
+
+rtc:
+  use_external_ip: true
+  udp_port: 7882
+  tcp_port: 7881
+
+logging:
+  level: warn
+  json: false
