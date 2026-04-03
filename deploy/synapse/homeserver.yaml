@@ -25,7 +25,7 @@ database:
     host: postgres
     port: 5432
     cp_min: 5
-    cp_max: 10
+    cp_max: 20
 
 # Logging
 log_config: "/data/tokenchat.dev.log.config"
@@ -84,6 +84,29 @@ report_stats: false
 # Push notifications
 push:
   include_content: true
+
+# ── Performance tuning ──
+
+# Increase internal caches (default global_factor is 0.5)
+caches:
+  global_factor: 2.0
+  per_cache_factors:
+    get_users_in_room: 5.0
+    _get_state_group_for_event: 2.0
+
+# Cache sync responses to speed up reconnections
+sync_response_cache_duration: 2m
+
+# Disable presence tracking (major CPU/DB savings on small servers)
+presence:
+  enabled: false
+
+# Disable user directory (saves background CPU; re-enable if needed)
+user_directory:
+  enabled: false
+
+# Federation rate limiting (reduce load from remote servers)
+federation_rr_transactions_per_room_per_second: 10
 
 # Retention (optional — auto-delete old messages)
 # retention:

@@ -32,12 +32,28 @@ export type AutoDiscoveryInfo = Record<string, unknown> & {
   ];
 };
 
+const WELL_KNOWN_CACHE_TTL = 600_000; // 10 minutes
+
 export const autoDiscovery = async (
   request: typeof fetch,
   server: string
 ): Promise<[AutoDiscoveryError, undefined] | [undefined, AutoDiscoveryInfo]> => {
   const host = /^https?:\/\//.test(server) ? trimTrailingSlash(server) : `https://${server}`;
   const autoDiscoveryUrl = `${host}/.well-known/matrix/client`;
+
+  // Check localStorage cache first (saves ~500ms round-trip)
+  try {
+    const cacheKey = `well-known:${server}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      if (parsed.ts && Date.now() - parsed.ts < WELL_KNOWN_CACHE_TTL && parsed.data) {
+        return [undefined, parsed.data as AutoDiscoveryInfo];
+      }
+    }
+  } catch {
+    // localStorage unavailable or corrupted — proceed with fetch
+  }
 
   const [err, response] = await to(request(autoDiscoveryUrl, { method: 'GET' }));
 
@@ -101,6 +117,13 @@ export const autoDiscovery = async (
     content['m.identity_server'].base_url = trimTrailingSlash(
       content['m.identity_server'].base_url
     );
+  }
+
+  // Cache successful discovery in localStorage
+  try {
+    localStorage.setItem(`well-known:${server}`, JSON.stringify({ ts: Date.now(), data: content }));
+  } catch {
+    // localStorage full or unavailable — ignore
   }
 
   return [undefined, content];
