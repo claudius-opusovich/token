@@ -15,7 +15,8 @@ import {
 } from 'folds';
 import { HttpApiEvent, HttpApiEventHandlerMap, MatrixClient } from 'matrix-js-sdk';
 import FocusTrap from 'focus-trap-react';
-import React, { MouseEventHandler, ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { MouseEventHandler, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { useSetAtom } from 'jotai';
 import {
   clearCacheAndReload,
   clearLoginData,
@@ -36,6 +37,8 @@ import { SyncStatus } from './SyncStatus';
 import { AuthMetadataProvider } from '../../hooks/useAuthMetadata';
 import { getFallbackSession } from '../../state/sessions';
 import { AutoDiscovery } from './AutoDiscovery';
+import { ensureSavedMessagesRoom } from '../../utils/savedMessages';
+import { pinnedRoomsAtom } from '../../state/pinnedRooms';
 
 function ClientRootLoading() {
   return (
@@ -174,13 +177,32 @@ export function ClientRoot({ children }: ClientRootProps) {
     }
   }, [mx, startMatrix]);
 
+  const setPinnedRooms = useSetAtom(pinnedRoomsAtom);
+  const savedMsgBootstrapped = useRef(false);
+
   useSyncState(
     mx,
     useCallback((state) => {
       if (state === 'PREPARED') {
         setLoading(false);
+
+        // Bootstrap Saved Messages room (fire-and-forget)
+        if (mx && !savedMsgBootstrapped.current) {
+          savedMsgBootstrapped.current = true;
+          ensureSavedMessagesRoom(mx).then((roomId) => {
+            // Auto-pin at top if not already pinned
+            const pinned = JSON.parse(localStorage.getItem('token_pinned_rooms') || '[]');
+            if (!pinned.includes(roomId)) {
+              const next = [roomId, ...pinned];
+              localStorage.setItem('token_pinned_rooms', JSON.stringify(next));
+              setPinnedRooms(next);
+            }
+          }).catch(() => {
+            // Silently fail — not critical for UX
+          });
+        }
       }
-    }, [])
+    }, [mx, setPinnedRooms])
   );
 
   return (

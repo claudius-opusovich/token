@@ -280,8 +280,9 @@ export function RoomNavItem({
   const mx = useMatrixClient();
   const useAuthentication = useMediaAuthentication();
   const dmUserId = direct ? guessDmRoomUserId(room, mx.getSafeUserId()) : undefined;
-  const dmPresence = useUserPresence(dmUserId ?? '');
-  const isOnline = dmPresence?.presence === Presence.Online || dmPresence?.active === true;
+  const isSelfChat = direct && dmUserId === mx.getSafeUserId();
+  const dmPresence = useUserPresence(isSelfChat ? '' : (dmUserId ?? ''));
+  const isOnline = !isSelfChat && (dmPresence?.presence === Presence.Online || dmPresence?.active === true);
   const pinnedRooms = useAtomValue(pinnedRoomsAtom);
   const togglePin = useSetAtom(togglePinnedRoomAtom);
   const isPinned = pinnedRooms.includes(room.roomId);
@@ -294,7 +295,8 @@ export function RoomNavItem({
     (receipt) => receipt.userId !== mx.getUserId()
   );
 
-  const roomName = useRoomName(room);
+  const rawRoomName = useRoomName(room);
+  const roomName = isSelfChat ? 'Избранное' : rawRoomName;
   const lastMessage = useRoomLastMessage(room, mx);
   const msgDraftAtom = roomIdToMsgDraftAtomFamily(room.roomId);
   const msgDraft = useAtomValue(msgDraftAtom);
@@ -394,7 +396,19 @@ export function RoomNavItem({
           <Box as="span" grow="Yes" alignItems="Center" gap="300">
             <div style={{ position: 'relative', flexShrink: 0 }}>
               <Avatar size="400" radii="Pill" style={{ width: 54, height: 54 }}>
-                {showAvatar ? (
+                {isSelfChat ? (
+                  <span style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    background: '#2AABEE',
+                    borderRadius: '50%',
+                  }}>
+                    <Icon src={Icons.Pin} size="200" style={{ color: '#fff' }} />
+                  </span>
+                ) : showAvatar ? (
                   <RoomAvatar
                     roomId={room.roomId}
                     src={
