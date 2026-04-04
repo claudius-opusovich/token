@@ -212,7 +212,7 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           {/* Action buttons */}
           <div style={{ display: 'flex', gap: 6, padding: '0 12px 16px' }}>
             <ActionBtn
-              icon={<Icon size="300" src={isMuted ? Icons.Bell : Icons.BellCross} />}
+              icon={<Icon size="300" src={isMuted ? Icons.Bell : Icons.BellMute} />}
               label={isMuted ? 'Включить' : 'Выключить'}
               onClick={handleMuteToggle}
               active={isMuted}
