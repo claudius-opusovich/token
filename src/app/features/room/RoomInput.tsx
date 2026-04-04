@@ -120,6 +120,7 @@ import { useComposingCheck } from '../../hooks/useComposingCheck';
 import { ScreenSize, useScreenSizeContext } from '../../hooks/useScreenSize';
 import { useVoiceRecorder } from '../../hooks/useVoiceRecorder';
 import { VoiceRecordingUI } from './VoiceRecordingUI';
+import { useTranslation } from 'react-i18next';
 
 interface RoomInputProps {
   editor: Editor;
@@ -129,6 +130,7 @@ interface RoomInputProps {
 }
 export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
   ({ editor, fileDropContainerRef, roomId, room }, ref) => {
+    const { t } = useTranslation();
     const mx = useMatrixClient();
     const screenSize = useScreenSizeContext();
     const isMobile = screenSize === ScreenSize.Mobile;
@@ -567,9 +569,9 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
               >
                 <Icon size="600" src={Icons.File} />
                 <Text size="H4" align="Center">
-                  {`Перетащить файлы в «${room?.name || 'чат'}»`}
+                  {t('room.dropFilesTo', { name: room?.name || t('room.chat') })}
                 </Text>
-                <Text align="Center">Перетащите файлы сюда или нажмите для выбора</Text>
+                <Text align="Center">{t('room.dropFilesHint')}</Text>
               </Box>
             </Dialog>
           </OverlayCenter>
@@ -610,7 +612,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
           editableName="RoomInput"
           editor={editor}
           maxHeight={isMobile ? '25vh' : '50vh'}
-          placeholder="Написать сообщение..."
+          placeholder={t('room.typeMessage')}
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
           onChange={handleEditorChange}
@@ -660,7 +662,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
               variant="SurfaceVariant"
               size="300"
               radii="Pill"
-              aria-label="Прикрепить"
+              aria-label={t('room.attach')}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M21.44 11.05l-9.19 9.19a6.003 6.003 0 01-8.49-8.49l9.19-9.19a4.002 4.002 0 015.66 5.66l-9.2 9.19a2.001 2.001 0 01-2.83-2.83l8.49-8.48" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -708,7 +710,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
                     variant="SurfaceVariant"
                     size="300"
                     radii="Pill"
-                    aria-label="Эмодзи"
+                    aria-label={t('room.emoji')}
                   >
                     <Icon
                       src={Icons.Smile}
@@ -732,17 +734,17 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
         <IconButton
           onClick={inputEmpty ? handleStartVoice : submit}
           variant={inputEmpty ? 'SurfaceVariant' : 'Primary'}
-          fill={inputEmpty ? 'None' : 'Solid'}
+          fill={inputEmpty ? 'None' : ('Solid' as any)}
           size="400"
           radii="Pill"
           style={{
             flexShrink: 0,
             marginBottom: '4px',
-            backgroundColor: inputEmpty ? 'transparent' : 'var(--tg-accent, #2AABEE)',
+            backgroundColor: inputEmpty ? 'transparent' : 'var(--tg-accent)',
             color: inputEmpty ? undefined : '#fff',
             transition: 'background-color 150ms ease',
           }}
-          aria-label={inputEmpty ? 'Голосовое сообщение' : 'Отправить'}
+          aria-label={inputEmpty ? t('room.voiceMessage') : t('common.send')}
         >
           <Icon src={inputEmpty ? Icons.Mic : Icons.Send} />
         </IconButton>

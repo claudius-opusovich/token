@@ -190,7 +190,9 @@ export const scrollToBottom = (scrollEl: HTMLElement, behavior?: 'auto' | 'insta
 export const copyToClipboard = (text: string) => {
   if (navigator.clipboard) {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    navigator.clipboard.writeText(text).catch(() => {});
+    navigator.clipboard.writeText(text).catch((err) => {
+      console.warn('Clipboard write failed:', err);
+    });
   } else {
     const host = document.body;
     const copyInput = document.createElement('input');

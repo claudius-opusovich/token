@@ -40,8 +40,8 @@ function UserRoomProfileContextMenu({ state }: { state: UserRoomProfileState }) 
             WebkitBackdropFilter: 'blur(20px)',
             background: 'rgba(23,33,43,0.96)',
             borderRadius: '16px',
-            border: '1px solid rgba(255,255,255,0.07)',
-            boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+            border: '1px solid var(--tg-surface-overlay)',
+            boxShadow: '0 12px 40px var(--tg-backdrop)',
             overflow: 'hidden',
           }}>
             <SpaceProvider value={space ?? null}>

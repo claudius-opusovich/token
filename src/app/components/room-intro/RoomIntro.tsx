@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Text, as } from 'folds';
 import { Room } from 'matrix-js-sdk';
 import { useAtomValue } from 'jotai';
@@ -18,6 +19,7 @@ export type RoomIntroProps = {
 };
 
 export const RoomIntro = as<'div', RoomIntroProps>(({ room, ...props }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const mDirects = useAtomValue(mDirectAtom);
   const isDirect = mDirects.has(room.roomId);
@@ -44,18 +46,16 @@ export const RoomIntro = as<'div', RoomIntroProps>(({ room, ...props }, ref) => 
           width: 72,
           height: 72,
           borderRadius: '50%',
-          background: '#2AABEE',
+          background: 'var(--tg-accent)',
           flexShrink: 0,
         }}>
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
             <path d="M5 21V5C5 3.9 5.9 3 7 3H17C18.1 3 19 3.9 19 5V21L12 18L5 21Z" fill="#fff"/>
           </svg>
         </span>
-        <Text size="H4" align="Center" style={{ color: 'rgba(255,255,255,0.9)' }}>
-          Избранное
+        <Text size="H4" align="Center" style={{ color: 'var(--tg-text-primary)' }}>{t('savedMessages.title')}
         </Text>
-        <Text size="T300" align="Center" style={{ color: 'rgba(255,255,255,0.5)', maxWidth: '260px', lineHeight: 1.5 }}>
-          Сохраняйте важные сообщения, фото и ссылки — они всегда будут под рукой
+        <Text size="T300" align="Center" style={{ color: 'var(--tg-text-secondary)', maxWidth: '260px', lineHeight: 1.5 }}>{t('savedMessages.description')}
         </Text>
       </Box>
     );
@@ -68,34 +68,34 @@ export const RoomIntro = as<'div', RoomIntroProps>(({ room, ...props }, ref) => 
       {ts && (
         <Box
           style={{
-            background: 'rgba(255,255,255,0.07)',
+            background: 'var(--tg-surface-overlay)',
             borderRadius: '12px',
             padding: '4px 14px',
           }}
         >
-          <Text size="T200" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <Text size="T200" style={{ color: 'var(--tg-text-secondary)' }}>
             {timeDayMonthYear(ts)}
           </Text>
         </Box>
       )}
-      <Text size="T300" align="Center" style={{ color: 'rgba(255,255,255,0.35)', maxWidth: '280px' }}>
+      <Text size="T300" align="Center" style={{ color: 'var(--tg-text-hint)', maxWidth: '280px' }}>
         {isDirect
-          ? `Начало вашего диалога с ${name}`
-          : `Чат «${name}» создан`}
+          ? t('roomIntro.dmStart', { name })
+          : t('roomIntro.roomCreated', { name })}
       </Text>
       {!isDirect && (
         <button
           onClick={() => setInvitePrompt(true)}
+          aria-label={t('roomIntro.inviteMember')}
           style={{
             background: 'none',
             border: 'none',
-            color: '#2AABEE',
+            color: 'var(--tg-accent)',
             cursor: 'pointer',
             fontSize: '13px',
             padding: '2px 8px',
           }}
-        >
-          + Пригласить участника
+        >{t('roomIntro.inviteMember')}
         </button>
       )}
       {invitePrompt && (

@@ -101,7 +101,8 @@ export function useVoiceRecorder() {
       }, 100);
 
       setState({ isRecording: true, duration: 0, analyser });
-    } catch {
+    } catch (err) {
+      console.error('Voice recording failed:', err);
       cleanup();
     }
   }, [cleanup]);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Icon, Icons, Text, Spinner, Avatar } from 'folds';
 import { Room } from 'matrix-js-sdk';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
@@ -44,12 +45,12 @@ function ActionBtn({
         flexDirection: 'column',
         alignItems: 'center',
         gap: 5,
-        background: 'rgba(255,255,255,0.06)',
+        background: 'var(--tg-surface-overlay)',
         border: 'none',
         borderRadius: 10,
         padding: '12px 4px 10px',
         cursor: 'pointer',
-        color: danger ? '#e57373' : active ? '#64b5f6' : 'rgba(255,255,255,0.85)',
+        color: danger ? 'var(--tg-danger)' : active ? 'var(--tg-info)' : 'var(--tg-text-body)',
         minWidth: 0,
       }}
     >
@@ -65,17 +66,17 @@ function ActionBtn({
 
 // ── Divider ───────────────────────────────────────────────────────
 function Divider() {
-  return <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', margin: '0 16px' }} />;
+  return <div style={{ height: 1, background: 'var(--tg-surface-overlay)', margin: '0 16px' }} />;
 }
 
 // ── Info row (link, description label, etc) ───────────────────────
 function InfoRow({ icon, primary, secondary }: { icon: React.ReactNode; primary: string; secondary?: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '10px 20px' }}>
-      <span style={{ color: 'rgba(255,255,255,0.35)', display: 'flex', paddingTop: 2, flexShrink: 0 }}>{icon}</span>
+      <span style={{ color: 'var(--tg-icon-muted)', display: 'flex', paddingTop: 2, flexShrink: 0 }}>{icon}</span>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.9)', wordBreak: 'break-word', lineHeight: 1.4 }}>{primary}</div>
-        {secondary && <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>{secondary}</div>}
+        <div style={{ fontSize: 15, color: 'var(--tg-text-primary)', wordBreak: 'break-word', lineHeight: 1.4 }}>{primary}</div>
+        {secondary && <div style={{ fontSize: 13, color: 'var(--tg-text-hint)', marginTop: 2 }}>{secondary}</div>}
       </div>
     </div>
   );
@@ -85,8 +86,8 @@ function InfoRow({ icon, primary, secondary }: { icon: React.ReactNode; primary:
 function MediaRow({ icon, label, count }: { icon: React.ReactNode; label: string; count: number }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '9px 20px' }}>
-      <span style={{ color: 'rgba(255,255,255,0.35)', display: 'flex', flexShrink: 0 }}>{icon}</span>
-      <span style={{ flex: 1, fontSize: 15, color: 'rgba(255,255,255,0.85)' }}>{count} {label}</span>
+      <span style={{ color: 'var(--tg-icon-muted)', display: 'flex', flexShrink: 0 }}>{icon}</span>
+      <span style={{ flex: 1, fontSize: 15, color: 'var(--tg-text-body)' }}>{count} {label}</span>
       <Icon size="100" src={Icons.ChevronRight} style={{ opacity: 0.3, flexShrink: 0 }} />
     </div>
   );
@@ -94,6 +95,7 @@ function MediaRow({ icon, label, count }: { icon: React.ReactNode; label: string
 
 // ── Main ──────────────────────────────────────────────────────────
 export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => void }) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const useAuthentication = useMediaAuthentication();
   const direct = useIsDirectRoom();
@@ -136,12 +138,12 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
     : 0;
 
   const presenceText = (() => {
-    if (direct && dmPresence) return isOnline ? 'в сети' : 'не в сети';
+    if (direct && dmPresence) return isOnline ? t('common.online') : t('common.offline');
     const n = memberCount.toLocaleString('ru');
-    return onlineCount > 0 ? `${n} участников` : `${n} участников`;
+    return t('room.membersCount', { count: memberCount });
   })();
 
-  const onlineText = onlineCount > 0 ? `${onlineCount} онлайн` : undefined;
+  const onlineText = onlineCount > 0 ? t('room.onlineCount', { count: onlineCount }) : undefined;
 
   const handleMuteToggle = () => {
     if (isMuted) setMode(RoomNotificationMode.Unset, notifMode);
@@ -166,7 +168,7 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
 
   return (
     <div
-      style={{ position: 'fixed', inset: 0, zIndex: 500, background: 'rgba(0,0,0,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      style={{ position: 'fixed', inset: 0, zIndex: 500, background: 'var(--tg-backdrop)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       onClick={e => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div
@@ -178,7 +180,8 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           <button
             type="button"
             onClick={onClose}
-            style={{ background: 'rgba(255,255,255,0.08)', border: 'none', borderRadius: '50%', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(255,255,255,0.6)' }}
+            aria-label={t('common.close')}
+            style={{ background: 'var(--tg-surface-overlay-strong)', border: 'none', borderRadius: '50%', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--tg-icon-medium)' }}
           >
             <Icon size="200" src={Icons.Cross} />
           </button>
@@ -190,7 +193,7 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           {/* Avatar + name */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '8px 20px 18px', gap: 10 }}>
             <div style={{ position: 'relative' }}>
-              <Avatar size="700" radii="Pill">
+              <Avatar size="500" radii="Pill">
                 <RoomAvatar
                   roomId={room.roomId}
                   src={avatarUrl}
@@ -204,7 +207,7 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 19, fontWeight: 600, color: '#fff', lineHeight: 1.25 }}>{name}</div>
-              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', marginTop: 3 }}>
+              <div style={{ fontSize: 13, color: 'var(--tg-text-secondary)', marginTop: 3 }}>
                 {presenceText}{onlineText ? `, ${onlineText}` : ''}
               </div>
             </div>
@@ -214,23 +217,23 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           <div style={{ display: 'flex', gap: 6, padding: '0 12px 16px' }}>
             <ActionBtn
               icon={<Icon size="300" src={isMuted ? Icons.Bell : Icons.BellMute} />}
-              label={isMuted ? 'Включить' : 'Выключить'}
+              label={isMuted ? t('room.unmute') : t('room.mute')}
               onClick={handleMuteToggle}
               active={isMuted}
               loading={isMuteLoading}
             />
             {canInvite && (
-              <ActionBtn icon={<Icon size="300" src={Icons.UserPlus} />} label="Пригласить" onClick={() => setShowInvite(true)} />
+              <ActionBtn icon={<Icon size="300" src={Icons.UserPlus} />} label={t('common.invite')} onClick={() => setShowInvite(true)} />
             )}
             <ActionBtn
               icon={<Icon size="300" src={copied ? Icons.CheckTwice : Icons.ArrowGoRight} />}
-              label="Поделиться"
+              label={t('room.share')}
               onClick={handleCopyLink}
               active={copied}
             />
-            <ActionBtn icon={<Icon size="300" src={Icons.Setting} />} label="Настройки" onClick={() => { openSettings(room.roomId, space?.roomId); onClose(); }} />
+            <ActionBtn icon={<Icon size="300" src={Icons.Setting} />} label={t('settings.title')} onClick={() => { openSettings(room.roomId, space?.roomId); onClose(); }} />
             {!isSavedMessagesRoom(room.roomId) && (
-              <ActionBtn icon={<Icon size="300" src={Icons.ArrowGoLeft} />} label="Покинуть" onClick={() => setShowLeave(true)} danger />
+              <ActionBtn icon={<Icon size="300" src={Icons.ArrowGoLeft} />} label={t('common.leave')} onClick={() => setShowLeave(true)} danger />
             )}
           </div>
 
@@ -240,8 +243,8 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           {topic && (
             <>
               <div style={{ padding: '10px 20px 4px' }}>
-                <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.85)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>{topic}</div>
-                <div style={{ fontSize: 13, color: '#2AABEE', marginTop: 4 }}>Описание</div>
+                <div style={{ fontSize: 15, color: 'var(--tg-text-body)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>{topic}</div>
+                <div style={{ fontSize: 13, color: 'var(--tg-accent)', marginTop: 4 }}>{t('room.description')}</div>
               </div>
               <Divider />
             </>
@@ -249,8 +252,8 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
 
           {/* Link */}
           <div style={{ padding: '10px 20px 4px' }}>
-            <div style={{ fontSize: 15, color: '#2AABEE', wordBreak: 'break-all' }}>{roomAlias}</div>
-            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 4 }}>Ссылка на чат</div>
+            <div style={{ fontSize: 15, color: 'var(--tg-accent)', wordBreak: 'break-all' }}>{roomAlias}</div>
+            <div style={{ fontSize: 13, color: 'var(--tg-text-hint)', marginTop: 4 }}>{t('room.chatLink')}</div>
           </div>
 
           <Divider />
@@ -259,10 +262,10 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           {(photoCount > 0 || videoCount > 0 || fileCount > 0 || voiceCount > 0) && (
             <>
               <div style={{ paddingTop: 4 }}>
-                {photoCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.Photo} />} count={photoCount} label="фото" />}
-                {videoCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.VideoCamera} />} count={videoCount} label="видео" />}
-                {fileCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.File} />} count={fileCount} label="файлов" />}
-                {voiceCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.Mic} />} count={voiceCount} label="голосовых" />}
+                {photoCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.Photo} />} count={photoCount} label={t('room.media.photos')} />}
+                {videoCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.VideoCamera} />} count={videoCount} label={t('room.media.videos')} />}
+                {fileCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.File} />} count={fileCount} label={t('room.media.files')} />}
+                {voiceCount > 0 && <MediaRow icon={<Icon size="200" src={Icons.Mic} />} count={voiceCount} label={t('room.media.voice')} />}
               </div>
               <Divider />
             </>
@@ -271,8 +274,8 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
           {/* Members count */}
           <div style={{ display: 'flex', alignItems: 'center', padding: '12px 20px', gap: 16 }}>
             <Icon size="200" src={Icons.User} style={{ opacity: 0.35, flexShrink: 0 }} />
-            <span style={{ flex: 1, fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
-              {memberCount.toLocaleString('ru')} участников
+            <span style={{ flex: 1, fontSize: 14, fontWeight: 600, color: 'var(--tg-section-header)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              {t('room.membersCount', { count: memberCount })}
             </span>
           </div>
 

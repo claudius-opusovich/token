@@ -5,6 +5,7 @@ import {
 } from 'browser-encrypt-attachment';
 import {
   EventTimeline,
+  EventType,
   MatrixClient,
   MatrixError,
   MatrixEvent,
@@ -113,7 +114,7 @@ export const encryptFile = async (
 }> => {
   const dataBuffer = await file.arrayBuffer();
   const encryptedAttachment = await encryptAttachment(dataBuffer);
-  const encFile = new File([encryptedAttachment.data], file.name, {
+  const encFile = new File([encryptedAttachment.data], (file as File).name ?? 'encrypted', {
     type: file.type,
   });
   return {
@@ -133,7 +134,7 @@ export const decryptFile = async (
   return blob;
 };
 
-export type TUploadContent = File | Blob;
+export type TUploadContent = (File | Blob) & { name?: string };
 
 export type ContentUploadOptions = {
   name?: string;
@@ -230,7 +231,7 @@ export const addRoomIdToMDirect = async (
   roomId: string,
   userId: string
 ): Promise<void> => {
-  const mDirectsEvent = mx.getAccountData(AccountDataEvent.Direct as any);
+  const mDirectsEvent = mx.getAccountData(EventType.Direct);
   let userIdToRoomIds: Record<string, string[]> = {};
 
   if (typeof mDirectsEvent !== 'undefined')
@@ -255,11 +256,11 @@ export const addRoomIdToMDirect = async (
   }
   userIdToRoomIds[userId] = roomIds;
 
-  await mx.setAccountData(AccountDataEvent.Direct as any, userIdToRoomIds as any);
+  await mx.setAccountData(EventType.Direct, userIdToRoomIds as Record<string, string[]>);
 };
 
 export const removeRoomIdFromMDirect = async (mx: MatrixClient, roomId: string): Promise<void> => {
-  const mDirectsEvent = mx.getAccountData(AccountDataEvent.Direct as any);
+  const mDirectsEvent = mx.getAccountData(EventType.Direct);
   let userIdToRoomIds: Record<string, string[]> = {};
 
   if (typeof mDirectsEvent !== 'undefined')
@@ -273,7 +274,7 @@ export const removeRoomIdFromMDirect = async (mx: MatrixClient, roomId: string):
     }
   });
 
-  await mx.setAccountData(AccountDataEvent.Direct as any, userIdToRoomIds as any);
+  await mx.setAccountData(EventType.Direct, userIdToRoomIds as Record<string, string[]>);
 };
 
 export const mxcUrlToHttp = (

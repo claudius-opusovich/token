@@ -1,4 +1,6 @@
 import React, { useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ErrorBoundary } from 'react-error-boundary';
 import { MessageSelectionProvider, useMessageSelection } from './MessageSelectionContext';
 import { Box, Icon, IconButton, Icons, Text, config } from 'folds';
 import { EventType } from 'matrix-js-sdk';
@@ -56,6 +58,7 @@ const shouldFocusMessageField = (evt: KeyboardEvent): boolean => {
 };
 
 function SelectionBar({ roomId }: { roomId: string }) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const selection = useMessageSelection();
   if (!selection.active) return null;
@@ -94,13 +97,13 @@ function SelectionBar({ roomId }: { roomId: string }) {
       <IconButton size="300" variant="SurfaceVariant" radii="300" onClick={selection.clear}>
         <Icon src={Icons.Cross} size="100" />
       </IconButton>
-      <Text size="B400">{count} выбрано</Text>
+      <Text size="B400">{t('room.selectedCount', { count })}</Text>
       <IconButton
         size="300"
         variant="Critical"
         radii="300"
         onClick={handleDelete}
-        aria-label="Удалить выбранные"
+        aria-label={t('room.deleteSelected')}
       >
         <Icon src={Icons.Delete} size="100" />
       </IconButton>
@@ -109,6 +112,7 @@ function SelectionBar({ roomId }: { roomId: string }) {
 }
 
 export function RoomView({ eventId }: { eventId?: string }) {
+  const { t } = useTranslation();
   const roomInputRef = useRef<HTMLDivElement>(null);
   const roomViewRef = useRef<HTMLDivElement>(null);
 
@@ -149,13 +153,22 @@ export function RoomView({ eventId }: { eventId?: string }) {
       <SelectionBar roomId={roomId} />
       <Page ref={roomViewRef}>
         <Box grow="Yes" direction="Column" className="chat-bg" style={{ minHeight: 0, overflow: 'hidden' }}>
-          <RoomTimeline
-            key={roomId}
-            room={room}
-            eventId={eventId}
-            roomInputRef={roomInputRef}
-            editor={editor}
-          />
+          <ErrorBoundary
+            fallback={
+              <Box grow="Yes" alignItems="Center" justifyContent="Center" direction="Column" gap="300">
+                <Text size="H5">{t('error.somethingWentWrong')}</Text>
+                <Text size="B400" style={{ opacity: 0.6 }}>{t('error.failedToRenderTimeline')}</Text>
+              </Box>
+            }
+          >
+            <RoomTimeline
+              key={roomId}
+              room={room}
+              eventId={eventId}
+              roomInputRef={roomInputRef}
+              editor={editor}
+            />
+          </ErrorBoundary>
           <RoomViewTyping room={room} />
         </Box>
         <Box shrink="No" direction="Column">
@@ -183,7 +196,7 @@ export function RoomView({ eventId }: { eventId?: string }) {
                     alignItems="Center"
                     justifyContent="Center"
                   >
-                    <Text align="Center">У вас нет прав для отправки сообщений в этой комнате</Text>
+                    <Text align="Center">{t('room.noSendPermission')}</Text>
                   </RoomInputPlaceholder>
                 )}
               </>

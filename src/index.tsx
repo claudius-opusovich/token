@@ -15,11 +15,18 @@ import { trimTrailingSlash } from './app/utils/common';
 import App from './app/pages/App';
 
 // import i18n (needs to be bundled ;))
-import './app/i18n';
+import i18n from './app/i18n';
 import { pushSessionToSW } from './sw-session';
 import { getFallbackSession } from './app/state/sessions';
 
 document.body.classList.add(configClass, varsClass);
+
+// Sync <html lang> with the current i18n language
+const updateHtmlLang = (lng: string) => {
+  document.documentElement.lang = lng;
+};
+if (i18n.language) updateHtmlLang(i18n.language);
+i18n.on('languageChanged', updateHtmlLang);
 
 // Register Service Worker
 if ('serviceWorker' in navigator) {

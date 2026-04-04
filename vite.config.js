@@ -81,11 +81,7 @@ export default defineConfig({
   base: buildConfig.base,
   server: {
     port: parseInt(process.env.PORT || '5173'),
-    host: true,
-    fs: {
-      // Allow serving files from one level up to the project root
-      allow: ['..'],
-    },
+    host: 'localhost',
   },
   plugins: [
     serverMatrixSdkCryptoWasm('/node_modules/.vite/deps/pkg/matrix_sdk_crypto_wasm_bg.wasm'),
@@ -138,10 +134,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: false,
     copyPublicDir: false,
     rollupOptions: {
       plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
+      output: {
+        manualChunks: {
+          'matrix-sdk': ['matrix-js-sdk'],
+          'pdf': ['pdfjs-dist'],
+          'prism': ['prismjs'],
+        },
+      },
     },
   },
 });

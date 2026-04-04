@@ -17,6 +17,7 @@ import {
   as,
 } from 'folds';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { BlurhashCanvas } from 'react-blurhash';
 import FocusTrap from 'focus-trap-react';
 import { EncryptedAttachmentInfo } from 'browser-encrypt-attachment';
@@ -76,6 +77,7 @@ export const ImageContent = as<'div', ImageContentProps>(
     },
     ref
   ) => {
+    const { t } = useTranslation();
     const mx = useMatrixClient();
     const useAuthentication = useMediaAuthentication();
     const blurHash = validBlurHash(info?.[MATRIX_BLUR_HASH_PROPERTY_NAME]);
@@ -163,7 +165,7 @@ export const ImageContent = as<'div', ImageContentProps>(
               onClick={loadSrc}
               before={<Icon size="Inherit" src={Icons.Photo} filled />}
             >
-              <Text size="B300">View</Text>
+              <Text size="B300">{t('common.view')}</Text>
             </Button>
           </Box>
         )}

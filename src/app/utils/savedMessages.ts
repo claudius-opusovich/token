@@ -1,7 +1,8 @@
-import { MatrixClient, Preset, Visibility } from 'matrix-js-sdk';
+import { EventType, MatrixClient, Preset, Visibility } from 'matrix-js-sdk';
+import i18n from '../i18n';
 import { addRoomIdToMDirect } from './matrix';
 
-export const SAVED_MESSAGES_ROOM_NAME = 'Избранное';
+export const SAVED_MESSAGES_ROOM_NAME = i18n.t('savedMessages.title');
 const SAVED_MESSAGES_LS_KEY = 'token_saved_messages_room';
 
 export const getSavedMessagesRoomId = (): string | null =>
@@ -22,7 +23,7 @@ export async function ensureSavedMessagesRoom(mx: MatrixClient): Promise<string>
   if (cached && mx.getRoom(cached)) return cached;
 
   // 2. Check existing DM rooms for self-chat
-  const mDirectEvent = mx.getAccountData('m.direct' as any);
+  const mDirectEvent = mx.getAccountData(EventType.Direct);
   if (mDirectEvent) {
     const content = mDirectEvent.getContent() as Record<string, string[]>;
     const selfRoomIds = content[myUserId] || [];

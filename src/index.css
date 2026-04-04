@@ -29,6 +29,23 @@
 
   --font-emoji: 'Twemoji_DISABLED';
   --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, var(--font-emoji), sans-serif;
+
+  /* Token semantic colors — light defaults */
+  --tg-accent: #2AABEE;
+  --tg-text-primary: rgba(0,0,0,0.87);
+  --tg-text-secondary: rgba(0,0,0,0.6);
+  --tg-text-hint: rgba(0,0,0,0.38);
+  --tg-text-body: rgba(0,0,0,0.8);
+  --tg-surface-overlay: rgba(0,0,0,0.05);
+  --tg-surface-overlay-strong: rgba(0,0,0,0.08);
+  --tg-icon-muted: rgba(0,0,0,0.38);
+  --tg-icon-medium: rgba(0,0,0,0.54);
+  --tg-backdrop: rgba(0,0,0,0.5);
+  --tg-danger: #d32f2f;
+  --tg-info: #1976d2;
+  --tg-selection-border: rgba(0,0,0,0.3);
+  --tg-selection-inactive: rgba(0,0,0,0.15);
+  --tg-section-header: rgba(0,0,0,0.45);
 }
 
 .dark-theme,
@@ -43,6 +60,21 @@
   --mx-uc-6: hsl(181, 100%, 60%);
   --mx-uc-7: hsl(243, 100%, 80%);
   --mx-uc-8: hsl(94, 100%, 80%);
+
+  --tg-text-primary: rgba(255,255,255,0.9);
+  --tg-text-secondary: rgba(255,255,255,0.5);
+  --tg-text-hint: rgba(255,255,255,0.35);
+  --tg-text-body: rgba(255,255,255,0.85);
+  --tg-surface-overlay: rgba(255,255,255,0.07);
+  --tg-surface-overlay-strong: rgba(255,255,255,0.08);
+  --tg-icon-muted: rgba(255,255,255,0.35);
+  --tg-icon-medium: rgba(255,255,255,0.6);
+  --tg-backdrop: rgba(0,0,0,0.55);
+  --tg-danger: #e57373;
+  --tg-info: #64b5f6;
+  --tg-selection-border: rgba(255,255,255,0.35);
+  --tg-selection-inactive: rgba(0,0,0,0.25);
+  --tg-section-header: rgba(255,255,255,0.5);
 
   --font-secondary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, var(--font-emoji), sans-serif;
 }
@@ -65,6 +97,20 @@
   --tg-bubble-out-text: #ffffff;
   --tg-bubble-in-text: #e4ecf2;
   --tg-accent: #2AABEE;
+  --tg-text-primary: rgba(255,255,255,0.9);
+  --tg-text-secondary: rgba(255,255,255,0.5);
+  --tg-text-hint: rgba(255,255,255,0.35);
+  --tg-text-body: rgba(255,255,255,0.85);
+  --tg-surface-overlay: rgba(255,255,255,0.07);
+  --tg-surface-overlay-strong: rgba(255,255,255,0.08);
+  --tg-icon-muted: rgba(255,255,255,0.35);
+  --tg-icon-medium: rgba(255,255,255,0.6);
+  --tg-backdrop: rgba(0,0,0,0.55);
+  --tg-danger: #e57373;
+  --tg-info: #64b5f6;
+  --tg-selection-border: rgba(255,255,255,0.35);
+  --tg-selection-inactive: rgba(0,0,0,0.25);
+  --tg-section-header: rgba(255,255,255,0.5);
   --bg-surface: #17212b;
 
   /* Chat area background — TG-style dark navy with subtle dot pattern */

@@ -17,7 +17,7 @@ export function EventContent({ messageLayout, time, iconSrc, content }: EventCon
           alignItems="Center"
           gap="100"
           style={{
-            background: 'rgba(255,255,255,0.07)',
+            background: 'var(--tg-surface-overlay)',
             borderRadius: '12px',
             padding: '3px 12px',
             display: 'inline-flex',

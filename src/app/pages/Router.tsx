@@ -6,7 +6,9 @@ import {
   createHashRouter,
   createRoutesFromElements,
   redirect,
+  useNavigate,
 } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { ClientConfig } from '../hooks/useClientConfig';
 import { AuthLayout, Login, Register, ResetPassword } from './auth';
@@ -70,6 +72,59 @@ import { SearchModalRenderer } from '../features/search';
 import { getFallbackSession } from '../state/sessions';
 import { CallStatusRenderer } from './CallStatusRenderer';
 import { CallEmbedProvider } from '../components/CallEmbedProvider';
+import { Page, PageHero, PageHeroSection } from '../components/page';
+import { Box, Button, Icon, Icons, Text, config } from 'folds';
+
+function NotFoundPage() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  return (
+    <Page>
+      <Box
+        grow="Yes"
+        style={{ padding: config.space.S400 }}
+        alignItems="Center"
+        justifyContent="Center"
+      >
+        <PageHeroSection>
+          <PageHero
+            icon={<Icon size="600" src={Icons.Warning} />}
+            title={t('error.pageNotFound')}
+            subTitle={t('error.pageNotFoundDesc')}
+          >
+            <Box justifyContent="Center">
+              <Button variant="Primary" size="400" onClick={() => navigate(getHomePath())}>
+                <Text as="span" size="B400">{t('error.goHome')}</Text>
+              </Button>
+            </Box>
+          </PageHero>
+        </PageHeroSection>
+      </Box>
+    </Page>
+  );
+}
+
+function JoinPage() {
+  const { t } = useTranslation();
+  return (
+    <Page>
+      <Box
+        grow="Yes"
+        style={{ padding: config.space.S400 }}
+        alignItems="Center"
+        justifyContent="Center"
+      >
+        <PageHeroSection>
+          <PageHero
+            icon={<Icon size="600" src={Icons.Plus} />}
+            title={t('nav.joinWithAddress')}
+            subTitle={t('room.joinNewRoom')}
+          />
+        </PageHeroSection>
+      </Box>
+    </Page>
+  );
+}
 
 export const createRouter = (clientConfig: ClientConfig, screenSize: ScreenSize) => {
   const { hashRouter } = clientConfig;
@@ -170,7 +225,7 @@ export const createRouter = (clientConfig: ClientConfig, screenSize: ScreenSize)
         >
           {mobile ? null : <Route index element={<WelcomePage />} />}
           <Route path={_CREATE_PATH} element={<HomeCreateRoom />} />
-          <Route path={_JOIN_PATH} element={<p>join</p>} />
+          <Route path={_JOIN_PATH} element={<JoinPage />} />
           <Route path={_SEARCH_PATH} element={<HomeSearch />} />
           <Route
             path={_ROOM_PATH}
@@ -296,7 +351,7 @@ export const createRouter = (clientConfig: ClientConfig, screenSize: ScreenSize)
           <Route path={_INVITES_PATH} element={<Invites />} />
         </Route>
       </Route>
-      <Route path="/*" element={<p>Page not found</p>} />
+      <Route path="/*" element={<NotFoundPage />} />
     </Route>
   );
 

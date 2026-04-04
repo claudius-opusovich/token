@@ -23,6 +23,7 @@ import {
   color,
   config,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import React, {
   FormEventHandler,
   MouseEventHandler,
@@ -135,6 +136,7 @@ export const MessageAllReactionItem = as<
     onClose?: () => void;
   }
 >(({ room, relations, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -181,7 +183,7 @@ export const MessageAllReactionItem = as<
         aria-pressed={open}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          Реакции
+          {t('message.reactions')}
         </Text>
       </MenuItem>
     </>
@@ -196,6 +198,7 @@ export const MessageReadReceiptItem = as<
     onClose?: () => void;
   }
 >(({ room, eventId, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -231,7 +234,7 @@ export const MessageReadReceiptItem = as<
         aria-pressed={open}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          Прочитано
+          {t('message.readBy')}
         </Text>
       </MenuItem>
     </>
@@ -246,6 +249,7 @@ export const MessageSourceCodeItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const getContent = (evt: MatrixEvent) =>
@@ -314,7 +318,7 @@ export const MessageSourceCodeItem = as<
         aria-pressed={open}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          Исходный код
+          {t('message.sourceCode')}
         </Text>
       </MenuItem>
     </>
@@ -329,6 +333,7 @@ export const MessageCopyLinkItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
 
   const handleCopy = () => {
@@ -348,7 +353,7 @@ export const MessageCopyLinkItem = as<
       ref={ref}
     >
       <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-        Копировать ссылку
+        {t('common.copyLink')}
       </Text>
     </MenuItem>
   );
@@ -362,6 +367,7 @@ export const MessagePinItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const pinnedEvents = useRoomPinnedEvents(room);
   const isPinned = pinnedEvents.includes(mEvent.getId() ?? '');
@@ -388,7 +394,7 @@ export const MessagePinItem = as<
       ref={ref}
     >
       <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-        {isPinned ? 'Открепить' : 'Закрепить'}
+        {isPinned ? t('common.unpin') : t('common.pin')}
       </Text>
     </MenuItem>
   );
@@ -402,6 +408,7 @@ export const MessageDeleteItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const [open, setOpen] = useState(false);
 
@@ -455,7 +462,7 @@ export const MessageDeleteItem = as<
                 size="500"
               >
                 <Box grow="Yes">
-                  <Text size="H4">Удалить сообщение</Text>
+                  <Text size="H4">{t('message.deleteMessage')}</Text>
                 </Box>
                 <IconButton size="300" onClick={handleClose} radii="300">
                   <Icon src={Icons.Cross} />
@@ -469,19 +476,19 @@ export const MessageDeleteItem = as<
                 gap="400"
               >
                 <Text priority="400">
-                  Это действие необратимо! Вы уверены, что хотите удалить это сообщение?
+                  {t('message.deleteConfirm')}
                 </Text>
                 <Box direction="Column" gap="100">
                   <Text size="L400">
-                    Причина{' '}
+                    {t('message.reason')}{' '}
                     <Text as="span" size="T200">
-                      (необязательно)
+                      ({t('message.optional')})
                     </Text>
                   </Text>
                   <Input name="reasonInput" variant="Background" />
                   {deleteState.status === AsyncStatus.Error && (
                     <Text style={{ color: color.Critical.Main }} size="T300">
-                      Не удалось удалить сообщение. Попробуйте ещё раз.
+                      {t('message.deleteFailed')}
                     </Text>
                   )}
                 </Box>
@@ -496,7 +503,7 @@ export const MessageDeleteItem = as<
                   aria-disabled={deleteState.status === AsyncStatus.Loading}
                 >
                   <Text size="B400">
-                    {deleteState.status === AsyncStatus.Loading ? 'Удаление...' : 'Удалить'}
+                    {deleteState.status === AsyncStatus.Loading ? t('message.deleting') : t('common.delete')}
                   </Text>
                 </Button>
               </Box>
@@ -516,7 +523,7 @@ export const MessageDeleteItem = as<
         ref={ref}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          Удалить
+          {t('common.delete')}
         </Text>
       </Button>
     </>
@@ -531,6 +538,7 @@ export const MessageForwardItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -553,7 +561,7 @@ export const MessageForwardItem = as<
       setSendingTo(targetRoomId);
       try {
         const content = { ...mEvent.getContent() };
-        await mx.sendMessage(targetRoomId, content);
+        await mx.sendMessage(targetRoomId, content as any);
       } catch {
         // ignore
       } finally {
@@ -598,7 +606,7 @@ export const MessageForwardItem = as<
                 size="500"
               >
                 <Box grow="Yes">
-                  <Text size="H4">Переслать в...</Text>
+                  <Text size="H4">{t('message.forwardTo')}</Text>
                 </Box>
                 <IconButton size="300" onClick={handleClose} radii="300">
                   <Icon src={Icons.Cross} />
@@ -610,7 +618,7 @@ export const MessageForwardItem = as<
                 <Input
                   value={query}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-                  placeholder="Поиск чата..."
+                  placeholder={t('message.searchChat')}
                   variant="Background"
                   style={{ width: '100%' }}
                 />
@@ -621,7 +629,7 @@ export const MessageForwardItem = as<
               >
                 {joinedRooms.length === 0 && (
                   <Box justifyContent="Center" style={{ padding: config.space.S400 }}>
-                    <Text size="T300" priority="300">Чаты не найдены</Text>
+                    <Text size="T300" priority="300">{t('message.noChatsFound')}</Text>
                   </Box>
                 )}
                 {joinedRooms.map((r) => (
@@ -661,7 +669,7 @@ export const MessageForwardItem = as<
         ref={ref}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          Переслать
+          {t('common.forward')}
         </Text>
       </Button>
     </>
@@ -676,6 +684,7 @@ export const MessageReportItem = as<
     onClose?: () => void;
   }
 >(({ room, mEvent, onClose, ...props }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const [open, setOpen] = useState(false);
 
@@ -730,7 +739,7 @@ export const MessageReportItem = as<
                 size="500"
               >
                 <Box grow="Yes">
-                  <Text size="H4">Пожаловаться</Text>
+                  <Text size="H4">{t('message.report')}</Text>
                 </Box>
                 <IconButton size="300" onClick={handleClose} radii="300">
                   <Icon src={Icons.Cross} />
@@ -744,19 +753,19 @@ export const MessageReportItem = as<
                 gap="400"
               >
                 <Text priority="400">
-                  Пожаловаться на сообщение модераторам сервера.
+                  {t('message.reportDescription')}
                 </Text>
                 <Box direction="Column" gap="100">
-                  <Text size="L400">Причина</Text>
+                  <Text size="L400">{t('message.reason')}</Text>
                   <Input name="reasonInput" variant="Background" required />
                   {reportState.status === AsyncStatus.Error && (
                     <Text style={{ color: color.Critical.Main }} size="T300">
-                      Не удалось отправить жалобу. Попробуйте ещё раз.
+                      {t('message.reportFailed')}
                     </Text>
                   )}
                   {reportState.status === AsyncStatus.Success && (
                     <Text style={{ color: color.Success.Main }} size="T300">
-                      Жалоба отправлена.
+                      {t('message.reportSent')}
                     </Text>
                   )}
                 </Box>
@@ -774,7 +783,7 @@ export const MessageReportItem = as<
                   }
                 >
                   <Text size="B400">
-                    {reportState.status === AsyncStatus.Loading ? 'Отправка...' : 'Отправить'}
+                    {reportState.status === AsyncStatus.Loading ? t('message.sending') : t('common.send')}
                   </Text>
                 </Button>
               </Box>
@@ -794,7 +803,7 @@ export const MessageReportItem = as<
         ref={ref}
       >
         <Text className={css.MessageMenuItemText} as="span" size="T300" truncate>
-          Пожаловаться
+          {t('message.report')}
         </Text>
       </Button>
     </>
@@ -875,6 +884,7 @@ export const Message = as<'div', MessageProps>(
     },
     ref
   ) => {
+    const { t } = useTranslation();
     const mx = useMatrixClient();
     const useAuthentication = useMediaAuthentication();
     const selection = useMessageSelection();
@@ -1116,7 +1126,7 @@ export const Message = as<'div', MessageProps>(
       if (now - lastTapRef.current < 300) {
         const roomId = mEvent.getRoomId();
         if (roomId && evtId) {
-          mx.sendEvent(roomId, 'm.reaction', {
+          mx.sendEvent(roomId, 'm.reaction' as any, {
             'm.relates_to': {
               rel_type: 'm.annotation',
               event_id: evtId,
@@ -1153,7 +1163,7 @@ export const Message = as<'div', MessageProps>(
           selection.enter(evtId);
         }
       }, 500);
-    }, []);
+    }, [selection, evtId]);
 
     const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback((e) => {
       const dx = e.touches[0].clientX - swipeStartX.current;
@@ -1223,8 +1233,8 @@ export const Message = as<'div', MessageProps>(
               width: 20,
               height: 20,
               borderRadius: '50%',
-              border: isSelected ? 'none' : '2px solid rgba(255,255,255,0.35)',
-              background: isSelected ? '#2AABEE' : 'rgba(0,0,0,0.25)',
+              border: isSelected ? 'none' : '2px solid var(--tg-selection-border)',
+              background: isSelected ? 'var(--tg-accent)' : 'var(--tg-selection-inactive)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -1356,7 +1366,7 @@ export const Message = as<'div', MessageProps>(
                                 size="T300"
                                 truncate
                               >
-                                Реакция
+                                {t('message.reaction')}
                               </Text>
                             </MenuItem>
                           )}
@@ -1383,7 +1393,7 @@ export const Message = as<'div', MessageProps>(
                               size="T300"
                               truncate
                             >
-                              Ответить
+                              {t('common.reply')}
                             </Text>
                           </MenuItem>
                           {!isThreadedMessage && (
@@ -1403,7 +1413,7 @@ export const Message = as<'div', MessageProps>(
                                 size="T300"
                                 truncate
                               >
-                                Ответить в треде
+                                {t('message.replyInThread')}
                               </Text>
                             </MenuItem>
                           )}
@@ -1429,7 +1439,7 @@ export const Message = as<'div', MessageProps>(
                                 size="T300"
                                 truncate
                               >
-                                Редактировать
+                                {t('common.edit')}
                               </Text>
                             </MenuItem>
                           )}

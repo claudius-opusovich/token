@@ -190,15 +190,21 @@ export function ClientRoot({ children }: ClientRootProps) {
         if (mx && !savedMsgBootstrapped.current) {
           savedMsgBootstrapped.current = true;
           ensureSavedMessagesRoom(mx).then((roomId) => {
+            if (!roomId) return;
             // Auto-pin at top if not already pinned
-            const pinned = JSON.parse(localStorage.getItem('token_pinned_rooms') || '[]');
+            let pinned: string[];
+            try {
+              pinned = JSON.parse(localStorage.getItem('token_pinned_rooms') || '[]');
+            } catch {
+              pinned = [];
+            }
             if (!pinned.includes(roomId)) {
               const next = [roomId, ...pinned];
               localStorage.setItem('token_pinned_rooms', JSON.stringify(next));
               setPinnedRooms(next);
             }
-          }).catch(() => {
-            // Silently fail — not critical for UX
+          }).catch((err) => {
+            console.warn('Failed to bootstrap Saved Messages room:', err);
           });
         }
       }

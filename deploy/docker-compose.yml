@@ -41,9 +41,14 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:80 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
 
   livekit:
-    image: livekit/livekit-server:latest
+    image: livekit/livekit-server:v1.8.2
     restart: unless-stopped
     command: --config /etc/livekit.yaml
     volumes:
@@ -52,6 +57,11 @@ services:
       - "127.0.0.1:7880:7880"      # HTTP/WS API (nginx proxied)
       - "7881:7881/tcp"             # RTC TCP media
       - "7882:7882/udp"             # RTC UDP media
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7880 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
 
   livekit-jwt:
     build:
