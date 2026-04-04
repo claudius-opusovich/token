@@ -249,7 +249,15 @@
       "clearCacheBtn": "Очистить кэш",
       "clearCacheDesc": "Очистить все локальные данные и загрузить заново с сервера.",
       "credits": "Благодарности",
-      "description": "Клиент Matrix, созданный на React."
+      "description": "Клиент Matrix, созданный на React.",
+      "downloadApp": "Скачать приложение",
+      "androidApp": "Android",
+      "androidAppDesc": "Скачать APK-файл для Android.",
+      "download": "Скачать",
+      "installPWA": "Установить как приложение",
+      "installPWADesc": "Установите Token на устройство для быстрого доступа.",
+      "install": "Установить",
+      "installPWAHint": "Откройте в мобильном браузере"
     },
     "general": {
       "_title": "Основные",
@@ -595,6 +603,11 @@
     "copyId": "Копировать ID пользователя",
     "copyServer": "Копировать имя сервера",
     "message": "Написать"
+  },
+  "install": {
+    "title": "Установить Token",
+    "button": "Установить",
+    "iosHint": "Нажмите кнопку «Поделиться», затем «На экран Домой», чтобы установить Token."
   },
   "error": {
     "somethingWentWrong": "Что-то пошло не так",

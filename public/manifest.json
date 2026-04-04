@@ -1,14 +1,17 @@
 {
   "name": "Token",
   "short_name": "Token",
-  "description": "Matrix messenger",
+  "description": "Token — Matrix messenger with end-to-end encryption.",
   "dir": "auto",
-  "lang": "ru",
+  "lang": "en",
   "display": "standalone",
   "orientation": "portrait",
+  "scope": "/",
   "start_url": "./",
   "background_color": "#0e1621",
   "theme_color": "#0e1621",
+  "categories": ["social", "communication"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "./public/android/android-chrome-36x36.png",
@@ -54,6 +57,27 @@
       "src": "./public/android/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "./public/android/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./public/android/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./public/android/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Token messenger"
     }
   ]
 }

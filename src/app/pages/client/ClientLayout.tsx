@@ -3,6 +3,7 @@ import { Box } from 'folds';
 import { useMatch } from 'react-router-dom';
 import { ScreenSize, useScreenSizeContext } from '../../hooks/useScreenSize';
 import { BottomNav } from './BottomNav';
+import { InstallPrompt } from '../../components/InstallPrompt';
 import {
   HOME_ROOM_PATH,
   DIRECT_ROOM_PATH,
@@ -45,6 +46,7 @@ export function ClientLayout({ nav, children }: ClientLayoutProps) {
 
       {/* Bottom navigation — only on mobile */}
       {isMobile && <BottomNav />}
+      {isMobile && <InstallPrompt />}
     </Box>
   );
 }

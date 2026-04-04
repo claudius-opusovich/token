@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Text, IconButton, Icon, Icons, Scroll, Button, config, toRem } from 'folds';
 import { Page, PageContent, PageHeader } from '../../../components/page';
 import { SequenceCard } from '../../../components/sequence-card';
@@ -8,11 +9,39 @@ import TokenSVG from '../../../../../public/res/svg/token.svg';
 import { clearCacheAndReload } from '../../../../client/initMatrix';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
+const isInStandaloneMode = () =>
+  window.matchMedia('(display-mode: standalone)').matches ||
+  (navigator as unknown as { standalone?: boolean }).standalone === true;
+
 type AboutProps = {
   requestClose: () => void;
 };
 export function About({ requestClose }: AboutProps) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isPWA] = useState(isInStandaloneMode);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstallPWA = useCallback(async () => {
+    if (!deferredPrompt) return;
+    await deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    setDeferredPrompt(null);
+  }, [deferredPrompt]);
 
   return (
     <Page>
@@ -20,7 +49,7 @@ export function About({ requestClose }: AboutProps) {
         <Box grow="Yes" gap="200">
           <Box grow="Yes" alignItems="Center" gap="200">
             <Text size="H3" truncate>
-              О приложении
+              {t('settings.about._title')}
             </Text>
           </Box>
           <Box shrink="No">
@@ -48,12 +77,12 @@ export function About({ requestClose }: AboutProps) {
                       <Text size="H3">Token</Text>
                       <Text size="T200">v1.0.0</Text>
                     </Box>
-                    <Text>Мессенджер на базе Matrix.</Text>
+                    <Text>{t('settings.about.description')}</Text>
                   </Box>
                 </Box>
               </Box>
               <Box direction="Column" gap="100">
-                <Text size="L400">Действия</Text>
+                <Text size="L400">{t('settings.about.actions')}</Text>
                 <SequenceCard
                   className={SequenceCardStyle}
                   variant="SurfaceVariant"
@@ -61,8 +90,8 @@ export function About({ requestClose }: AboutProps) {
                   gap="400"
                 >
                   <SettingTile
-                    title="Очистить кэш и перезагрузить"
-                    description="Удалить все локальные данные и загрузить заново с сервера."
+                    title={t('settings.about.clearCache')}
+                    description={t('settings.about.clearCacheDesc')}
                     after={
                       <Button
                         onClick={() => clearCacheAndReload(mx)}
@@ -72,14 +101,65 @@ export function About({ requestClose }: AboutProps) {
                         radii="300"
                         outlined
                       >
-                        <Text size="B300">Очистить кэш</Text>
+                        <Text size="B300">{t('settings.about.clearCacheBtn')}</Text>
                       </Button>
                     }
                   />
                 </SequenceCard>
               </Box>
               <Box direction="Column" gap="100">
-                <Text size="L400">Авторы</Text>
+                <Text size="L400">{t('settings.about.downloadApp')}</Text>
+                <SequenceCard
+                  className={SequenceCardStyle}
+                  variant="SurfaceVariant"
+                  direction="Column"
+                  gap="400"
+                >
+                  <SettingTile
+                    title={t('settings.about.androidApp')}
+                    description={t('settings.about.androidAppDesc')}
+                    after={
+                      <Button
+                        as="a"
+                        href="https://tokenchat.dev/token.apk"
+                        variant="Primary"
+                        fill="Soft"
+                        size="300"
+                        radii="300"
+                        outlined
+                      >
+                        <Text size="B300">{t('settings.about.download')}</Text>
+                      </Button>
+                    }
+                  />
+                  {!isPWA && (
+                    <SettingTile
+                      title={t('settings.about.installPWA')}
+                      description={t('settings.about.installPWADesc')}
+                      after={
+                        deferredPrompt ? (
+                          <Button
+                            onClick={handleInstallPWA}
+                            variant="Primary"
+                            fill="Soft"
+                            size="300"
+                            radii="300"
+                            outlined
+                          >
+                            <Text size="B300">{t('settings.about.install')}</Text>
+                          </Button>
+                        ) : (
+                          <Text size="T200" style={{ color: 'var(--tg-text-hint)' }}>
+                            {t('settings.about.installPWAHint')}
+                          </Text>
+                        )
+                      }
+                    />
+                  )}
+                </SequenceCard>
+              </Box>
+              <Box direction="Column" gap="100">
+                <Text size="L400">{t('settings.about.credits')}</Text>
                 <SequenceCard
                   className={SequenceCardStyle}
                   variant="SurfaceVariant"

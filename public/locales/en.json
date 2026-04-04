@@ -249,7 +249,15 @@
       "clearCacheBtn": "Clear Cache",
       "clearCacheDesc": "Clear all your locally stored data and reload from server.",
       "credits": "Credits",
-      "description": "A Matrix client built with React."
+      "description": "A Matrix client built with React.",
+      "downloadApp": "Download App",
+      "androidApp": "Android App",
+      "androidAppDesc": "Download the APK file for Android devices.",
+      "download": "Download",
+      "installPWA": "Install as App",
+      "installPWADesc": "Install Token on your device for quick access.",
+      "install": "Install",
+      "installPWAHint": "Open in mobile browser to install"
     },
     "general": {
       "_title": "General",
@@ -595,6 +603,11 @@
     "copyId": "Copy User ID",
     "copyServer": "Copy Server Name",
     "message": "Message"
+  },
+  "install": {
+    "title": "Install Token",
+    "button": "Install",
+    "iosHint": "Tap the Share button, then \"Add to Home Screen\" to install Token."
   },
   "error": {
     "somethingWentWrong": "Something went wrong",
