@@ -25,6 +25,7 @@ import { usePowerLevelsContext } from '../../hooks/usePowerLevels';
 import { useRoomCreators } from '../../hooks/useRoomCreators';
 import { useRoomPermissions } from '../../hooks/useRoomPermissions';
 import { AsyncStatus } from '../../hooks/useAsyncCallback';
+import { isSavedMessagesRoom } from '../../utils/savedMessages';
 
 // ── Action button (flat, Telegram-style) ──────────────────────────
 function ActionBtn({
@@ -228,7 +229,9 @@ export function RoomInfoCard({ room, onClose }: { room: Room; onClose: () => voi
               active={copied}
             />
             <ActionBtn icon={<Icon size="300" src={Icons.Setting} />} label="Настройки" onClick={() => { openSettings(room.roomId, space?.roomId); onClose(); }} />
-            <ActionBtn icon={<Icon size="300" src={Icons.ArrowGoLeft} />} label="Покинуть" onClick={() => setShowLeave(true)} danger />
+            {!isSavedMessagesRoom(room.roomId) && (
+              <ActionBtn icon={<Icon size="300" src={Icons.ArrowGoLeft} />} label="Покинуть" onClick={() => setShowLeave(true)} danger />
+            )}
           </div>
 
           <Divider />

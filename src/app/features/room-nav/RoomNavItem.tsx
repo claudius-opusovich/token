@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, TouchEventHandler, forwardRef, useRef, useState } from 'react';
+import { isSavedMessagesRoom } from '../../utils/savedMessages';
 import { Room } from 'matrix-js-sdk';
 import {
   Avatar,
@@ -209,35 +210,39 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
             </Text>
           </MenuItem>
         </Box>
-        <Line variant="Surface" size="300" />
-        <Box direction="Column" gap="100" style={{ padding: config.space.S100 }}>
-          <UseStateProvider initial={false}>
-            {(promptLeave, setPromptLeave) => (
-              <>
-                <MenuItem
-                  onClick={() => setPromptLeave(true)}
-                  variant="Critical"
-                  fill="None"
-                  size="300"
-                  after={<Icon size="100" src={Icons.ArrowGoLeft} />}
-                  radii="300"
-                  aria-pressed={promptLeave}
-                >
-                  <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                    Покинуть чат
-                  </Text>
-                </MenuItem>
-                {promptLeave && (
-                  <LeaveRoomPrompt
-                    roomId={room.roomId}
-                    onDone={requestClose}
-                    onCancel={() => setPromptLeave(false)}
-                  />
+        {!isSavedMessagesRoom(room.roomId) && (
+          <>
+            <Line variant="Surface" size="300" />
+            <Box direction="Column" gap="100" style={{ padding: config.space.S100 }}>
+              <UseStateProvider initial={false}>
+                {(promptLeave, setPromptLeave) => (
+                  <>
+                    <MenuItem
+                      onClick={() => setPromptLeave(true)}
+                      variant="Critical"
+                      fill="None"
+                      size="300"
+                      after={<Icon size="100" src={Icons.ArrowGoLeft} />}
+                      radii="300"
+                      aria-pressed={promptLeave}
+                    >
+                      <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
+                        Покинуть чат
+                      </Text>
+                    </MenuItem>
+                    {promptLeave && (
+                      <LeaveRoomPrompt
+                        roomId={room.roomId}
+                        onDone={requestClose}
+                        onCancel={() => setPromptLeave(false)}
+                      />
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </UseStateProvider>
-        </Box>
+              </UseStateProvider>
+            </Box>
+          </>
+        )}
       </Menu>
     );
   }
