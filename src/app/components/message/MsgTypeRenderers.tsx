@@ -310,7 +310,22 @@ export function MAudio({ content, renderAsFile, renderAudioContent, outlined }: 
     return <BrokenContent />;
   }
 
+  const isVoice = !!content['org.matrix.msc3245.voice'];
   const filename = content.filename ?? content.body ?? 'Audio';
+
+  if (isVoice) {
+    return (
+      <div style={{ padding: '4px 0' }}>
+        {renderAudioContent({
+          info: audioInfo,
+          mimeType: safeMimeType,
+          url: mxcUrl,
+          encInfo: content.file,
+        })}
+      </div>
+    );
+  }
+
   return (
     <Attachment outlined={outlined}>
       <AttachmentHeader>

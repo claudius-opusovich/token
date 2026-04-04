@@ -71,6 +71,7 @@ export type IAudioContent = {
   url?: string;
   info?: IAudioInfo;
   file?: IEncryptedFile;
+  'org.matrix.msc3245.voice'?: Record<string, never>;
 };
 
 export type IFileContent = {
