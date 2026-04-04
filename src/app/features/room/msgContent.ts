@@ -126,7 +126,7 @@ export const getVideoMsgContent = async (
   return content;
 };
 
-export const getAudioMsgContent = (item: TUploadItem, mxc: string): IContent => {
+export const getAudioMsgContent = (item: TUploadItem, mxc: string, duration?: number): IContent => {
   const { file, encInfo } = item;
   const content: IContent = {
     msgtype: MsgType.Audio,
@@ -135,6 +135,7 @@ export const getAudioMsgContent = (item: TUploadItem, mxc: string): IContent => 
     info: {
       mimetype: file.type,
       size: file.size,
+      ...(duration !== undefined && { duration }),
     },
   };
   if (encInfo) {

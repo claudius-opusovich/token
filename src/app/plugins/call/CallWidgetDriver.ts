@@ -12,6 +12,7 @@ import {
   OpenIDRequestState,
   SimpleObservable,
   IOpenIDUpdate,
+  type ITurnServer as IWidgetTurnServer,
 } from 'matrix-widget-api';
 import {
   EventType,
@@ -23,6 +24,7 @@ import {
   type StateEvents,
   type TimelineEvents,
   MatrixClient,
+  ClientEvent,
 } from 'matrix-js-sdk';
 import { getCallCapabilities } from './utils';
 import { downloadMedia, mxcUrlToHttp } from '../../utils/matrix';
@@ -329,6 +331,42 @@ export class CallWidgetDriver extends WidgetDriver {
 
   public getKnownRooms(): string[] {
     return this.mx.getVisibleRooms().map((r) => r.roomId);
+  }
+
+  public async *getTurnServers(): AsyncGenerator<IWidgetTurnServer> {
+    const toWidgetFormat = (servers: ReturnType<MatrixClient['getTurnServers']>): IWidgetTurnServer | null => {
+      const server = servers[0];
+      if (!server) return null;
+      return {
+        uris: server.urls,
+        username: server.username,
+        password: server.credential,
+      };
+    };
+
+    const initial = toWidgetFormat(this.mx.getTurnServers());
+    if (initial) yield initial;
+
+    // Yield refreshed credentials whenever the homeserver rotates them
+    let resolve: ((servers: IWidgetTurnServer) => void) | null = null;
+    const onTurnServers = (servers: ReturnType<MatrixClient['getTurnServers']>) => {
+      const formatted = toWidgetFormat(servers);
+      if (formatted && resolve) {
+        resolve(formatted);
+        resolve = null;
+      }
+    };
+
+    this.mx.on(ClientEvent.TurnServers, onTurnServers);
+    try {
+      while (true) {
+        yield await new Promise<IWidgetTurnServer>((res) => {
+          resolve = res;
+        });
+      }
+    } finally {
+      this.mx.off(ClientEvent.TurnServers, onTurnServers);
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this

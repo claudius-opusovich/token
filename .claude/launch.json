@@ -4,8 +4,8 @@
     {
       "name": "token-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["start"],
-      "port": 8080
+      "runtimeArgs": ["run", "start"],
+      "port": 5173
     }
   ]
 }

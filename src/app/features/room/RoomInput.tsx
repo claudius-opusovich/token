@@ -117,6 +117,9 @@ import { useTheme } from '../../hooks/useTheme';
 import { useRoomCreatorsTag } from '../../hooks/useRoomCreatorsTag';
 import { usePowerLevelTags } from '../../hooks/usePowerLevelTags';
 import { useComposingCheck } from '../../hooks/useComposingCheck';
+import { ScreenSize, useScreenSizeContext } from '../../hooks/useScreenSize';
+import { useVoiceRecorder } from '../../hooks/useVoiceRecorder';
+import { VoiceRecordingUI } from './VoiceRecordingUI';
 
 interface RoomInputProps {
   editor: Editor;
@@ -127,6 +130,8 @@ interface RoomInputProps {
 export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
   ({ editor, fileDropContainerRef, roomId, room }, ref) => {
     const mx = useMatrixClient();
+    const screenSize = useScreenSizeContext();
+    const isMobile = screenSize === ScreenSize.Mobile;
     const useAuthentication = useMediaAuthentication();
     const [enterForNewline] = useSetting(settingsAtom, 'enterForNewline');
     const [isMarkdown] = useSetting(settingsAtom, 'isMarkdown');
@@ -451,6 +456,65 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
       });
     };
 
+    // Voice recording
+    const voiceRecorder = useVoiceRecorder();
+
+    const handleStartVoice = useCallback(async () => {
+      await voiceRecorder.startRecording();
+    }, [voiceRecorder]);
+
+    const handleSendVoice = useCallback(async () => {
+      const result = await voiceRecorder.stopRecording();
+      if (!result.blob.size) return;
+
+      const ext = result.blob.type.includes('ogg') ? 'ogg' : 'webm';
+      const file = new File([result.blob], `voice_${Date.now()}.${ext}`, {
+        type: result.blob.type,
+      });
+
+      let uploadFile: TUploadContent = file;
+      let encInfo: typeof undefined | Awaited<ReturnType<typeof encryptFile>>['encInfo'];
+
+      if (room.hasEncryptionStateEvent()) {
+        const encrypted = await encryptFile(file);
+        uploadFile = encrypted.file;
+        encInfo = encrypted.encInfo;
+      }
+
+      const { content_uri: mxcUrl } = await mx.uploadContent(uploadFile, {
+        type: uploadFile.type,
+      });
+
+      const item: TUploadItem = {
+        file: uploadFile,
+        originalFile: file,
+        encInfo,
+        metadata: { markedAsSpoiler: false },
+      };
+
+      const content = getAudioMsgContent(item, mxcUrl, result.duration);
+      // MSC3245 voice message marker
+      content['org.matrix.msc3245.voice'] = {};
+      await mx.sendMessage(roomId, content as any);
+    }, [voiceRecorder, room, mx, roomId]);
+
+    const handleCancelVoice = useCallback(() => {
+      voiceRecorder.cancelRecording();
+    }, [voiceRecorder]);
+
+    if (voiceRecorder.isRecording) {
+      return (
+        <div ref={ref} style={{ display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
+          <VoiceRecordingUI
+            duration={voiceRecorder.duration}
+            analyser={voiceRecorder.analyser}
+            onSend={handleSendVoice}
+            onCancel={handleCancelVoice}
+          />
+        </div>
+      );
+    }
+
     return (
       <div ref={ref} style={{ display: 'flex', alignItems: 'flex-end', gap: '8px' }}>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -545,6 +609,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
         <CustomEditor
           editableName="RoomInput"
           editor={editor}
+          maxHeight={isMobile ? '25vh' : '50vh'}
           placeholder="Написать сообщение..."
           onKeyDown={handleKeyDown}
           onKeyUp={handleKeyUp}
@@ -665,7 +730,7 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
         />
         </div>
         <IconButton
-          onClick={inputEmpty ? undefined : submit}
+          onClick={inputEmpty ? handleStartVoice : submit}
           variant={inputEmpty ? 'SurfaceVariant' : 'Primary'}
           fill={inputEmpty ? 'None' : 'Solid'}
           size="400"
